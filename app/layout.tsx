@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import { Raleway } from "next/font/google";
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
+import FramerTransition from "@/components/common/FramerTransition";
+import CartSheet from "@/components/common/cartSheet";
+import NavigationSheet from "@/components/common/navigationSheet";
+import TopSearchSheet from "@/components/common/TopSearchSheet";
 
-const inter = Inter({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +22,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics gaId="G-XYZ" />
+      <ReactQueryProvider>
+        <body className={raleway.className}>
+          <FramerTransition>
+            {children}
+            <Toaster />
+            <TopSearchSheet />
+            <NavigationSheet />
+            <CartSheet />
+          </FramerTransition>
+        </body>
+      </ReactQueryProvider>
     </html>
   );
 }
