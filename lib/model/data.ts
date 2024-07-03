@@ -782,3 +782,83 @@ export const salefemale = [
     offer: "40% OFF",
   },
 ];
+
+export const shopFootwear = [
+  {
+    name: "Boots",
+    link: "/collections/boots?gender=MEN",
+  },
+  {
+    name: "Sneakers/Sports",
+    link: "/collections/sneakers?gender=MEN",
+  },
+  {
+    name: "Casuals",
+    link: "/collections/casuals_lace_up?gender=MEN",
+  },
+  {
+    name: "Formals",
+    link: "/collections/formal_slip_on?gender=MEN",
+  },
+  {
+    name: "Slippers/Flip-Flops",
+    link: "/collections/slippers?gender=MEN",
+  },
+  {
+    name: "Sandals",
+    link: "/collections/sandals?gender=MEN",
+  },
+  {
+    name: "Safety Shoes",
+    link: "/collections/safety_shoes?gender=MEN",
+  },
+];
+
+export const shopClothing = [
+  {
+    name: "Jackets",
+    link: "/collections/jackets_full_sleeve?gender=MEN",
+  },
+  {
+    name: "T-shirts",
+    link: "/collections/polo?gender=MEN",
+  },
+  {
+    name: "Shirts",
+    link: "/collections/shirts_full_sleeve?gender=MEN",
+  },
+  {
+    name: "Sweaters",
+    link: "/collections/sweaters_full_sleeve?gender=MEN",
+  },
+  {
+    name: "Sweatshirts & Hoodies",
+    link: "/collections/sweatshirts?gender=MEN",
+  },
+  {
+    name: "Innerwear Tops",
+    link: "/collections/tshirts?gender=MEN",
+  },
+];
+export const shopAccessories = [
+  {
+    name: "Handbags",
+    link: "/collections/cross_body_bag?gender=MEN",
+  },
+  {
+    name: "Socks",
+    link: "/collections/socks?gender=MEN",
+  },
+  {
+    name: "Fanny Bags",
+    link: "/collections/wallets_cards_holders?gender=MEN",
+  },
+  {
+    name: "Shoe Care",
+    link: "/collections/shoecare?gender=MEN",
+  },
+  {
+    name: "Trolley Bags",
+    link: "/collections/trolley_bags?gender=MEN",
+  },
+];

@@ -41,13 +41,13 @@ const LabsPage = () => {
             >
               <motion.h4
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
-                className="scroll-m-20  text-primary text-xl font-semibold tracking-tight"
+                className="scroll-m-20  text-primary text-3xl font-bold tracking-tight"
               >
                 CREATE
               </motion.h4>
               <motion.p
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
-                className="leading-7 [&:not(:first-child)]:mt-6"
+                className="leading-7 text-primary font-semibold [&:not(:first-child)]:mt-6"
               >
                 Take your ideas to the next level with people who make you want
                 to be the best.
@@ -115,10 +115,10 @@ const LabsPage = () => {
               </div>
             </div>
             <div className="flex order-1 lg:p-4 lg:order-2 justify-center  flex-col">
-              <h4 className="scroll-m-20  text-primary text-xl font-semibold tracking-tight">
+              <h4 className="scroll-m-20  text-primary text-3xl font-bold tracking-tight">
                 TAKE RISKS
               </h4>
-              <p className="leading-7 [&:not(:first-child)]:mt-6">
+              <p className="leading-7 text-primary font-semibold [&:not(:first-child)]:mt-6">
                 Because you have to take risks if you want to build the next big
                 idea. Evolve and Innovate.
               </p>
@@ -128,10 +128,10 @@ const LabsPage = () => {
 
           <div className="grid lg:grid-cols-2">
             <div className="flex  lg:p-4  justify-center  flex-col">
-              <h4 className="scroll-m-20  text-primary text-xl font-semibold tracking-tight">
+              <h4 className="scroll-m-20  text-primary text-3xl font-bold tracking-tight">
                 CHAMPION OUR MISSION
               </h4>
-              <p className="leading-7 [&:not(:first-child)]:mt-6">
+              <p className="leading-7 text-primary font-semibold [&:not(:first-child)]:mt-6">
                 Woodland is an equal opportunity employer. New-age ideas,
                 ability to exploit available resources to best use, positive
                 attitude and clean work ethic are the only requirements to

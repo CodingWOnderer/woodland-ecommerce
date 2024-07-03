@@ -26,6 +26,7 @@ const SalePage = () => {
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ type: "tween", delay: 1.5 }}
       >
         <div className="mx-auto container px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -69,7 +70,12 @@ const SalePage = () => {
         />
       </div>
 
-      <section>
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ type: "tween", delay: 1.5 }}
+      >
         <div className="mx-auto container px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {salefemale.map((femaleItem, index) => (
@@ -105,7 +111,7 @@ const SalePage = () => {
             ))}
           </ul>
         </div>
-      </section>
+      </motion.section>
     </ContentLayout>
   );
 };

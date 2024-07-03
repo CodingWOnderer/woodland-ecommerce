@@ -3,6 +3,7 @@ import React from "react";
 import NavHeader from "../common/NavHeader";
 import Header from "../common/Header";
 import { motion } from "framer-motion";
+import Footer from "../common/footer";
 
 const ContentLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,6 +17,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </motion.main>
+      <Footer />
     </>
   );
 };
