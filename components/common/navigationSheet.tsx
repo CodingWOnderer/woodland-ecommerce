@@ -60,7 +60,7 @@ const NavigationSheet = () => {
 
   return (
     <Sheet open={sidebar} onOpenChange={toggleSidebar}>
-      <SheetContent className="min-w-[500px]">
+      <SheetContent className="sm:min-w-[500px] min-w-[100vw]">
         <SheetHeader className="space-y-0 flex justify-between flex-row">
           <SheetTitle className="text-xl">
             <a className="block" href="/">

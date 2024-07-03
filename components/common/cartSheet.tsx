@@ -18,7 +18,7 @@ const CartSheet = () => {
   const { storeSheet, toggleStore } = useWoodlandStoreData();
   return (
     <Sheet open={storeSheet} onOpenChange={(e) => toggleStore(e)}>
-      <SheetContent className="min-w-[500px]">
+      <SheetContent className="sm:min-w-[500px] min-w-[100vw]">
         <SheetHeader className="space-y-0 space-x-8 flex flex-row">
           <SheetClose>
             <IoMdClose size={24} />
