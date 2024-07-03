@@ -706,3 +706,79 @@ export const WomenNavbarItems: CategoryProps[] = [
     ],
   },
 ];
+
+export const salemale = [
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_men_cat_1.png",
+    title: "Men’s Footwear",
+    text: "Shop now",
+    link: "/collections/footwear?gender=MEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_men_cat_2.png",
+    title: "Men’s Shirts",
+    text: "Shop now",
+    link: "/collections/shirts?gender=MEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_men_cat_3.png",
+    title: "Men’s Bottoms",
+    text: "Shop now",
+    link: "/collections/bottoms?gender=MEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_men_cat_4.png",
+    title: "Men’s Bags",
+    text: "Shop now",
+    link: "/collections/bags?gender=MEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_men_cat_5.png",
+    title: "Men’s Accessories",
+    text: "Shop now",
+    link: "/collections/accessories?gender=MEN&offer=true",
+    offer: "40% OFF",
+  },
+];
+
+export const salefemale = [
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_women_cat_1.png",
+    title: "Women’s Footwear",
+    text: "Shop now",
+    link: "/collections/footwear?gender=WOMEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_women_cat_2.png",
+    title: "Women’s Shirts",
+    text: "Shop now",
+    link: "/collections/shirts?gender=WOMEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_women_cat_3.png",
+    title: "Women’s Bottoms",
+    text: "Shop now",
+    link: "/collections/bottoms?gender=WOMEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_women_cat_4.png",
+    title: "Women’s Bags",
+    text: "Shop now",
+    link: "/collections/bags?gender=WOMEN&offer=true",
+    offer: "40% OFF",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/sale_women_cat_5.png",
+    title: "Women’s Accessories",
+    text: "Shop now",
+    link: "/collections/accessories?gender=WOMEN&offer=true",
+    offer: "40% OFF",
+  },
+];
