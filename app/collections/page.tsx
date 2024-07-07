@@ -39,6 +39,7 @@ const CollectionPage = () => {
               discount: sitem.discount,
               actualPrice: sitem.price,
               offerPrice: sitem.offerPrice,
+              bestseller: pcards.bestSeller,
             }));
 
             return (

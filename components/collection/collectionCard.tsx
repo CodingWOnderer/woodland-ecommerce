@@ -20,6 +20,7 @@ interface CarouselProductCard {
     slug: string;
     title: string;
     discount: number;
+    bestseller: boolean;
     actualPrice: number;
     offerPrice: number;
   }[];
@@ -72,6 +73,14 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
                     {`${item.discount}% OFF`}
                   </span>
                 )}
+
+                {item.bestseller === true ? (
+                  <span className="absolute z-10 bottom-0 left-0 m-2 rounded-full bg-primary px-2 text-center text-xs sm:text-sm  font-medium text-white">
+                    Bestseller
+                  </span>
+                ) : (
+                  ""
+                )}
               </Link>
             </SliderMainItem>
           ))}
@@ -81,7 +90,7 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
             <SliderThumbItem
               key={item.slug}
               index={index}
-              className="cursor-pointer  basis-1/6 bg-transparent"
+              className="cursor-pointer   basis-2/6 bg-transparent"
             >
               <div className="outline outline-1 w-10 h-10 rounded-none overflow-hidden outline-border size-full flex items-center justify-center  bg-background">
                 <img src={item.url} alt={item.title} />
