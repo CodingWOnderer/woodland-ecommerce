@@ -10,6 +10,9 @@ type ZustandStoreProps = {
   searchProduct: string;
   setSearch: (value: string) => void;
   toggleSearchSheet: (value: boolean) => void;
+
+  setAuthSheet: boolean;
+  toggleAuthSheet: (value: boolean) => void;
 };
 
 const woodlandStoreCreator: StateCreator<ZustandStoreProps> = (set) => ({
@@ -21,6 +24,9 @@ const woodlandStoreCreator: StateCreator<ZustandStoreProps> = (set) => ({
   toggleSearchSheet: (value: boolean) => set({ searchSheet: value }),
   searchProduct: "",
   setSearch: (value: string) => set({ searchProduct: value }),
+
+  setAuthSheet: false,
+  toggleAuthSheet: (value: boolean) => set({ setAuthSheet: value }),
 });
 
 const woodlandStore = create<ZustandStoreProps>()(woodlandStoreCreator);
