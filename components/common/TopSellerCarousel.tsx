@@ -44,7 +44,7 @@ function TopSellerCarousel(
 
   return (
     <Carousel
-      className="w-full md:container "
+      className="w-full px-4 md:px-0 max-w-screen-2xl "
       //@ts-ignore
       plugins={[plugin.current]}
       opts={{ loop: true }}
@@ -55,38 +55,40 @@ function TopSellerCarousel(
           currentSlider?.map((item, index) => (
             <CarouselItem
               key={index}
-              className="pl-1 cursor-pointer hover:border-primary hover:border-2 hover:rounded-xl   basis-[90%] md:basis-1/3 lg:basis-1/5"
+              className="pl-1 cursor-pointer hover:border-primary hover:border-2   mx-2  base-1/4 md:basis-1/4  xl:basis-1/5 "
             >
-              <div className="p-1">
+              <div>
                 <Link
                   href={`/product-detail/${item.id}`}
-                  className=" max-h-fit overflow-hidden"
+                  className=" max-h-fit relative overflow-hidden"
                 >
-                  <div className="flex relative border aspect-square overflow-hidden items-center justify-center p-6">
-                    <div className="relative">
-                      <Image
-                        src={item.url}
-                        height={200}
-                        width={130}
-                        quality={100}
-                        alt=""
-                        className=" object-contain  "
-                      />
-                    </div>
-                    {item.discount > 0 && (
-                      <span className="absolute top-0.5 left-0 m-2 rounded-full bg-red-500 px-2 rounded-l-none text-center text-sm font-medium text-white">
-                        {`${item.discount}% OFF`}
-                      </span>
-                    )}
-
-                    {item.bestSeller === true ? (
-                      <span className="absolute z-10 bottom-0 -left-2 m-2 rounded-full bg-primary px-2 rounded-l-none text-center text-sm font-medium text-white">
-                        Bestseller
-                      </span>
-                    ) : (
-                      ""
-                    )}
+                  <div className="relative m-auto w-full aspect-[3/3] bg-[#F3F3F3]">
+                    <Image
+                      src={item.url}
+                      alt="image-product"
+                      priority
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      style={{
+                        objectFit: "contain",
+                        mixBlendMode: "multiply",
+                        filter: "contrast(1)",
+                      }}
+                    />
                   </div>
+                  {item.discount > 0 && (
+                    <span className="absolute top-0 left-0 m-2 rounded-full bg-red-500 px-2 text-center text-xs sm:text-sm font-medium text-white">
+                      {`${item.discount}% OFF`}
+                    </span>
+                  )}
+
+                  {item.bestSeller === true ? (
+                    <span className="absolute z-10 bottom-0 left-0 m-2 rounded-full bg-primary px-2 text-center text-xs sm:text-sm  font-medium text-white">
+                      Bestseller
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Link>
                 <h2 className="mb-2 text-lg truncate mt-2 font-medium dark:text-white text-gray-900">
                   {item.title}
