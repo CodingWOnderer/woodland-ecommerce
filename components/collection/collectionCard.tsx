@@ -92,7 +92,7 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
       </Carousel>
       <div className=" px-3">
         <a href={metadata[activeIndex].url}>
-          <h5 className="tracking-tight text-black text-sm md:text-lg sm:text-base font-semibold">
+          <h5 className="tracking-tight line-clamp-1 text-black text-sm md:text-lg sm:text-base font-semibold">
             {metadata[activeIndex].title}
           </h5>
         </a>
