@@ -8,3 +8,10 @@ interface CategoryProps {
   extraStyle?: string;
   subHeadings: (SubHeading & { nestedItem?: SubHeading[] })[];
 }
+
+type ResponseModal<T> = {
+  status: "success" | "error";
+  code: number;
+  message: string;
+  data: T;
+};

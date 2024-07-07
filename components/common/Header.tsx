@@ -94,18 +94,24 @@ const Header = () => {
                   </PopoverTrigger>
                   <PopoverContent className="mt-4 hidden lg:block border-none w-screen">
                     <div className="container grid grid-cols-3 gap-3 mx-auto">
-                      {["woods.png", "woodsport.png", "askatingmonk.png"].map(
-                        (src, index) => (
+                      {[
+                        { img: "woods.png", link: "woods" },
+                        { img: "woodsport.png", link: "woodsports" },
+                        { link: "askatingmonk", img: "askatingmonk.png" },
+                      ].map((src, index) => (
+                        <Link
+                          key={index}
+                          href={`/collections?brand=${src.link}`}
+                        >
                           <Image
-                            key={index}
-                            src={`/${src}`}
+                            src={`/${src.img}`}
                             className="rounded"
                             height={450}
                             width={500}
                             alt="loading.."
                           />
-                        )
-                      )}
+                        </Link>
+                      ))}
                     </div>
                   </PopoverContent>
                 </Popover>

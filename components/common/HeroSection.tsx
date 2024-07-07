@@ -72,8 +72,8 @@ const HeroSection = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-4" />
-      <CarouselNext className="right-4" />
+      <CarouselPrevious className="left-4  h-6 w-6 md:h-8 md:w-8" />
+      <CarouselNext className="right-4  h-6 w-6 md:h-8 md:w-8" />
     </Carousel>
   );
 };

@@ -21,10 +21,13 @@ const TopSearchSheet = () => {
   }, [searchProduct]);
   return (
     <Sheet open={searchSheet} onOpenChange={(e) => toggleSearchSheet(e)}>
-      <SheetContent className="bg-primary border-none" side={"top"}>
+      <SheetContent
+        className="bg-primary border-none px-2 sm:px-auto"
+        side={"top"}
+      >
         <SheetHeader>
           <SheetTitle>
-            <div className="flex px-4 mx-auto space-x-4">
+            <div className="flex md:px-4 w-full mx-auto space-x-4">
               <Input
                 type={"search"}
                 value={searchProduct}

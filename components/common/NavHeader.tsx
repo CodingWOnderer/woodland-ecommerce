@@ -14,7 +14,7 @@ const NavHeader = () => {
       transition={{ delay: 0.8, ease: "easeIn" }}
       className="bg-primary px-4 py-3 text-primary-foreground  sm:px-6 lg:px-8"
     >
-      <div className="container mx-auto sm:flex sm:items-center sm:justify-between">
+      <div className="md:container  mx-auto flex items-center justify-between">
         <p className="text-center font-medium sm:text-left"></p>
         <div className="flex divide-x-2">
           <motion.div
@@ -24,7 +24,7 @@ const NavHeader = () => {
             <ShoppingCart size={20} /> <span>Cart</span>
           </motion.div>
           <Link
-            href={""}
+            href={"/store"}
             className="text-sm px-2 flex justify-center items-center font-medium leading-none"
           >
             <span> Find Store</span>

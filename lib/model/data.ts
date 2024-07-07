@@ -862,3 +862,142 @@ export const shopAccessories = [
     link: "/collections/trolley_bags?gender=MEN",
   },
 ];
+
+interface CategoryCard {
+  img: string;
+  title: string;
+  link: string;
+}
+
+export const categoryCard: CategoryCard[] = [
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_1.webp",
+    title: "Bestsellers",
+    link: "/collections?bestseller=true",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_2.webp",
+    title: "Sneakers",
+    link: "/collections/sneakers?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_3.webp",
+    title: "Boots",
+    link: "/collections/boots?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_4.webp",
+    title: "Sandals",
+    link: "/collections/casual_sandals?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_5.webp",
+    title: "Men’s Apparel",
+    link: "/collections/polo?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/h_cat_6.webp",
+    title: "Women’s Apparel",
+    link: "/collections/polo?gender=WOMEN",
+  },
+];
+
+export const genderCat = [
+  {
+    title: "Shop Men’s Apparel",
+    link: "/collections/polo?gender=MEN",
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/m_apparel_banner.webp",
+    alt: "Woodland Shoes for Men, Woodland shoes for women, Woodland apparel",
+  },
+  {
+    title: "Shop Women’s Apparel",
+    link: "/collections/polo?gender=WOMEN",
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/f_apparel_banner.webp",
+    alt: "Woodland Shoes for Men, Woodland shoes for women, Woodland apparel",
+  },
+];
+
+export const exploreData: {
+  img: string;
+  title: string;
+  linkone: string;
+  linktwo: string;
+}[] = [
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/T-shirts.webp",
+    title: "T-Shirt",
+    linkone: "/collections/polo?gender=MEN",
+    linktwo: "/collections/polo?gender=WOMEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/Shirts.webp",
+    title: "Shirts",
+    linkone: "/collections/shirts?gender=MEN",
+    linktwo: "/collections/shirts?gender=WOMEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/Shorts.webp",
+    title: "Shorts",
+    linkone: "/collections/shorts?gender=MEN",
+    linktwo: "/collections/shorts?gender=WOMEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/Jeans.webp",
+    title: "Jeans",
+    linkone: "/collections/bottoms?gender=MEN",
+    linktwo: "/collections/bottoms?gender=WOMEN",
+  },
+];
+
+export const threeCard: CategoryCard[] = [
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/bag_cat_banner.webp",
+    title: "Bags",
+    link: "/collections/backpacks?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/shoecare_cat_banner.webp",
+    title: "Shoe Care",
+    link: "/collections/shoe_care?gender=MEN",
+  },
+  {
+    img: "https://assets.woodlandworldwide.app/woodland-images/may2024/beltsandmore_cat_banner.webp",
+    title: "Belts & More",
+    link: "/collections/accessories?gender=MEN",
+  },
+];
+
+export const instaCard = [
+  {
+    img: "/insta_1.JPG",
+  },
+  {
+    img: "/insta_2.jpeg",
+  },
+  {
+    img: "/insta_3.JPG",
+  },
+  {
+    img: "/insta_4.JPG",
+  },
+  {
+    img: "/insta_5.JPG",
+  },
+];
+
+export const envCat = [
+  {
+    title: "Pro Planet",
+    des: "Proplanet is a community that is committed to make our plane a better place to live in. Our ultimate goal is to inspire the next generation and increase their participation in the conservation of nature.",
+    link: "/env",
+    img: "https://assets.woodlandworldwide.app/woodland-images/Images/pro_planet_banner.webp",
+    alt: "Woodland Shoes for Men, Woodland shoes for women, Woodland apparel",
+  },
+  {
+    title: "Woodland Research Lab",
+    des: "Woodlands expertise combines activity focused designs and technologically advanced materials available, created in the most innovative and effective manner possible.",
+    link: "/lab",
+    img: "https://assets.woodlandworldwide.app/woodland-images/Images/r_lab_banner.webp",
+    alt: "Woodland Shoes for Men, Woodland shoes for women, Woodland apparel",
+  },
+];

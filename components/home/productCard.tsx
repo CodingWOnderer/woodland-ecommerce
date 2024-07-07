@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Button } from "../ui/button";
 
 type Props = {
   src: string;
@@ -26,7 +27,7 @@ const ProductCard = (props: Props) => {
           style={{ objectFit: "cover" }}
           fill
           priority
-          sizes="(max-width: 640px) 100vw, 50vw" // Replace with appropriate sizes
+          sizes="(max-width: 640px) 100vw, 50vw"
         />
       </div>
 
@@ -35,13 +36,19 @@ const ProductCard = (props: Props) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
         viewport={{ once: true }}
-        className="absolute inset-0 flex flex-col items-start justify-end p-6"
+        className="absolute inset-0 flex flex-col items-center justify-end p-6"
       >
-        <h3 className="text-2xl font-bold text-white">{props.title}</h3>
+        <h3 className="sm:text-2xl text-xl font-bold text-white">
+          {props.title}
+        </h3>
 
-        <button className="mt-3 hover:bg-white hover:text-black origin-bottom-left transition-all inline-block border-[3px] px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+        <Button
+          variant={"outline"}
+          size={"lg"}
+          className="rounded-none mt-1 sm:mt-0 h-8 px-6 sm:h-10 sm:px-8 text-xs sm:text-base bg-transparent text-white border-2 transition-colors font-semibold"
+        >
           Shop Now
-        </button>
+        </Button>
       </motion.div>
     </motion.a>
   );

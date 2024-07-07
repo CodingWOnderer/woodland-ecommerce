@@ -1,12 +1,14 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-export const apiRequest = axios.create({
+export const apiRequest: AxiosInstance = axios.create({
   baseURL: "https://capcons.com/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
+const baseurl =
+  "https://asia-south2-woodland-397213.cloudfunctions.net/retailstore";
 /** axios apis
  *
  *
