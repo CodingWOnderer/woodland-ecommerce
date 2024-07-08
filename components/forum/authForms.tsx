@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuthGuestLoginMutation } from "@/hooks/auth/queries";
+import { useAuthGuestLoginMutation } from "@/hooks/auth/mutation";
 
 const formSchema = z.object({
   phoneNumber: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits."),

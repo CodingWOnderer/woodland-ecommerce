@@ -125,7 +125,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className=" container flex flex-col justify-center items-center space-y-8 py-4 sm:py-20">
+      <section className=" md:container flex flex-col justify-center items-center space-y-8 py-8 md:py-20">
         <TopSellerCarousel brand={"woodsports"} />
       </section>
       {/**three card */}
