@@ -7,12 +7,13 @@ import {
   SheetHeader,
   SheetTitle,
   SheetClose,
+  SheetFooter,
 } from "@/components/ui/sheet";
 import { IoMdClose } from "react-icons/io";
 import useWoodlandStoreData from "@/lib/store/store";
 import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "../ui/scroll-area";
-import Image from "next/image";
+import AuthForm from "../forum/authForms";
+import Link from "next/link";
 
 const AuthSheet = () => {
   const { setAuthSheet, toggleAuthSheet } = useWoodlandStoreData();
@@ -31,17 +32,18 @@ const AuthSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-        <ScrollArea className="h-[90vh]">
-          <div className="flex justify-center items-center h-[90vh]">
-            <Image
-              alt={"empty-cart"}
-              width={100}
-              height={100}
-              quality={100}
-              src={"/emptycart.png"}
-            />
+        <div className="min-h-[80vh] flex justify-center py-16 border-b">
+          <AuthForm />
+        </div>
+        <SheetFooter className="flex justify-center items-center">
+          <div className="mx-auto my-2 font-semibold text-sm">
+            <span>To know more check out</span>{" "}
+            <Link href={"/compliance/refund"} className="underline">
+              {" "}
+              FAQ’s
+            </Link>
           </div>
-        </ScrollArea>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

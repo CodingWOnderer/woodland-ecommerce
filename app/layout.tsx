@@ -8,6 +8,7 @@ import FramerTransition from "@/components/common/FramerTransition";
 import CartSheet from "@/components/common/cartSheet";
 import NavigationSheet from "@/components/common/navigationSheet";
 import TopSearchSheet from "@/components/common/TopSearchSheet";
+import AuthSheet from "@/components/common/authSheet";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <FramerTransition>
             {children}
             <Toaster />
+            <AuthSheet />
             <TopSearchSheet />
             <NavigationSheet />
             <CartSheet />

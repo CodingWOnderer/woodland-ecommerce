@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { useAuthGuestLoginMutation } from "@/hooks/auth/queries";
 
 const formSchema = z.object({
   phoneNumber: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits."),
@@ -23,6 +23,8 @@ const formSchema = z.object({
 });
 
 function AuthForm() {
+  const { mutate, isPending, data, isSuccess } = useAuthGuestLoginMutation();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,29 +33,29 @@ function AuthForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit((data) => {
+          mutate({
+            circleName: "woodland",
+            credential: `+91${data.phoneNumber}`,
+          });
+        })}
+        className="space-y-4 w-full"
+      >
         <FormField
           control={form.control}
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Login/Register with your mobile number</FormLabel>
+              <FormLabel className="text-lg">
+                Login/Register with your mobile number
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"
+                  className="h-12 rounded-none"
                   placeholder="Enter 10 digit mobile number"
                   {...field}
                 />
@@ -73,11 +75,19 @@ function AuthForm() {
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormLabel>Receive communications from us on messages</FormLabel>
+              <FormLabel className="text-xs font-semibold">
+                Receive communications from us on messages
+              </FormLabel>
             </FormItem>
           )}
         />
-        <Button type="submit">Send OTP</Button>
+        <Button
+          className="rounded-none font-semibold w-full h-12"
+          type="submit"
+          disabled={isPending}
+        >
+          {isPending ? "Sending OTP" : "Send OTP"}
+        </Button>
       </form>
     </Form>
   );

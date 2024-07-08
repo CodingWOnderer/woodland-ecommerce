@@ -6,7 +6,8 @@ import useWoodlandStoreData from "@/lib/store/store";
 import { motion } from "framer-motion";
 
 const NavHeader = () => {
-  const { toggleStore, storeSheet } = useWoodlandStoreData();
+  const { toggleStore, storeSheet, setAuthSheet, toggleAuthSheet } =
+    useWoodlandStoreData();
   return (
     <motion.div
       initial={{ y: -100 }}
@@ -29,12 +30,12 @@ const NavHeader = () => {
           >
             <span> Find Store</span>
           </Link>
-          <Link
-            href={""}
-            className="text-sm px-2 flex justify-center items-center font-medium leading-none"
+          <motion.div
+            onClick={() => toggleAuthSheet(!setAuthSheet)}
+            className="text-sm px-2 cursor-pointer flex items-center space-x-1 font-medium leading-none"
           >
             <span> Sign In</span>
-          </Link>
+          </motion.div>
         </div>
       </div>
     </motion.div>
