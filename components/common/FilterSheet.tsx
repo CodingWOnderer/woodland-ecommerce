@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Sheet,
   SheetClose,
@@ -22,16 +22,6 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import useWoodlandStoreData from "@/lib/store/store";
 
-interface Color {
-  name: string;
-  code: string;
-  selected: boolean;
-}
-
-interface Size {
-  size: string;
-  selected: boolean;
-}
 
 interface PriceRange {
   label: string;
@@ -39,30 +29,7 @@ interface PriceRange {
   max: string;
 }
 
-const COLORS: Color[] = [
-  { name: "WHITE", code: "#FFFFFF", selected: false },
-  { name: "BLUE", code: "#0000FF", selected: false },
-  { name: "MAROON", code: "#800000", selected: false },
-  { name: "CAMOUFLAGE", code: "#78866B", selected: false },
-  { name: "OLIVE", code: "#808000", selected: false },
-  { name: "BLACK", code: "#000000", selected: false },
-  { name: "PURPLE", code: "#800080", selected: false },
-  { name: "BROWN", code: "#A52A2A", selected: false },
-  { name: "GREEN", code: "#008000", selected: false },
-  { name: "GREY", code: "#808080", selected: false },
-  { name: "PINK", code: "#FFC0CB", selected: false },
-  { name: "ORANGE", code: "#FFA500", selected: false },
-  { name: "YELLOW", code: "#FFFF00", selected: false },
-  { name: "NAVY", code: "#000080", selected: false },
-  { name: "TAN", code: "#D2B48C", selected: false },
-  { name: "RED", code: "#FF0000", selected: false },
-];
 
-const SIZES: Size[] = [
-  "26", "28", "30", "32", "33", "34", "35", "36", "37", "38", "39",
-  "40", "41", "42", "43", "44", "45", "46", "47", "XS", "S", "M", 
-  "L", "XL", "XXL", "2X",
-].map(size => ({ size, selected: false }));
 
 const PRICE_RANGES: PriceRange[] = [
   { label: "Less than 1,000", min: "0", max: "1000" },
@@ -85,46 +52,11 @@ const FilterSheet: React.FC = () => {
     setFilter(filter.map(f => f[key] === item[key] ? { ...f, selected: !f.selected } : f));
   };
 
-  const generateURLParams = () => {
-    const params: Record<string, string[]> = { color: [], size: [] };
-
-    colorFilter.forEach(item => {
-      if (item.selected) {
-        params.color.push(item.code);
-      }
-    });
-
-    sizeFilter.forEach(item => {
-      if (item.selected) {
-        params.size.push(item.size);
-      }
-    });
-
-    if (priceFilter) {
-      const [min, max] = priceFilter.split("&").map(param => param.split("=")[1]);
-      params.minPrice = [min];
-      params.maxPrice = [max];
-    }
-
-    const urlSearchParams = new URLSearchParams();
-    for (const [key, values] of Object.entries(params)) {
-      values.forEach(value => {
-        urlSearchParams.append(key, value);
-      });
-    }
-    console.log(params)
-
-    return urlSearchParams.toString();
-  };
-
-  useEffect(() => {
-    console.log(generateURLParams());
-  }, [colorFilter, sizeFilter, priceFilter]);
 
   return (
     <Sheet open={filterSheet} onOpenChange={(e) => setFilterSheet(e)}>
       <SheetContent side="left">
-        <SheetHeader className="flex items-center justify-between">
+        <SheetHeader className="flex flex-row w-full items-center justify-between">
           <SheetTitle className="text-xl">Product Filters</SheetTitle>
           <SheetClose>
             <IoMdClose size={24} />
@@ -135,7 +67,7 @@ const FilterSheet: React.FC = () => {
             <AccordionItem value="price">
               <AccordionTrigger className="hover:no-underline">Price</AccordionTrigger>
               <AccordionContent>
-                <RadioGroup value={priceFilter} onValueChange={setPriceFilter}>
+                <RadioGroup value={priceFilter} className="space-y-3 p-3" onValueChange={setPriceFilter}>
                   {PRICE_RANGES.map((item, index) => (
                     <div key={index} className="flex items-center space-x-2">
                       <RadioGroupItem value={`minPrice=${item.min}&maxPrice=${item.max}`} id={`price${index}`} />
@@ -153,7 +85,7 @@ const FilterSheet: React.FC = () => {
                   {sizeFilter.map((item, index) => (
                     <div
                       key={index}
-                      className={cn("h-8 transition-all text-center cursor-pointer border flex justify-center items-center w-8 rounded", 
+                      className={cn("h-10 transition-all text-center cursor-pointer border flex justify-center items-center w-16 border-primary text-xs rounded", 
                         item.selected ? "bg-primary text-primary-foreground" : "")}
                       onClick={() => toggleSelection(sizeFilter, setSizeFilter, "size")(item)}
                     >

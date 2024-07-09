@@ -6,6 +6,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { ApiResponse, QueryParams, queryParamsSchema } from "./types";
+import { constructParams } from "@/lib/utils";
 
 /**
  * @typedef {Object} ApiResponse - Response structure from the API.
@@ -54,14 +55,17 @@ export const useProductCardCollection = (
 
   Object.keys(validatedQueryParams).forEach(
     (key) =>
-      validatedQueryParams[key] === undefined &&validatedQueryParams[key]===""&&validatedQueryParams[key]===null&&
-      delete validatedQueryParams[key]
+    ((validatedQueryParams[key] === undefined &&validatedQueryParams[key]===""&&validatedQueryParams[key]===null))&& delete validatedQueryParams[key]
   );
 
+
+
+
+  console.log(constructParams(validatedQueryParams).toString())
   return useInfiniteQuery<ApiResponse, Error>({
     queryKey: [...productCollection.collectionConfig(), validatedQueryParams],
     queryFn: async ({ pageParam = 1 }) => {
-      const params = new URLSearchParams({
+      const params = constructParams({
         ...validatedQueryParams,
         page: (pageParam as number).toString(),
       });

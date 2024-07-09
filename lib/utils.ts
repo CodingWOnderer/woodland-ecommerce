@@ -45,3 +45,18 @@ export function getBadgeDetails(data: PinCodeResponseSchema | undefined) {
       "bg-red-100 text-red-600 cursor-pointer hover:text-primary-foreground hover:bg-red-500",
   };
 }
+
+
+
+export const constructParams = (params: Record<string, string | string[]>): URLSearchParams => {
+  const searchParams = new URLSearchParams();
+  Object.keys(params).forEach((key) => {
+    const value = params[key];
+    if (Array.isArray(value)) {
+      value.forEach((val) => searchParams.append(key, val));
+    } else {
+      searchParams.append(key, value);
+    }
+  });
+  return searchParams;
+};

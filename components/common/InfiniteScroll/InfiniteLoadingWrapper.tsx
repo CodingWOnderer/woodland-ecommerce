@@ -24,7 +24,7 @@ const InfiniteLoadingWrapper = ({ params, children }: Props) => {
 
   const queryParams: FilterQueryParams = {};
 
-  const selectedColors = colorFilter.filter(color => color.selected).map(color => color.code);
+  const selectedColors = colorFilter.filter(color => color.selected).map(color => color.name);
   if (selectedColors.length > 0) {
     queryParams.color = selectedColors;
   }
