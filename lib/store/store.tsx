@@ -1,6 +1,15 @@
 "use client";
 import { create, useStore, type StateCreator } from "zustand";
 
+interface AuthForm {
+  userPhone: string;
+  verifyForm: boolean;
+  setVerifyForm: (value: boolean) => void;
+  setUserPhone: (value: string) => void;
+  setAuthSheet: boolean;
+  toggleAuthSheet: (value: boolean) => void;
+}
+
 type ZustandStoreProps = {
   storeSheet: boolean;
   toggleStore: (value: boolean) => void;
@@ -11,8 +20,7 @@ type ZustandStoreProps = {
   setSearch: (value: string) => void;
   toggleSearchSheet: (value: boolean) => void;
 
-  setAuthSheet: boolean;
-  toggleAuthSheet: (value: boolean) => void;
+  authForm: AuthForm;
 };
 
 const woodlandStoreCreator: StateCreator<ZustandStoreProps> = (set) => ({
@@ -25,8 +33,19 @@ const woodlandStoreCreator: StateCreator<ZustandStoreProps> = (set) => ({
   searchProduct: "",
   setSearch: (value: string) => set({ searchProduct: value }),
 
-  setAuthSheet: false,
-  toggleAuthSheet: (value: boolean) => set({ setAuthSheet: value }),
+  authForm: {
+    userPhone: "",
+    setAuthSheet: false,
+    verifyForm: false,
+    setVerifyForm: (value: boolean) =>
+      set((state) => ({ authForm: { ...state.authForm, verifyForm: value } })),
+    setUserPhone: (value: string) =>
+      set((state) => ({ authForm: { ...state.authForm, userPhone: value } })),
+    toggleAuthSheet: (value: boolean) =>
+      set((state) => ({
+        authForm: { ...state.authForm, setAuthSheet: value },
+      })),
+  },
 });
 
 const woodlandStore = create<ZustandStoreProps>()(woodlandStoreCreator);

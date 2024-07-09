@@ -57,7 +57,7 @@ export const queryParamsSchema = z.object({
   size: z.array(z.string()).optional(),
   minPrice: z.number().optional(),
   maxPrice: z.number().optional(),
-  offer: z.boolean().optional(),
+  offer: z.string().optional(),
 });
 
 export type QueryParams = z.infer<typeof queryParamsSchema>;

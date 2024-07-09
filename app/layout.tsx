@@ -9,6 +9,7 @@ import CartSheet from "@/components/common/cartSheet";
 import NavigationSheet from "@/components/common/navigationSheet";
 import TopSearchSheet from "@/components/common/TopSearchSheet";
 import AuthSheet from "@/components/common/authSheet";
+import { AuthProvider } from "@/components/common/AuthWrapper";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -26,16 +27,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <GoogleAnalytics gaId="G-XYZ" />
       <ReactQueryProvider>
-        <body className={raleway.className}>
-          <FramerTransition>
-            {children}
-            <Toaster />
-            <AuthSheet />
-            <TopSearchSheet />
-            <NavigationSheet />
-            <CartSheet />
-          </FramerTransition>
-        </body>
+        <AuthProvider>
+          <body className={raleway.className}>
+            <FramerTransition>
+              {children}
+              <Toaster />
+              <AuthSheet />
+              <TopSearchSheet />
+              <NavigationSheet />
+              <CartSheet />
+            </FramerTransition>
+          </body>
+        </AuthProvider>
       </ReactQueryProvider>
     </html>
   );

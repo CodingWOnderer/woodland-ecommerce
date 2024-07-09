@@ -15,16 +15,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuthGuestLoginMutation } from "@/hooks/auth/mutation";
+import { VerifyGuestLoginPayload } from "@/hooks/auth/mutation";
+import { UseMutateFunction } from "@tanstack/react-query";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const formSchema = z.object({
   phoneNumber: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits."),
   receiveCommunications: z.boolean(),
 });
 
-function AuthForm() {
-  const { mutate, isPending, data, isSuccess } = useAuthGuestLoginMutation();
+interface AuthForm {
+  mutate: UseMutateFunction<
+    ResponseModal<{ newRegistration: boolean }>,
+    unknown,
+    Omit<VerifyGuestLoginPayload, "otp">,
+    unknown
+  >;
+  isPending: boolean | undefined;
+}
 
+function AuthForm({ mutate, isPending }: AuthForm) {
+  const {
+    authForm: { setUserPhone, setVerifyForm },
+  } = useWoodlandStoreData();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +54,9 @@ function AuthForm() {
             circleName: "woodland",
             credential: `+91${data.phoneNumber}`,
           });
+
+          setUserPhone(`+91${data.phoneNumber}`);
+          setVerifyForm(true);
         })}
         className="space-y-4 w-full"
       >
@@ -49,13 +65,13 @@ function AuthForm() {
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">
+              <FormLabel className="text-base text-stone-800 font-bold">
                 Login/Register with your mobile number
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="h-12 rounded-none"
+                  className="h-12 rounded-none placeholder:text-xs bg-muted"
                   placeholder="Enter 10 digit mobile number"
                   {...field}
                 />
@@ -68,7 +84,7 @@ function AuthForm() {
           control={form.control}
           name="receiveCommunications"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3">
+            <FormItem className="flex flex-row items-center space-y-0 space-x-3">
               <FormControl className="border">
                 <Checkbox
                   checked={field.value}

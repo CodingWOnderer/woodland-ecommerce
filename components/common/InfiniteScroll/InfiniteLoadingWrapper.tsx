@@ -3,7 +3,6 @@ import { useProductCardCollection } from "@/hooks/collections/queries";
 import React, { useCallback, useRef } from "react";
 import InfiniteLoaderContext from "./InfiniteLoaderContext";
 import { QueryParams } from "@/hooks/collections/types";
-import { useSearchParams } from "next/navigation";
 
 type Props = {
   params?: Partial<QueryParams>;

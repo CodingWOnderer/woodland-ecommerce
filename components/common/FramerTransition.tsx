@@ -9,6 +9,7 @@ type Props = {
 
 const FramerTransition = (props: Props) => {
   const pathname = usePathname();
+
   return (
     <AnimatePresence mode="wait">
       <motion.div key={pathname}>

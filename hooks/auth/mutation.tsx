@@ -1,4 +1,5 @@
 import { apiRequest } from "@/config/request";
+import { setCookieAsync } from "@/lib/cookies/cookies";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { z } from "zod";
 
@@ -8,7 +9,7 @@ const verifyGuestLoginSchema = z.object({
   otp: z.string().length(6, "OTP should be 6 digits"),
 });
 
-type VerifyGuestLoginPayload = z.infer<typeof verifyGuestLoginSchema>;
+export type VerifyGuestLoginPayload = z.infer<typeof verifyGuestLoginSchema>;
 
 const VERIFY_GUEST_LOGIN_URL = "/go-auth/verifyGuestLogin";
 const AUTH_URL = "/go-auth/guestLogin";
@@ -28,11 +29,10 @@ const GuestLogin = async (
 
 const verifyGuestLogin = async (
   data: VerifyGuestLoginPayload
-): Promise<ResponseModal<{ token: string }>> => {
-  const validatedData = verifyGuestLoginSchema.parse(data);
-  const response = await apiRequest.post<ResponseModal<{ token: string }>>(
+): Promise<{ token: string }> => {
+  const response = await apiRequest.post<{ token: string }>(
     VERIFY_GUEST_LOGIN_URL,
-    validatedData,
+    data,
     {
       headers: {
         "Content-Type": "application/json",
@@ -61,13 +61,13 @@ export const useAuthGuestLoginMutation = (): UseMutationResult<
 };
 
 export const useVerifyGuestLoginMutation = (): UseMutationResult<
-  ResponseModal<{ token: string }>,
+  { token: string },
   unknown,
   VerifyGuestLoginPayload,
   unknown
 > => {
   return useMutation<
-    ResponseModal<{ token: string }>,
+    { token: string },
     unknown,
     VerifyGuestLoginPayload,
     unknown
@@ -75,5 +75,6 @@ export const useVerifyGuestLoginMutation = (): UseMutationResult<
     mutationKey: ["verifyauth"],
     mutationFn: ({ credential, circleName, otp }) =>
       verifyGuestLogin({ credential, circleName, otp }),
+    onSuccess: (data) => setCookieAsync("token", data.token),
   });
 };
