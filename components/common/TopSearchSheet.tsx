@@ -8,9 +8,9 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import useWoodlandStoreData from "@/lib/store/store";
 import { Input } from "../ui/input";
 import { IoMdClose } from "react-icons/io";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const TopSearchSheet = () => {
   const { searchSheet, toggleSearchSheet, searchProduct, setSearch } =

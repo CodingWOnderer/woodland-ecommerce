@@ -23,9 +23,9 @@ import {
 import Link from "next/link";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { VerifyGuestLoginPayload } from "@/hooks/auth/mutation";
-import useWoodlandStoreData from "@/lib/store/store";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../common/AuthWrapper";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const formSchema = z.object({
   otp: z.string().length(6, {

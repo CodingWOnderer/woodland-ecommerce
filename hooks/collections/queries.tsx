@@ -54,7 +54,7 @@ export const useProductCardCollection = (
 
   Object.keys(validatedQueryParams).forEach(
     (key) =>
-      validatedQueryParams[key] === undefined &&
+      validatedQueryParams[key] === undefined &&validatedQueryParams[key]===""&&validatedQueryParams[key]===null&&
       delete validatedQueryParams[key]
   );
 
@@ -122,5 +122,6 @@ export const useCollectionPageImage = (
         };
       }
     },
+    refetchOnWindowFocus:false,
   });
 };

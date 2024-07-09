@@ -9,6 +9,7 @@ import InfiniteLoadingWrapper from "@/components/common/InfiniteScroll/InfiniteL
 import React, { useCallback, memo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import FilterHeader from "@/components/common/FilterHeader";
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
   { loading: () => <div className="h-full w-full"><Skeleton className="h-full w-full"/></div> }
@@ -65,6 +66,7 @@ const CollectionPage = () => {
         params={{ circle: "woodland", ...searchParamsObject }}
       >
         <CategoryInfo category="products" {...searchParamsObject} />
+        <FilterHeader/>
         <div className="w-full">
           <InfiniteLoaderContext.Consumer>
             {renderCards}

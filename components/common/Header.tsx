@@ -12,8 +12,8 @@ import {
 
 import { NavbarItems, WomenNavbarItems } from "@/lib/model/data";
 import { cn } from "@/lib/utils";
-import useWoodlandStoreData from "@/lib/store/store";
 import { motion } from "framer-motion";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const NavItem = ({ item }: { item: CategoryProps }) => (
   <div className={cn("w-full h-fit shadow-none", item.extraStyle)}>

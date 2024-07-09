@@ -9,10 +9,10 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { IoMdClose } from "react-icons/io";
-import useWoodlandStoreData from "@/lib/store/store";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import Image from "next/image";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const CartSheet = () => {
   const { storeSheet, toggleStore } = useWoodlandStoreData();

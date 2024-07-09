@@ -16,11 +16,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useWoodlandStoreData from "@/lib/store/store";
 import { Separator } from "@radix-ui/react-separator";
 import { IoMdClose } from "react-icons/io";
 import { NavbarItems, WomenNavbarItems } from "@/lib/model/data";
 import Link from "next/link";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const renderAccordionItems = (
   items: CategoryProps[],

@@ -2,9 +2,9 @@
 import React from "react";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import useWoodlandStoreData from "@/lib/store/store";
 import { motion } from "framer-motion";
 import { useAuth } from "./AuthWrapper";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const NavHeader = () => {
   const {
