@@ -53,10 +53,13 @@ function AuthForm({ mutate, isPending }: AuthForm) {
           mutate({
             circleName: "woodland",
             credential: `+91${data.phoneNumber}`,
-          });
-
-          setUserPhone(`+91${data.phoneNumber}`);
-          setVerifyForm(true);
+          
+          },{
+            onSuccess:()=>{
+              setUserPhone(`+91${data.phoneNumber}`);
+              setVerifyForm(true);
+            }});
+         
         })}
         className="space-y-4 w-full"
       >
