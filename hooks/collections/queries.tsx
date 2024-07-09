@@ -72,7 +72,7 @@ export const useProductCardCollection = (
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.data.length ? allPages.length + 1 : undefined;
+      return lastPage?.data?.length ? allPages?.length + 1 : undefined;
     },
   });
 };
@@ -99,17 +99,17 @@ export const useCollectionPageImage = (
       const params = new URLSearchParams({
         ...validatedQueryParams,
       });
+
       if (
-        validatedQueryParams.category &&
-        validatedQueryParams.gender &&
         validatedQueryParams.circle &&
-        validatedQueryParams.brand
+       ( validatedQueryParams.category ||
+        validatedQueryParams.gender || validatedQueryParams.brand)
       ) {
         return (
           await apiRequest.get<{
             data: Partial<{
               description: string;
-              title: string;
+              name: string;
               image: string;
             }>;
           }>(`go-products/category?${params}`)

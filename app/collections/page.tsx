@@ -8,10 +8,10 @@ import InfiniteLoaderContext, {
 import InfiniteLoadingWrapper from "@/components/common/InfiniteScroll/InfiniteLoadingWrapper";
 import React, { useCallback, memo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-
+import { Skeleton } from "@/components/ui/skeleton";
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
-  { loading: () => <div>Loading...</div> }
+  { loading: () => <div className="h-full w-full"><Skeleton className="h-full w-full"/></div> }
 );
 
 const CollectionPage = () => {
@@ -25,13 +25,13 @@ const CollectionPage = () => {
   });
 
   const renderCards = useCallback((data: InfiniteLoaderProps | undefined) => {
-    if (data?.isLoading) return <div>Loading...</div>;
+    if (data?.isLoading) return <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">{[1,2,3,4,5,6,7,8].map((item,index)=><div key={index} className="h-full w-full"><Skeleton className="h-full w-full"/></div>)}</div>;
     if (data?.error) return <div>Error....</div>;
 
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {data?.infiniteData?.pages.map((page, pageIndex) =>
-          page.data.map((pcards, pindex) => {
+          page?.data?.map((pcards, pindex) => {
             const metadata = pcards.productMeta.map((sitem) => ({
               url: sitem.SkuImages[0],
               slug: sitem.slug,
@@ -64,7 +64,7 @@ const CollectionPage = () => {
       <InfiniteLoadingWrapper
         params={{ circle: "woodland", ...searchParamsObject }}
       >
-        <CategoryInfo category="products" />
+        <CategoryInfo category="products" {...searchParamsObject} />
         <div className="w-full">
           <InfiniteLoaderContext.Consumer>
             {renderCards}

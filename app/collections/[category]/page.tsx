@@ -8,10 +8,11 @@ import InfiniteLoaderContext, {
 import InfiniteLoadingWrapper from "@/components/common/InfiniteScroll/InfiniteLoadingWrapper";
 import React, { useCallback, memo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
-  { loading: () => <div>Loading...</div> }
+  { loading: () => <div className="h-full w-full"><Skeleton className="h-full w-full"/></div> }
 );
 
 const CollectionCategoryPage = (category:{para:string}) => {
@@ -32,7 +33,7 @@ const CollectionCategoryPage = (category:{para:string}) => {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {data?.infiniteData?.pages.map((page, pageIndex) =>
-          page.data.map((pcards, pindex) => {
+          page?.data?.map((pcards, pindex) => {
             const metadata = pcards.productMeta.map((sitem) => ({
               url: sitem.SkuImages[0],
               slug: sitem.slug,
@@ -66,7 +67,7 @@ const CollectionCategoryPage = (category:{para:string}) => {
       <InfiniteLoadingWrapper
         params={{ circle: "woodland", ...searchParamsObject,category:category.para }}
       >
-        <CategoryInfo category="products" />
+        <CategoryInfo  {...searchParamsObject } category={category.para}/>
         <div className="w-full">
           <InfiniteLoaderContext.Consumer>
             {renderCards}
