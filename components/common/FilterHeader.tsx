@@ -11,7 +11,7 @@ import { SlidersHorizontal } from "lucide-react";
 import useWoodlandStoreData from "@/lib/store/store";
 
 const FilterHeader = () => {
-    const {setFilterSheet,filterSheet} = useWoodlandStoreData();
+    const {setFilterSheet,filterSheet,sortFilter,setSortFilter} = useWoodlandStoreData();
 
   return (
     <div className="flex justify-between items-center py-4">
@@ -19,7 +19,7 @@ const FilterHeader = () => {
         <span className="text-primary">FILTERS</span>
         <SlidersHorizontal />
       </Button>
-      <Select>
+      <Select value={sortFilter} onValueChange={(e)=>setSortFilter(e)}>
         <SelectTrigger className="space-x-2 text-primary border w-[180px] border-primary rounded-none">
           <SelectValue className="text-primary font-semibold" placeholder="Sort by" />
         </SelectTrigger>

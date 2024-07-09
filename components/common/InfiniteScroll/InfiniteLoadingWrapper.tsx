@@ -20,21 +20,28 @@ type FilterQueryParams = {
 const InfiniteLoadingWrapper = ({ params, children }: Props) => {
   const infiniteLoadingObserver = useRef<IntersectionObserver>();
 
-  const { colorFilter, sizeFilter, priceFilter } = useWoodlandStoreData();
+  const { colorFilter, sizeFilter, priceFilter, sortFilter } =
+    useWoodlandStoreData();
 
   const queryParams: FilterQueryParams = {};
 
-  const selectedColors = colorFilter.filter(color => color.selected).map(color => color.name);
+  const selectedColors = colorFilter
+    .filter((color) => color.selected)
+    .map((color) => color.name);
   if (selectedColors.length > 0) {
     queryParams.color = selectedColors;
   }
 
-  const selectedSizes = sizeFilter.filter(size => size.selected).map(size => size.size);
+  const selectedSizes = sizeFilter
+    .filter((size) => size.selected)
+    .map((size) => size.size);
   if (selectedSizes.length > 0) {
     queryParams.size = selectedSizes;
   }
 
-  const [minPrice, maxPrice] = priceFilter.split("&").map(param => param.split("=")[1]);
+  const [minPrice, maxPrice] = priceFilter
+    .split("&")
+    .map((param) => param.split("=")[1]);
   if (minPrice) {
     queryParams.minPrice = parseFloat(minPrice) || undefined;
   }
@@ -42,10 +49,12 @@ const InfiniteLoadingWrapper = ({ params, children }: Props) => {
     queryParams.maxPrice = parseFloat(maxPrice) || undefined;
   }
 
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } = useProductCardCollection({
-    ...params,
-    ...queryParams,
-  });
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
+    useProductCardCollection({
+      ...params,
+      ...queryParams,
+      sort: sortFilter.length > 0 ? sortFilter : undefined,
+    });
 
   const infiniteLoaderRef = useCallback(
     (node: HTMLDivElement) => {

@@ -24,6 +24,9 @@ export interface Color {
     setSizeFilter: (value: Size[]) => void;
     priceFilter: string;
     setPriceFilter: (value: string) => void;
+
+    sortFilter:string;
+    setSortFilter:(value:string)=>void;
   }
 
 

@@ -31,6 +31,10 @@ const filterSlice: StateCreator<FilterStore> =   (set) => ({
   setSizeFilter: (newSizeFilter: Size[]) => set({ sizeFilter: newSizeFilter }),
   setPriceFilter: (newPriceFilter: string) =>
     set({ priceFilter: newPriceFilter }),
+
+
+  sortFilter:"",
+  setSortFilter:(value:string)=>set({sortFilter:value})
 });
 
 export default filterSlice;
