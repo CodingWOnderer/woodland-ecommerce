@@ -92,9 +92,6 @@ export function AppearanceForm({
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <FormLabel>Colors</FormLabel>
-                <FormDescription>
-                  Select the theme for the dashboard.
-                </FormDescription>
                 <FormMessage />
                 <RadioGroup
                   onValueChange={field.onChange}
