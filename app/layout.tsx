@@ -11,6 +11,7 @@ import TopSearchSheet from "@/components/common/TopSearchSheet";
 import AuthSheet from "@/components/common/authSheet";
 import { AuthProvider } from "@/components/common/AuthWrapper";
 import FilterSheet from "@/components/common/FilterSheet";
+import SizeSheet from "@/components/common/sizeSheet";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
               <NavigationSheet />
               <CartSheet />
               <FilterSheet/>
+              <SizeSheet/>
             </FramerTransition>
           </body>
         </AuthProvider>

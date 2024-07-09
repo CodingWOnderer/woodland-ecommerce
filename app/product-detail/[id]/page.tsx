@@ -7,15 +7,18 @@ import {
   SliderMainItem,
   SliderThumbItem,
 } from "@/components/extension/carousel";
-import { Link } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { AppearanceForm } from "@/components/forum/ProductCartForm";
 import useProductQuery from "@/hooks/product";
 import TopSellerCarousel from "@/components/common/TopSellerCarousel";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
-  const { data, refetch, isLoading, isError } = useProductQuery(id);
+  const { data, isLoading } = useProductQuery(id);
+  const {setDivision} = useWoodlandStoreData();
+
+  useEffect(()=>setDivision(data?.data.category[1] as "FOOTWEAR"|"GARMENT"),[data?.data.category[1]])
 
   if (isLoading) return <div>loading....</div>;
 

@@ -57,4 +57,11 @@ export interface Color {
   
     filterSheet:boolean;
     setFilterSheet:(value:boolean)=>void;
+
+
+    sizeSheet:boolean;
+    setSizeSheet:(value:boolean)=>void;
+
+    division:"FOOTWEAR"|"GARMENT";
+    setDivision:(value:"FOOTWEAR"|"GARMENT")=>void;
   };

@@ -31,6 +31,7 @@ import { FaHeart } from "react-icons/fa";
 import ToggleButton from "../common/ToggleButton";
 import { ParsedProductData } from "./types";
 import Link from "next/link";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const appearanceFormSchema = z.object({
   colors: z.string(),
@@ -51,6 +52,7 @@ export function AppearanceForm({
 }) {
   const [pincode, setPincode] = useState<string>("");
   const [quantity, setQuantity] = useState(0);
+  const {setSizeSheet,sizeSheet} =useWoodlandStoreData();
 
   const currentProduct = productData.data.productMeta.find(
     (item) => item.slug === productid
@@ -71,7 +73,7 @@ export function AppearanceForm({
     console.log(data);
   }
 
-  const { refetch, data, isLoading } = usePincodeQuery(pincode);
+  const { refetch, data } = usePincodeQuery(pincode);
   return (
     <div>
       <Form {...form}>
@@ -131,7 +133,7 @@ export function AppearanceForm({
               <FormItem className="space-y-1">
                 <FormLabel className=" whitespace-nowrap flex justify-between ">
                   <span>Size</span>
-                  <Button variant={"ghost"} className="text-primary font-bold">
+                  <Button onClick={()=>setSizeSheet(!sizeSheet)} variant={"ghost"} className="text-primary font-bold">
                     Size Guide
                   </Button>
                 </FormLabel>

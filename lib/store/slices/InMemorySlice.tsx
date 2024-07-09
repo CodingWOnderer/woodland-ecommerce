@@ -29,7 +29,14 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
       })),
   },
   filterSheet:false,
-  setFilterSheet:(value:boolean)=>set({filterSheet:value})
+  setFilterSheet:(value:boolean)=>set({filterSheet:value}),
+
+  sizeSheet:false,
+  setSizeSheet:(value:boolean)=>set({sizeSheet:value}),
+
+
+  division:"FOOTWEAR",
+  setDivision:(value:"FOOTWEAR"|"GARMENT")=>set({division:value})
 });
 
 
