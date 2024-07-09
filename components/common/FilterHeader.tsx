@@ -14,7 +14,7 @@ const FilterHeader = () => {
     const {setFilterSheet,filterSheet,sortFilter,setSortFilter} = useWoodlandStoreData();
 
   return (
-    <div className="flex justify-between items-center py-4">
+    <div className="flex justify-between items-center pb-4 ">
       <Button onClick={()=>setFilterSheet(!filterSheet)} variant={"outline"} className="space-x-2 text-primary border border-primary rounded-none">
         <span className="text-primary">FILTERS</span>
         <SlidersHorizontal />

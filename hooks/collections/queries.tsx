@@ -58,10 +58,6 @@ export const useProductCardCollection = (
     ((validatedQueryParams[key] === undefined &&validatedQueryParams[key]===""&&validatedQueryParams[key]===null))&& delete validatedQueryParams[key]
   );
 
-
-
-
-  console.log(constructParams(validatedQueryParams).toString())
   return useInfiniteQuery<ApiResponse, Error>({
     queryKey: [...productCollection.collectionConfig(), validatedQueryParams],
     queryFn: async ({ pageParam = 1 }) => {
