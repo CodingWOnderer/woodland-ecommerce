@@ -101,9 +101,9 @@ export const useCollectionPageImage = (
       });
 
       if (
-        validatedQueryParams.circle &&
+        validatedQueryParams.circle&&validatedQueryParams.gender &&
        ( validatedQueryParams.category ||
-        validatedQueryParams.gender || validatedQueryParams.brand)
+          validatedQueryParams.brand)
       ) {
         return (
           await apiRequest.get<{
