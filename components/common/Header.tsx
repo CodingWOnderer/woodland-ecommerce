@@ -9,11 +9,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-import { NavbarItems, WomenNavbarItems } from "@/lib/model/data";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import useWoodlandStoreData from "@/lib/store/store";
+import GenderWomenCategory from "./GenderWomenCategory";
+import GenderMenCategory from "./GenderMenCategory";
 
 const NavItem = ({ item }: { item: CategoryProps }) => (
   <div className={cn("w-full h-fit shadow-none", item.extraStyle)}>
@@ -85,8 +85,27 @@ const Header = () => {
         <div className="flex flex-1 items-center justify-end lg:justify-between">
           <nav aria-label="Global" className="hidden lg:block">
             <ul className="flex items-center justify-center gap-6 text-sm">
-              <NavSection label="Men" items={NavbarItems} />
-              <NavSection label="Women" items={WomenNavbarItems} />
+            <li>
+                <Popover>
+                  <PopoverTrigger className="text-primary transition font-bold hover:text-primary/75">
+                   Men
+                  </PopoverTrigger>
+                  <PopoverContent className="mt-4 hidden lg:block overflow-hidden border-none pb-0 w-screen">
+                   <GenderMenCategory/>
+                  </PopoverContent>
+                </Popover>
+              </li>
+
+              <li>
+                <Popover>
+                  <PopoverTrigger className="text-primary transition font-bold hover:text-primary/75">
+                    Women
+                  </PopoverTrigger>
+                  <PopoverContent className="mt-4 hidden lg:block overflow-hidden border-none pb-0 w-screen">
+                    <GenderWomenCategory />
+                  </PopoverContent>
+                </Popover>
+              </li>
               <li>
                 <Popover>
                   <PopoverTrigger className="text-primary transition font-bold hover:text-primary/75">
