@@ -10,6 +10,7 @@ import React, { useCallback, memo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import FilterHeader from "@/components/common/FilterHeader";
+import LoaderComponent from "@/components/common/Loader";
 
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
@@ -64,13 +65,13 @@ const CollectionCategoryPage = (category:{para:string}) => {
 
  
   return (
-    <div className="max-w-screen-2xl px-4 m-auto">
+    <div className="max-w-screen-2xl min-h-screen pb-20 px-4 m-auto">
       <InfiniteLoadingWrapper
         params={{ circle: "woodland", ...searchParamsObject,category:category.para }}
       >
         <CategoryInfo  {...searchParamsObject } category={category.para}/>
         <FilterHeader/>
-        <div className="w-full">
+        <div className="w-full min-h-screen">
           <InfiniteLoaderContext.Consumer>
             {renderCards}
           </InfiniteLoaderContext.Consumer>
@@ -81,7 +82,7 @@ const CollectionCategoryPage = (category:{para:string}) => {
 };
 
 const WrappedCollectionCategoryPage = ({params}:{params:{category:string}}) => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<LoaderComponent size="screen"/>}>
     <CollectionCategoryPage para={params.category}/>
   </Suspense>
 );

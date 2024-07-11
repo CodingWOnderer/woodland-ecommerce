@@ -10,6 +10,7 @@ import React, { useCallback, memo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import FilterHeader from "@/components/common/FilterHeader";
+import LoaderComponent from "@/components/common/Loader";
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
   { loading: () => <div className="h-full w-full"><Skeleton className="h-full w-full"/></div> }
@@ -27,7 +28,9 @@ const CollectionPage = () => {
 
   const renderCards = useCallback((data: InfiniteLoaderProps | undefined) => {
     if (data?.isLoading) return <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">{[1,2,3,4,5,6,7,8].map((item,index)=><div key={index} className="h-full w-full"><Skeleton className="h-full w-full"/></div>)}</div>;
-    if (data?.error) return <div>Error....</div>;
+
+
+    if (data?.error) return <div>Something went wrong</div>;
 
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
@@ -61,13 +64,13 @@ const CollectionPage = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-2xl px-4 m-auto">
+    <div className="max-w-screen-2xl min-h-screen pb-20 px-4 m-auto">
       <InfiniteLoadingWrapper
         params={{ circle: "woodland", ...searchParamsObject }}
       >
         <CategoryInfo category="products" {...searchParamsObject} />
         <FilterHeader/>
-        <div className="w-full">
+        <div className="w-full min-h-screen">
           <InfiniteLoaderContext.Consumer>
             {renderCards}
           </InfiniteLoaderContext.Consumer>
@@ -78,7 +81,7 @@ const CollectionPage = () => {
 };
 
 const WrappedCollectionPage = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<LoaderComponent size="screen"/>}>
     <CollectionPage />
   </Suspense>
 );

@@ -1,12 +1,9 @@
 import AboutSection from "@/components/common/AboutSection";
 import FramerTransition from "@/components/common/FramerTransition";
 import ContentLayout from "@/components/layout/ContentLayout";
-import { AnimatePresence } from "framer-motion";
 import React from "react";
 
-type Props = {};
-
-const AboutUsPAge = (props: Props) => {
+const AboutUsPAge = () => {
   return (
   <FramerTransition>
      <ContentLayout>

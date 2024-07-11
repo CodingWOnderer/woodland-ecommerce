@@ -8,13 +8,20 @@ import GenderWomenCategory from "@/components/common/GenderWomenCategory";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import useWoodlandStoreData from "@/lib/store/store";
+import { motion } from "framer-motion";
 
 const NavigationMenuDemo = () => {
   const { toggleSidebar, sidebar, toggleSearchSheet } = useWoodlandStoreData();
   return (
     <NavigationMenu.Root className="relative z-[1] flex w-full">
       <NavigationMenu.List className="m-0 flex w-[97vw] justify-between overflow-hidden list-none">
-        <div className="flex justify-between w-full max-w-screen-2xl lg:px-20 md:px-10 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{delay:1 ,ease:"easeInOut"}}
+          className="flex justify-between w-full max-w-screen-2xl lg:px-20 md:px-10 mx-auto"
+        >
           <div className="items-center flex">
             <NavigationMenu.Item>
               <NavigationMenu.Link
@@ -30,60 +37,64 @@ const NavigationMenuDemo = () => {
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <nav className=" mt-3.5 hidden lg:flex">
-            <NavigationMenu.Item>
-              <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
-                Men
-              </NavigationMenu.Trigger>
-              <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen">
-                <GenderMenCategory />
-              </NavigationMenu.Content>
-            </NavigationMenu.Item>
-            <NavigationMenu.Item>
-              <NavigationMenu.Trigger  className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
-                Women
-              </NavigationMenu.Trigger>
-              <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen border-b bg-white">
-                <GenderWomenCategory />
-              </NavigationMenu.Content>
-            </NavigationMenu.Item>
-            <NavigationMenu.Item>
-              <NavigationMenu.Trigger  className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
-                Brands
-              </NavigationMenu.Trigger>
-              <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute list-none top-0 left-0 w-screen border-b bg-white">
-                <div className="max-w-screen-xl mx-auto grid grid-cols-3  ">
-                {[
-                  { img: "woods.png", link: "woods" },
-                  { img: "woodsport.png", link: "woodsports" },
-                  { link: "askatingmonk", img: "askatingmonk.png" },
-                ].map((src, index) => (
-                  <ListItem key={index} href={`/collections?brand=${src.link}`}>
-                    <Image
-                      src={`/${src.img}`}
-                      className="rounded"
-                      height={450}
-                      width={500}
-                      alt="loading.."
-                    />
-                  </ListItem>
-                ))}
-                </div>
-              </NavigationMenu.Content>
-            </NavigationMenu.Item>
-           <div className="flex">
-           </div>{["About Us", "Labs", "Sale"].map((label, index) => (
-              <NavigationMenu.Item key={index}>
-                <NavigationMenu.Link
-                   className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none "
-                  href={`/${label
-                    .split(" ")[0]
-                    .toLowerCase()
-                    .replace(/\s/g, "")}`}
-                >
-                  {label}
-                </NavigationMenu.Link>
+              <NavigationMenu.Item>
+                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                  Men
+                </NavigationMenu.Trigger>
+                <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen">
+                  <GenderMenCategory />
+                </NavigationMenu.Content>
               </NavigationMenu.Item>
-            ))}</nav>
+              <NavigationMenu.Item>
+                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                  Women
+                </NavigationMenu.Trigger>
+                <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen border-b bg-white">
+                  <GenderWomenCategory />
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item>
+                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                  Brands
+                </NavigationMenu.Trigger>
+                <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute list-none top-0 left-0 w-screen border-b bg-white">
+                  <div className="max-w-screen-xl mx-auto grid grid-cols-3  ">
+                    {[
+                      { img: "woods.png", link: "woods" },
+                      { img: "woodsport.png", link: "woodsports" },
+                      { link: "askatingmonk", img: "askatingmonk.png" },
+                    ].map((src, index) => (
+                      <ListItem
+                        key={index}
+                        href={`/collections?brand=${src.link}`}
+                      >
+                        <Image
+                          src={`/${src.img}`}
+                          className="rounded"
+                          height={450}
+                          width={500}
+                          alt="loading.."
+                        />
+                      </ListItem>
+                    ))}
+                  </div>
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+              <div className="flex"></div>
+              {["About Us", "Labs", "Sale"].map((label, index) => (
+                <NavigationMenu.Item key={index}>
+                  <NavigationMenu.Link
+                    className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none "
+                    href={`/${label
+                      .split(" ")[0]
+                      .toLowerCase()
+                      .replace(/\s/g, "")}`}
+                  >
+                    {label}
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+              ))}
+            </nav>
           </div>
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
@@ -118,9 +129,7 @@ const NavigationMenuDemo = () => {
               </svg>
             </button>
           </div>
-        </div>
-
-       
+        </motion.div>
       </NavigationMenu.List>
 
       <div className="perspective-[2000px] absolute top-full left-0 right-0 flex w-full justify-center">
@@ -155,6 +164,6 @@ const ListItem = React.forwardRef<
   );
 });
 
-ListItem.displayName = "ListItem"
+ListItem.displayName = "ListItem";
 
 export default NavigationMenuDemo;

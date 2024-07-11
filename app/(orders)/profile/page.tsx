@@ -1,4 +1,5 @@
 "use client";
+import LoaderComponent from "@/components/common/Loader";
 import {
   Card,
   CardContent,
@@ -11,9 +12,12 @@ import { Input } from "@/components/ui/input";
 import useUserAuthQuery from "@/hooks/auth/queries";
 
 function ProfilePage() {
-  const { data } = useUserAuthQuery();
+  const { data,isLoading } = useUserAuthQuery();
 
   const phone = data?.phone.match(/^(\+\d{2})?\s?(\d{10})$/);
+
+
+  if(isLoading) return <LoaderComponent size={"screen"}/>
 
   return (
     <div className="grid gap-6">
