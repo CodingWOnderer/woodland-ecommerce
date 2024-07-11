@@ -88,4 +88,8 @@ export interface Color {
 
     productManufacturingData:Partial<IManufacturingInfo>|undefined
     setManufacturingInfo:(value:Partial<IManufacturingInfo>)=>void;
+
+
+    zoomDialouge:boolean;
+    setZoomDialouge:(value:boolean)=>void;
   };

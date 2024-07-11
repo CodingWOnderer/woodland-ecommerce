@@ -1,11 +1,8 @@
 "use client";
-import {  type StateCreator } from "zustand";
+import { type StateCreator } from "zustand";
 import { IManufacturingInfo, ZustandStoreProps } from "../types";
 
-
-
 const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
-  
   storeSheet: false,
   toggleStore: (value: boolean) => set({ storeSheet: value }),
   sidebar: false,
@@ -28,25 +25,24 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
         authForm: { ...state.authForm, setAuthSheet: value },
       })),
   },
-  filterSheet:false,
-  setFilterSheet:(value:boolean)=>set({filterSheet:value}),
+  filterSheet: false,
+  setFilterSheet: (value: boolean) => set({ filterSheet: value }),
 
-  sizeSheet:false,
-  setSizeSheet:(value:boolean)=>set({sizeSheet:value}),
+  sizeSheet: false,
+  setSizeSheet: (value: boolean) => set({ sizeSheet: value }),
 
+  division: "FOOTWEAR",
+  setDivision: (value: "FOOTWEAR" | "GARMENT") => set({ division: value }),
 
-  division:"FOOTWEAR",
-  setDivision:(value:"FOOTWEAR"|"GARMENT")=>set({division:value}),
+  infoSheet: false,
+  setInfoSheet: (values: boolean) => set({ infoSheet: values }),
 
+  productManufacturingData: undefined,
+  setManufacturingInfo: (value: Partial<IManufacturingInfo>) =>
+    set({ productManufacturingData: value }),
 
-  infoSheet:false,
-  setInfoSheet:(values:boolean)=>set({infoSheet:values}),
-
-  productManufacturingData:undefined,
-  setManufacturingInfo:(value:Partial<IManufacturingInfo>)=>set({productManufacturingData:value}),
+  zoomDialouge: false,
+  setZoomDialouge: (value: boolean) => set({ zoomDialouge: value }),
 });
 
-
-export default InMemoryStoreSlice
-
-
+export default InMemoryStoreSlice;

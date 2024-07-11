@@ -1,16 +1,17 @@
 "use client";
 import ContentLayout from "@/components/layout/ContentLayout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { AppearanceForm } from "@/components/forum/ProductCartForm";
 import useProductQuery from "@/hooks/product";
 import TopSellerCarousel from "@/components/common/TopSellerCarousel";
 import useWoodlandStoreData from "@/lib/store/store";
 import { AnimatePresence, motion } from "framer-motion";
+import ZoomImages from "@/components/common/ZoomImages";
 
 const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useProductQuery(id);
-  const { setDivision } = useWoodlandStoreData();
+  const { setDivision, zoomDialouge, setZoomDialouge } = useWoodlandStoreData();
 
   useEffect(
     () => setDivision(data?.data.category[1] as "FOOTWEAR" | "GARMENT"),
@@ -33,17 +34,19 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
     (item) => item.slug === id
   );
 
+  const handleImageClick = () => setZoomDialouge(window.innerWidth > 640);
+
   return (
     <AnimatePresence initial={false}>
       <ContentLayout>
         <AnimatePresence mode="wait">
-          <div className="mx-auto px-4   md:max-w-screen-2xl">
+          <div className="mx-auto px-4 md:max-w-screen-2xl">
             <motion.div
               key={id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ ease:"easeInOut" }}
+              transition={{ ease: "easeInOut" }}
               className="grid grid-cols-1   lg:grid-cols-5"
             >
               <div className="flex lg:col-span-3 flex-col gap-4 ">
@@ -63,7 +66,9 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
                           fill
                           src={item}
                           priority
+                          onClick={handleImageClick}
                           alt="skuImage"
+                          className=" sm:cursor-zoom-in"
                           placeholder="empty"
                           style={{
                             objectFit: "contain",
@@ -101,6 +106,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
             </motion.div>
           </div>
         </AnimatePresence>
+        <ZoomImages urls={currentProduct?.urls} />
         {/**Best Seller */}
         <section className=" px-4  mt-10 lg:mt-4  md:max-w-screen-2xl flex flex-col justify-center items-center space-y-8 pb-10 md:py-20">
           <h1 className="text-2xl lg:text-3xl  w-full font-bold tracking-tight text-primary">
