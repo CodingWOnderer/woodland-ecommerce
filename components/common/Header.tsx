@@ -18,7 +18,7 @@ const NavigationMenuDemo = () => {
           <div className="items-center flex">
             <NavigationMenu.Item>
               <NavigationMenu.Link
-                className=" block select-none rounded-[4px] px-3 text-[15px] font-medium leading-none no-underline outline-none focus:shadow-[0_0_0_2px]"
+                className=" block select-none rounded-[4px] px-3 text-[15px] font-medium leading-none no-underline outline-none "
                 href={"/"}
               >
                 <Image
