@@ -75,25 +75,25 @@ export function AppearanceForm({
 
   const { refetch, data } = usePincodeQuery(pincode);
   return (
-    <div>
+    <div className="w-full h-full">
       <Form {...form}>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 lg:text-3xl">
           {currentProduct?.title ?? ""}
         </h1>
 
-        <p className="text-lg mt-8 font-bold text-gray-900 sm:text-xl">
-          ₹ {currentProduct?.price}
+        <p className="text-2xl mt-8 text-gray-900 ">
+          ₹ {currentProduct?.price.toString()[0]}&nbsp;{currentProduct?.price.toString().slice(1)}
         </p>
         <span className="text-[13px] text-muted-foreground">
           Prices include taxes
         </span>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 my-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 my-4">
           <FormField
             control={form.control}
             name="colors"
             render={({ field }) => (
               <FormItem className="space-y-1">
-                <FormLabel>Colors</FormLabel>
+                <FormLabel className="text-lg font-semisemibold">Colors</FormLabel>
                 <FormMessage />
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -110,11 +110,11 @@ export function AppearanceForm({
                               className="sr-only"
                             />
                           </FormControl>
-                          <div className="items-center cursor-pointer w-fit rounded-md border-2 border-muted p-1 hover:border-accent">
+                          <div className="items-center bg-[#F0F0F0] cursor-pointer w-fit border-[1px] border-muted p-1 hover:border-accent">
                             <img
                               src={prod.urls[0]}
                               alt="Summer Travel Bag image"
-                              className="min-[400px]:h-[100px] aspect-square border-2 border-gray-100 rounded-xl transition-all duration-500 "
+                              className="  h-[50px] w-[50px] mix-blend-multiply border-gray-100 transition-all duration-500 "
                             />
                           </div>
                         </FormLabel>
@@ -132,17 +132,16 @@ export function AppearanceForm({
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <FormLabel className=" whitespace-nowrap flex justify-between ">
-                  <span>Size</span>
-                  <Button onClick={()=>setSizeSheet(!sizeSheet)} variant={"ghost"} className="text-primary font-bold">
+                  <span className="text-lg font-semibold">Size</span>
+                  <Button onClick={()=>setSizeSheet(!sizeSheet)} variant={"ghost"} className="text-primary uppercase text-xs font-semibold">
                     Size Guide
                   </Button>
                 </FormLabel>
-                <FormDescription>Select the size</FormDescription>
                 <FormMessage />
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex max-w-fit flex-wrap gap-x-4 pt-2"
+                  className="flex max-w-fit flex-wrap gap-x-4 "
                 >
                   {currentProduct?.sizes?.map((siz, ind) => (
                     <FormItem key={ind}>
@@ -150,7 +149,7 @@ export function AppearanceForm({
                         <FormControl>
                           <RadioGroupItem value={siz} className="sr-only" />
                         </FormControl>
-                        <div className="items-center cursor-pointer w-fit rounded-md border  p-6 hover:border-primary">
+                        <div className="items-center cursor-pointer w-fit border  p-5 px-8 hover:border-primary">
                           {siz}
                         </div>
                       </FormLabel>
@@ -166,13 +165,13 @@ export function AppearanceForm({
             name="pincode"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Free Delivery</FormLabel>
+                <FormLabel className="text-lg font-semibold">Free Delivery</FormLabel>
                 <FormDescription>
                   For orders above ₹1000. Delivery in 3-7 working days.
                 </FormDescription>
                 <FormControl>
-                  <div className="flex flex-col space-y-1">
-                    <div className="flex  border ">
+                  <div className="flex flex-col  space-y-1">
+                    <div className="flex bg-[#F0F0F0]  ">
                       <Input
                         {...field}
                         onChange={(e) => {
@@ -180,13 +179,13 @@ export function AppearanceForm({
                           setPincode(e.target.value);
                         }}
                         type="number"
-                        className="rounded-none border-none h-12 focus-visible:ring-0"
+                        className="rounded-none bg-[#F0F0F0] border-none h-12 focus-visible:ring-0"
                         placeholder="Enter Pincode"
                       />
                       <Badge
                         onClick={() => (pincode.length > 0 ? refetch() : "")}
                         className={cn(
-                          "text-xs m-1 ",
+                          "text-xs m-1 shadow-none rounded-none  hover:shadow-none",
                           getBadgeDetails(data).classes
                         )}
                       >
@@ -220,7 +219,7 @@ export function AppearanceForm({
                           form.setValue("quantitiy", (quantity - 1).toString());
                           setQuantity(quantity - 1);
                         }}
-                        className="rounded-r-none h-full"
+                        className="rounded-none h-full"
                       >
                         -
                       </Button>
@@ -232,7 +231,7 @@ export function AppearanceForm({
                           form.setValue("quantitiy", e.target.value);
                         }}
                         type="number"
-                        className="rounded-none w-full lg:w-14 h-full focus-visible:ring-0"
+                        className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />
                       <Button
                         type="button"
@@ -241,7 +240,7 @@ export function AppearanceForm({
                           form.setValue("quantitiy", (quantity + 1).toString());
                           setQuantity(quantity + 1);
                         }}
-                        className="rounded-l-none h-full"
+                        className="rounded-none h-full"
                       >
                         +
                       </Button>
@@ -284,7 +283,7 @@ export function AppearanceForm({
         <Accordion className="max-w-xl" type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger className="hover:no-underline ">
-              <span className="text-sm font-medium text-gray-900 :text-indigo-600">
+              <span className="text-lg font-bold text-gray-900">
                 MORE ABOUT THE PRODUCT
               </span>
             </AccordionTrigger>
@@ -301,7 +300,7 @@ export function AppearanceForm({
 
           <AccordionItem value="item-2">
             <AccordionTrigger className="hover:no-underline text-md">
-              <span className="text-sm font-medium text-gray-900 :text-indigo-600">
+              <span className="text-lg font-bold text-gray-900">
                 SHIPPING & RETURNS
               </span>
             </AccordionTrigger>

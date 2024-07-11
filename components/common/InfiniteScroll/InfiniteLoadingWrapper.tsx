@@ -53,7 +53,7 @@ const InfiniteLoadingWrapper = ({ params, children }: Props) => {
     useProductCardCollection({
       ...params,
       ...queryParams,
-      sort: sortFilter.length > 0 ? sortFilter : undefined,
+      ...(sortFilter.length > 0 && { sort: sortFilter }),
     });
 
   const infiniteLoaderRef = useCallback(
