@@ -10,6 +10,7 @@ import {
 } from "@/components/extension/carousel";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { FaStar } from "react-icons/fa6";
 
 const Image = dynamic(() => import("next/image"), { ssr: false });
 
@@ -69,15 +70,15 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
                   />
                 </div>
                 {item.discount > 0 && (
-                  <span className="absolute top-0 left-0 m-2 rounded-full bg-red-500 px-2 text-center text-xs sm:text-sm font-medium text-white">
-                    {`${item.discount}% OFF`}
+                  <span className="absolute top-0 left-0 m-2 bg-[#a31010] px-2 text-center text-xs font-medium text-white">
+                    {`${item.discount}%`}
                   </span>
                 )}
 
                 {item.bestseller === true ? (
-                  <span className="absolute z-10 bottom-0 left-0 m-2 rounded-full bg-primary px-2 text-center text-xs sm:text-sm  font-medium text-white">
-                    Bestseller
-                  </span>
+                  <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0"><FaStar /> <span className=" ml-2">
+                  Bestseller
+                </span></div>
                 ) : (
                   ""
                 )}

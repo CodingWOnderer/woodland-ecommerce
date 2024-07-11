@@ -10,6 +10,7 @@ import Image from "next/image";
 import { QueryParams } from "@/hooks/collections/types";
 import useBestsellerQuery from "@/hooks/bestseller/queries";
 import Link from "next/link";
+import { FaStar } from "react-icons/fa6";
 
 function TopSellerCarousel(
   params: Partial<
@@ -77,15 +78,15 @@ function TopSellerCarousel(
                     />
                   </div>
                   {item.discount > 0 && (
-                    <span className="absolute top-0 left-0 m-2 rounded-full bg-red-500 px-2 text-center text-xs sm:text-sm font-medium text-white">
-                      {`${item.discount}% OFF`}
-                    </span>
+                     <span className="absolute top-0 left-0 m-2 bg-[#a31010] px-2 text-center text-xs font-medium text-white">
+                     {`${item.discount}%`}
+                   </span>
                   )}
 
                   {item.bestSeller === true ? (
-                    <span className="absolute z-10 bottom-0 left-0 m-2 rounded-full bg-primary px-2 text-center text-xs sm:text-sm  font-medium text-white">
-                      Bestseller
-                    </span>
+                   <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0"><FaStar /> <span className=" ml-2">
+                    Bestseller
+                  </span></div>
                   ) : (
                     ""
                   )}
