@@ -8,7 +8,7 @@ const extraSubdivision = "ml-5 text-[13px] font-medium hover:text-gray-400 antia
 
 const GenderMenCategory: FC = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto">
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-2">
           <h3 className={headingStyle}>Woods</h3>

@@ -1,12 +1,5 @@
 "use client";
 import ContentLayout from "@/components/layout/ContentLayout";
-import {
-  Carousel,
-  CarouselMainContainer,
-  CarouselThumbsContainer,
-  SliderMainItem,
-  SliderThumbItem,
-} from "@/components/extension/carousel";
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { AppearanceForm } from "@/components/forum/ProductCartForm";
