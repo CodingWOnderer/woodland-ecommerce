@@ -20,6 +20,7 @@ const useProductQuery = (activeColor: string) => {
   return useQuery<ParsedProductData>({
     queryKey: ["product", activeColor],
     queryFn: () => fetchServiceability(activeColor),
+    
   });
 };
 

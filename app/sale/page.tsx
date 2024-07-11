@@ -5,10 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { salefemale, salemale } from "@/lib/model/data";
 import { motion } from "framer-motion";
+import FramerTransition from "@/components/common/FramerTransition";
 
 const SalePage = () => {
   return (
-    <ContentLayout>
+   <FramerTransition>
+     <ContentLayout>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -113,6 +115,7 @@ const SalePage = () => {
         </div>
       </motion.section>
     </ContentLayout>
+   </FramerTransition>
   );
 };
 

@@ -1,3 +1,4 @@
+import FramerTransition from "@/components/common/FramerTransition";
 import HeroSection from "@/components/common/HeroSection";
 import TopSellerCarousel from "@/components/common/TopSellerCarousel";
 import FrontProductCard from "@/components/FrontProductCard";
@@ -17,7 +18,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <ContentLayout>
+   <FramerTransition>
+     <ContentLayout>
       <HeroSection />
       <div className="md:container px-2 py-6 md:py-10 sm:grid-cols-2 grid lg:grid-cols-3 gap-6">
         {categoryCard.map((item, index) => (
@@ -234,5 +236,6 @@ export default function Home() {
         })}
       </div>
     </ContentLayout>
+   </FramerTransition>
   );
 }

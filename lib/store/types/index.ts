@@ -41,6 +41,21 @@ export interface Color {
     setAuthSheet: boolean;
     toggleAuthSheet: (value: boolean) => void;
   }
+
+
+  export interface IManufacturingInfo {
+    productCode: string;
+    articalCode: string;
+    division: string;
+    color: string;
+    Measurement: string;
+    Mrp: number;
+    MaterialUsed: string;
+    DesignedFor: string;
+    PackagingQty: string;
+    OriginCountry: string;
+    MarketedBy: string;
+  }
   
   export interface ZustandStoreProps  {
     storeSheet: boolean;
@@ -64,4 +79,13 @@ export interface Color {
 
     division:"FOOTWEAR"|"GARMENT";
     setDivision:(value:"FOOTWEAR"|"GARMENT")=>void;
+
+
+
+    infoSheet:boolean;
+    setInfoSheet:(value:boolean)=>void
+
+
+    productManufacturingData:Partial<IManufacturingInfo>|undefined
+    setManufacturingInfo:(value:Partial<IManufacturingInfo>)=>void;
   };

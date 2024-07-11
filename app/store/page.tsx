@@ -1,4 +1,5 @@
 "use client";
+import FramerTransition from "@/components/common/FramerTransition";
 import ContentLayout from "@/components/layout/ContentLayout";
 import { columns, TabledataStructure } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
@@ -20,7 +21,8 @@ const StorePage = () => {
   }, []);
 
   return (
-    <ContentLayout>
+   <FramerTransition>
+     <ContentLayout>
       <main className="min-h-screen pb-24">
         <div className="relative w-full mb-20 aspect-[9/2]  xl:aspect-[1902/335]">
           <Image
@@ -35,6 +37,7 @@ const StorePage = () => {
         <DataTable columns={columns} data={tableData} />
       </main>
     </ContentLayout>
+   </FramerTransition>
   );
 };
 

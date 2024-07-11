@@ -1,12 +1,15 @@
 import AboutSection from "@/components/common/AboutSection";
+import FramerTransition from "@/components/common/FramerTransition";
 import ContentLayout from "@/components/layout/ContentLayout";
+import { AnimatePresence } from "framer-motion";
 import React from "react";
 
 type Props = {};
 
 const AboutUsPAge = (props: Props) => {
   return (
-    <ContentLayout>
+  <FramerTransition>
+     <ContentLayout>
       <div className="md:m-8 md:mt-0 overflow-hidden md:rounded-2xl border">
         <AboutSection />
       </div>
@@ -28,6 +31,7 @@ const AboutUsPAge = (props: Props) => {
         </div>
       </div>
     </ContentLayout>
+  </FramerTransition>
   );
 };
 

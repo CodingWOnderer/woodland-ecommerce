@@ -3,6 +3,7 @@ import ContentLayout from "@/components/layout/ContentLayout";
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import FramerTransition from "@/components/common/FramerTransition";
 
 const LabsPage = () => {
   const FADE_DOWN_ANIMATION_VARIANTS = {
@@ -10,7 +11,8 @@ const LabsPage = () => {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
   return (
-    <ContentLayout>
+   <FramerTransition>
+     <ContentLayout>
       <div className="relative w-full aspect-[1902/335]">
         <Image
           src={"/labs/Labbanner.png"}
@@ -171,6 +173,7 @@ const LabsPage = () => {
         </div>
       </div>
     </ContentLayout>
+   </FramerTransition>
   );
 };
 

@@ -32,6 +32,7 @@ import ToggleButton from "../common/ToggleButton";
 import { ParsedProductData } from "./types";
 import Link from "next/link";
 import useWoodlandStoreData from "@/lib/store/store";
+import { IManufacturingInfo } from "@/lib/store/types";
 
 const appearanceFormSchema = z.object({
   colors: z.string(),
@@ -46,13 +47,21 @@ type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 export function AppearanceForm({
   productid,
   productData,
+  manufacturingInfo,
 }: {
   productid: string;
   productData: Pick<ParsedProductData, "data">;
+  manufacturingInfo: Partial<IManufacturingInfo>;
 }) {
   const [pincode, setPincode] = useState<string>("");
-  const [quantity, setQuantity] = useState(0);
-  const {setSizeSheet,sizeSheet} =useWoodlandStoreData();
+  const [quantity, setQuantity] = useState(1);
+  const {
+    setSizeSheet,
+    sizeSheet,
+    infoSheet,
+    setInfoSheet,
+    setManufacturingInfo,
+  } = useWoodlandStoreData();
 
   const currentProduct = productData.data.productMeta.find(
     (item) => item.slug === productid
@@ -63,7 +72,7 @@ export function AppearanceForm({
     defaultValues: {
       colors: currentProduct?.slug,
       size: currentProduct?.sizes?.[0],
-      quantitiy: "",
+      quantitiy: "1",
       like: "false",
       pincode: "",
     },
@@ -73,7 +82,7 @@ export function AppearanceForm({
     console.log(data);
   }
 
-  const { refetch, data } = usePincodeQuery(pincode);
+  const { refetch, data, status } = usePincodeQuery(pincode);
   return (
     <div className="w-full h-full">
       <Form {...form}>
@@ -82,7 +91,8 @@ export function AppearanceForm({
         </h1>
 
         <p className="text-2xl mt-8 text-gray-900 ">
-          ₹ {currentProduct?.price.toString()[0]}&nbsp;{currentProduct?.price.toString().slice(1)}
+          ₹ {currentProduct?.price.toString()[0]}&nbsp;
+          {currentProduct?.price.toString().slice(1)}
         </p>
         <span className="text-[13px] text-muted-foreground">
           Prices include taxes
@@ -93,7 +103,9 @@ export function AppearanceForm({
             name="colors"
             render={({ field }) => (
               <FormItem className="space-y-1">
-                <FormLabel className="text-lg font-semisemibold">Colors</FormLabel>
+                <FormLabel className="text-lg font-semisemibold">
+                  Colors
+                </FormLabel>
                 <FormMessage />
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -133,7 +145,11 @@ export function AppearanceForm({
               <FormItem className="space-y-1">
                 <FormLabel className=" whitespace-nowrap flex justify-between ">
                   <span className="text-lg font-semibold">Size</span>
-                  <Button onClick={()=>setSizeSheet(!sizeSheet)} variant={"ghost"} className="text-primary uppercase text-xs font-semibold">
+                  <Button
+                    onClick={() => setSizeSheet(!sizeSheet)}
+                    variant={"ghost"}
+                    className="text-primary uppercase text-xs font-semibold"
+                  >
                     Size Guide
                   </Button>
                 </FormLabel>
@@ -165,7 +181,9 @@ export function AppearanceForm({
             name="pincode"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-lg font-semibold">Free Delivery</FormLabel>
+                <FormLabel className="text-lg font-semibold">
+                  Free Delivery
+                </FormLabel>
                 <FormDescription>
                   For orders above ₹1000. Delivery in 3-7 working days.
                 </FormDescription>
@@ -178,6 +196,7 @@ export function AppearanceForm({
                           field.onChange(e);
                           setPincode(e.target.value);
                         }}
+                        min={1}
                         type="number"
                         className="rounded-none bg-[#F0F0F0] border-none h-12 focus-visible:ring-0"
                         placeholder="Enter Pincode"
@@ -192,7 +211,12 @@ export function AppearanceForm({
                         Check
                       </Badge>
                     </div>
-                    <FormDescription className="h-4">
+                    <FormDescription
+                      className={cn(
+                        data?.code === 200 ? "text-primary" : "text-red-500",
+                        "h-4"
+                      )}
+                    >
                       {getBadgeDetails(data).text === "Check"
                         ? ""
                         : getBadgeDetails(data).text}
@@ -365,6 +389,21 @@ export function AppearanceForm({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        <button
+          onClick={() => {
+            setInfoSheet(!infoSheet);
+            setManufacturingInfo({
+              ...manufacturingInfo,
+              Measurement:
+                form.getValues("size").length > 0
+                  ? form.getValues("size")
+                  : undefined,
+            });
+          }}
+          className="text-sm mt-4 text-black/40 underline"
+        >
+          IMPORT, MANUFACTURING & PACKAGING INFO
+        </button>
       </Form>
     </div>
   );

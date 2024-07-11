@@ -4,7 +4,6 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Raleway } from "next/font/google";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
-import FramerTransition from "@/components/common/FramerTransition";
 import CartSheet from "@/components/common/cartSheet";
 import NavigationSheet from "@/components/common/navigationSheet";
 import TopSearchSheet from "@/components/common/TopSearchSheet";
@@ -12,6 +11,7 @@ import AuthSheet from "@/components/common/authSheet";
 import { AuthProvider } from "@/components/common/AuthWrapper";
 import FilterSheet from "@/components/common/FilterSheet";
 import SizeSheet from "@/components/common/sizeSheet";
+import ManufacturingInfoSheet from "@/components/common/ManufacturingSheet";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -31,16 +31,15 @@ export default function RootLayout({
       <ReactQueryProvider>
         <AuthProvider>
           <body className={raleway.className}>
-            <FramerTransition>
-              {children}
-              <Toaster />
-              <AuthSheet />
-              <TopSearchSheet />
-              <NavigationSheet />
-              <CartSheet />
-              <FilterSheet/>
-              <SizeSheet/>
-            </FramerTransition>
+            {children}
+            <Toaster />
+            <AuthSheet />
+            <TopSearchSheet />
+            <NavigationSheet />
+            <CartSheet />
+            <FilterSheet />
+            <SizeSheet />
+            <ManufacturingInfoSheet />
           </body>
         </AuthProvider>
       </ReactQueryProvider>

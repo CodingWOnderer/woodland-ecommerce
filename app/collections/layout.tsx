@@ -1,3 +1,4 @@
+import FramerTransition from "@/components/common/FramerTransition";
 import ContentLayout from "@/components/layout/ContentLayout";
 import React from "react";
 
@@ -6,7 +7,9 @@ const CollectionLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return <ContentLayout>{children}</ContentLayout>;
+  return <FramerTransition>
+    <ContentLayout>{children}</ContentLayout>
+  </FramerTransition>;
 };
 
 export default CollectionLayout;

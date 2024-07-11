@@ -1,6 +1,6 @@
 "use client";
 import {  type StateCreator } from "zustand";
-import { ZustandStoreProps } from "../types";
+import { IManufacturingInfo, ZustandStoreProps } from "../types";
 
 
 
@@ -36,7 +36,14 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
 
 
   division:"FOOTWEAR",
-  setDivision:(value:"FOOTWEAR"|"GARMENT")=>set({division:value})
+  setDivision:(value:"FOOTWEAR"|"GARMENT")=>set({division:value}),
+
+
+  infoSheet:false,
+  setInfoSheet:(values:boolean)=>set({infoSheet:values}),
+
+  productManufacturingData:undefined,
+  setManufacturingInfo:(value:Partial<IManufacturingInfo>)=>set({productManufacturingData:value}),
 });
 
 
