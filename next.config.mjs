@@ -6,7 +6,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.woodlandworldwide.app",
         port: "",
-        pathname: "/compressed/images/**",
+        pathname: "/**",
       },
       {
         protocol: "https",
