@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -20,10 +19,8 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import Link from "next/link";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { VerifyGuestLoginPayload } from "@/hooks/auth/mutation";
-import { useRouter } from "next/navigation";
 import { useAuth } from "../common/AuthWrapper";
 import useWoodlandStoreData from "@/lib/store/store";
 
@@ -31,7 +28,7 @@ const formSchema = z.object({
   otp: z.string().length(6, {
     message: "OTP must be exactly 6 digits.",
   }),
-  agree: z.boolean(),
+
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -65,14 +62,13 @@ export function VerifyOtpForm({
   const {
     authForm: { userPhone, setVerifyForm },
   } = useWoodlandStoreData();
-  const router = useRouter();
   const {setIsAuthenticated} = useAuth()
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       otp: "",
-      agree: false,
+
     },
   });
 
@@ -98,7 +94,7 @@ export function VerifyOtpForm({
                   setVerifyForm(false);
                   toggleAuthSheet(false);
                   setIsAuthenticated(true);
-                  router.push("/orders");
+           
                 },
               }
             );
@@ -124,21 +120,19 @@ export function VerifyOtpForm({
                         className="h-12 bg-muted w-full"
                         index={1}
                       />
-                    </InputOTPGroup>
-                    <InputOTPSeparator />
-                    <InputOTPGroup className="w-full">
-                      <InputOTPSlot
+                        <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={2}
                       />
+                    </InputOTPGroup>
+                    <InputOTPSeparator />
+                    <InputOTPGroup className="w-full">
+                    
                       <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={3}
                       />
-                    </InputOTPGroup>
-                    <InputOTPSeparator />
-                    <InputOTPGroup className="w-full">
-                      <InputOTPSlot
+                        <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={4}
                       />
@@ -147,58 +141,16 @@ export function VerifyOtpForm({
                         index={5}
                       />
                     </InputOTPGroup>
+                  
+                    
+                   
                   </InputOTP>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="agree"
-            render={({ field }) => (
-              <FormItem className="flex space-y-0 space-x-2 items-start justify-start ">
-                <FormControl>
-                  <Checkbox
-                    className="m-0"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel className="flex  mt-0">
-                  <span className=" flex font-normal text-nowrap text-xs">
-                    By continuing, I agree to the &nbsp;
-                  </span>
-                  <Link
-                    style={{
-                      textDecoration: "underline",
-                      color: "#303030",
-                      fontWeight: 500,
-                    }}
-                    className="text-xs whitespace-nowrap"
-                    href="/term-of-service"
-                  >
-                    Terms of use
-                  </Link>{" "}
-                  <span className=" flex font-normal text-nowrap text-xs">
-                    &nbsp; and &nbsp;
-                  </span>
-                  <Link
-                    style={{
-                      textDecoration: "underline",
-                      color: "#303030",
-                      fontWeight: "500",
-                    }}
-                    className="text-xs whitespace-nowrap"
-                    href="/compliance/privacy"
-                  >
-                    Privacy Policy
-                  </Link>
-                </FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        
           <Button
             className="rounded-none font-semibold w-full h-12"
             type="submit"

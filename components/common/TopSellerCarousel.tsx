@@ -56,7 +56,7 @@ function TopSellerCarousel(
           currentSlider?.map((item, index) => (
             <CarouselItem
               key={index}
-              className="pl-1 cursor-pointer hover:border-primary hover:border-2   mx-2  base-1/4 md:basis-1/4  xl:basis-1/5 "
+              className="pl-1 cursor-pointer mx-2  base-1/4 md:basis-1/4  xl:basis-1/5 "
             >
               <div>
                 <Link
