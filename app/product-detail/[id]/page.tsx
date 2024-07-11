@@ -17,7 +17,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
     [data?.data.category[1]]
   );
 
-  if (isLoading) return <div>Hello</div>;
+  if (isLoading) return <div className="border min-h-screen min-w-screen mix-blend-multiply flex justify-center items-center"><Image src={"/woodland-loader.gif"} height={400} width={400} alt="Woodland"/></div>;
 
   const currentProduct = data?.data.productMeta.find(
     (item) => item.slug === id
