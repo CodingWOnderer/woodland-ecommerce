@@ -152,6 +152,7 @@ export function AppearanceForm({
                   <Button
                     onClick={() => setSizeSheet(!sizeSheet)}
                     variant={"ghost"}
+                    disabled={productData.data.sizes[0].size === "No Size"}
                     className="text-primary uppercase text-xs font-semibold"
                   >
                     Size Guide
