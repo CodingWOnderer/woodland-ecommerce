@@ -60,3 +60,35 @@ export const constructParams = (params: Record<string, string | string[]>): URLS
   });
   return searchParams;
 };
+
+
+
+
+
+
+
+type SKUSize = {
+  quantity: number;
+  size: string;
+  variantID: string;
+  dimension: string;
+};
+
+const sizeOrder = ["XS", "S", "M", "L", "XL", "XXL"];
+
+export function sortBySize(skuSize: SKUSize[]): SKUSize[] {
+  return skuSize.sort((a, b) => {
+    if (sizeOrder.includes(a.size) && sizeOrder.includes(b.size)) {
+      return sizeOrder.indexOf(a.size) - sizeOrder.indexOf(b.size);
+    }
+   
+    if (sizeOrder.includes(a.size)) {
+      return -1;
+    }
+    if (sizeOrder.includes(b.size)) {
+      return 1;
+    }
+   
+    return parseInt(a.size) - parseInt(b.size);
+  });
+}

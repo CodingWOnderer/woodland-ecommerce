@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { cn, getBadgeDetails } from "@/lib/utils";
+import { cn, getBadgeDetails, sortBySize } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -55,6 +55,7 @@ export function AppearanceForm({
 }) {
   const [pincode, setPincode] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
+
   const {
     setSizeSheet,
     sizeSheet,
@@ -71,7 +72,7 @@ export function AppearanceForm({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
       colors: currentProduct?.slug,
-      size: currentProduct?.sizes?.[0],
+      size: productData.data.sizes.find((siz) => siz.quantity > 0)?.size,
       quantitiy: "1",
       like: "false",
       pincode: "",
@@ -159,18 +160,39 @@ export function AppearanceForm({
                   defaultValue={field.value}
                   className="flex max-w-fit flex-wrap gap-x-4 "
                 >
-                  {currentProduct?.sizes?.map((siz, ind) => (
-                    <FormItem key={ind}>
-                      <FormLabel className="[&:has([data-state=checked])>div]:border-primary [&:has([data-state=checked])>div]:bg-primary [&:has([data-state=checked])>div]:text-primary-foreground [&:has([data-state=checked])>div]:transition-all">
-                        <FormControl>
-                          <RadioGroupItem value={siz} className="sr-only" />
-                        </FormControl>
-                        <div className="items-center cursor-pointer w-fit border  p-5 px-8 hover:border-primary">
-                          {siz}
-                        </div>
-                      </FormLabel>
-                    </FormItem>
-                  ))}
+                  {sortBySize(productData.data.sizes).map((siz, ind) => {
+                    console.log(siz.quantity);
+                    return (
+                      <FormItem key={ind}>
+                        <FormLabel className="[&:has([data-state=checked])>div]:border-primary [&:has([data-state=checked])>div]:bg-primary [&:has([data-state=checked])>div]:text-primary-foreground [&:has([data-state=checked])>div]:transition-all">
+                          <FormControl>
+                            <RadioGroupItem
+                              value={siz.size}
+                              className="sr-only"
+                              disabled={siz.quantity === 0}
+                            />
+                          </FormControl>
+                          {siz.quantity > 0 ? (
+                            <div className="items-center cursor-pointer w-fit border  p-5 px-8 hover:border-primary">
+                              {siz.size}
+                            </div>
+                          ) : (
+                            <>
+                              <div
+                                className="items-center w-fit border relative cursor-not-allowed border-red-300/40 text-red-500/50 bg-red-100 after:h-[180%]
+                          after:rotate-[56deg] overflow-hidden after:border-[0.5px] after:absolute after:border-red-300/40 after:left-1/2 after:right-1/2 after:content-[''] after:-top-5    p-5 px-8 "
+                              >
+                                {siz.size}
+                              </div>
+                              <div className=" mx-auto mt-1 w-full  text-center text-[10px] text-gray-500">
+                                Sold Out
+                              </div>
+                            </>
+                          )}
+                        </FormLabel>
+                      </FormItem>
+                    );
+                  })}
                 </RadioGroup>
               </FormItem>
             )}
