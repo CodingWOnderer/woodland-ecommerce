@@ -72,7 +72,10 @@ export function AppearanceForm({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
       colors: currentProduct?.slug,
-      size: productData.data.sizes.find((siz) => siz.quantity > 0)?.size,
+      size:
+        productData.data.sizes.find(
+          (siz) => siz.quantity > 0 && siz.size !== "No Size"
+        )?.size ?? "",
       quantitiy: "1",
       like: "false",
       pincode: "",
@@ -169,26 +172,34 @@ export function AppearanceForm({
                             <RadioGroupItem
                               value={siz.size}
                               className="sr-only"
-                              disabled={siz.quantity === 0}
+                              disabled={
+                                siz.quantity === 0 || siz.size === "No Size"
+                              }
                             />
                           </FormControl>
-                          {siz.quantity > 0 ? (
-                            <div className="items-center cursor-pointer w-fit border  p-5 px-8 hover:border-primary">
-                              {siz.size}
-                            </div>
-                          ) : (
-                            <>
-                              <div
-                                className="items-center w-fit border relative cursor-not-allowed border-red-300/40 text-red-500/50 bg-red-100 after:h-[180%]
-                          after:rotate-[56deg] overflow-hidden after:border-[0.5px] after:absolute after:border-red-300/40 after:left-1/2 after:right-1/2 after:content-[''] after:-top-5    p-5 px-8 "
-                              >
+                          <div>
+                            {siz.size === "No Size" ? (
+                              <div className="items-center bg-gray-200 border border-black/10 w-fit text-gray-950/40  p-5 px-8 cursor-not-allowed">
                                 {siz.size}
                               </div>
-                              <div className=" mx-auto mt-1 w-full  text-center text-[10px] text-gray-500">
-                                Sold Out
+                            ) : siz.quantity > 0 ? (
+                              <div className="items-center cursor-pointer w-fit border p-5 px-8 hover:border-primary">
+                                {siz.size}
                               </div>
-                            </>
-                          )}
+                            ) : (
+                              <>
+                                <div
+                                  className="items-center w-fit border relative cursor-not-allowed border-red-300/40 text-red-500/50 bg-red-100 after:h-[180%]
+        after:rotate-[56deg] overflow-hidden after:border-[0.5px] after:absolute after:border-red-300/40 after:left-1/2 after:right-1/2 after:content-[''] after:-top-5 p-5 px-8"
+                                >
+                                  {siz.size}
+                                </div>
+                                <div className="mx-auto mt-1 w-full text-center text-[10px] text-gray-500">
+                                  Sold Out
+                                </div>
+                              </>
+                            )}
+                          </div>
                         </FormLabel>
                       </FormItem>
                     );
