@@ -51,7 +51,7 @@ const AuthSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-        <div className="min-h-[86vh] flex justify-center py-16 border-b">
+        <div className="min-h-[83vh] flex justify-center py-16 border-b">
           {!verifyForm ? (
             <motion.div
               initial={{ opacity: 0, x: 60 }}

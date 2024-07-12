@@ -62,6 +62,8 @@ export function AppearanceForm({
     infoSheet,
     setInfoSheet,
     setManufacturingInfo,
+    addItemToCart,
+    toggleStore,
   } = useWoodlandStoreData();
 
   const currentProduct = productData.data.productMeta.find(
@@ -83,10 +85,19 @@ export function AppearanceForm({
   });
 
   function onSubmit(data: AppearanceFormValues) {
-    console.log(data);
+    addItemToCart({
+      id: productid,
+      name: currentProduct?.title ?? "",
+      price: currentProduct?.offerPrice,
+      quantity: Number(data.quantitiy) ?? 1,
+      size: data.size,
+      color: data.colors ?? "",
+      imageURL: currentProduct?.urls[0] ?? "",
+    });
+    toggleStore(true);
   }
 
-  const { refetch, data, status } = usePincodeQuery(pincode);
+  const { refetch, data } = usePincodeQuery(pincode);
   return (
     <div className="w-full h-full">
       <Form {...form}>
@@ -165,7 +176,6 @@ export function AppearanceForm({
                   className="flex max-w-fit flex-wrap gap-x-4 "
                 >
                   {sortBySize(productData.data.sizes).map((siz, ind) => {
-                    console.log(siz.quantity);
                     return (
                       <FormItem key={ind}>
                         <FormLabel className="[&:has([data-state=checked])>div]:border-primary [&:has([data-state=checked])>div]:bg-primary [&:has([data-state=checked])>div]:text-primary-foreground [&:has([data-state=checked])>div]:transition-all">

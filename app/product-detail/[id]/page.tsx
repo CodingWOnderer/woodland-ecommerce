@@ -11,7 +11,7 @@ import ZoomImages from "@/components/common/ZoomImages";
 
 const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useProductQuery(id);
-  const { setDivision, zoomDialouge, setZoomDialouge } = useWoodlandStoreData();
+  const { setDivision, setZoomDialouge } = useWoodlandStoreData();
 
   useEffect(
     () => setDivision(data?.data.category[1] as "FOOTWEAR" | "GARMENT"),
