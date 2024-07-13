@@ -33,6 +33,7 @@ import { ParsedProductData } from "./types";
 import Link from "next/link";
 import useWoodlandStoreData from "@/lib/store/store";
 import { IManufacturingInfo } from "@/lib/store/types";
+import { useGoToCartMutation } from "@/hooks/cart/mutation";
 
 const appearanceFormSchema = z.object({
   colors: z.string(),
@@ -64,7 +65,10 @@ export function AppearanceForm({
     setManufacturingInfo,
     addItemToCart,
     toggleStore,
+    updateCartItem,
+    items: cartItems,
   } = useWoodlandStoreData();
+  const { mutate, isPending } = useGoToCartMutation();
 
   const currentProduct = productData.data.productMeta.find(
     (item) => item.slug === productid
@@ -85,16 +89,43 @@ export function AppearanceForm({
   });
 
   function onSubmit(data: AppearanceFormValues) {
-    addItemToCart({
-      id: productid,
+    const newItem = {
+      id:
+        productData.data.sizes.find((item) => item.size === data.size)
+          ?.variantID ?? "",
       name: currentProduct?.title ?? "",
       price: currentProduct?.offerPrice,
       quantity: Number(data.quantitiy) ?? 1,
       size: data.size,
       color: data.colors ?? "",
       imageURL: currentProduct?.urls[0] ?? "",
-    });
-    toggleStore(true);
+    };
+
+    mutate(
+      {
+        variants: addItemToCart(newItem).map((item) => ({
+          id: item.id,
+          orderQuantity: item.quantity,
+        })),
+        circle: "woodland",
+      },
+      {
+        onSuccess: (data) => {
+          data.data.map((cart) =>
+            updateCartItem({
+              id: cart.variantId,
+              price: cart.offerPrice || cart.price,
+              quantity: cart.selectedQty,
+              name: cart.title,
+              color: cart.color,
+              size: cart.size,
+              imageURL: cart.url,
+            })
+          );
+          toggleStore(true);
+        },
+      }
+    );
   }
 
   const { refetch, data } = usePincodeQuery(pincode);
@@ -323,7 +354,9 @@ export function AppearanceForm({
               type="submit"
             >
               <IoCartOutline size={24} />
-              <span className="font-semibold text-lg">Add To Cart</span>
+              <span className="font-semibold text-lg">
+                {isPending ? "Adding To Cart...." : "Add To Cart"}
+              </span>
             </Button>
 
             <FormField

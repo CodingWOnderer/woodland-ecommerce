@@ -43,6 +43,17 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
 
   zoomDialouge: false,
   setZoomDialouge: (value: boolean) => set({ zoomDialouge: value }),
+
+  cancelSheet: {
+    subOrderId: "",
+    orderId: "",
+    drawer: false,
+  },
+  setCancelSheet: (value: {
+    subOrderId: string;
+    orderId: string;
+    drawer: boolean;
+  }) => set({ cancelSheet: value }),
 });
 
 export default InMemoryStoreSlice;

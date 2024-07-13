@@ -1,6 +1,6 @@
 "use client";
 import ContentLayout from "@/components/layout/ContentLayout";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { AppearanceForm } from "@/components/forum/ProductCartForm";
 import useProductQuery from "@/hooks/product";

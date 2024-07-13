@@ -13,7 +13,7 @@ interface CartItem {
 
 export interface CartState {
   items: CartItem[];
-  addItemToCart: (item: CartItem) => void;
+  addItemToCart: (item: CartItem) => CartItem[];
   removeItemFromCart: (id: string) => void;
   adjustQuantity: (id: string, quantity: number) => void;
   updateCartItem: (item: Partial<CartItem> & { id: string }) => void;
@@ -26,9 +26,9 @@ export interface UserState {
   removeUser: () => void;
 }
 
-export const cartStoreSlice: StateCreator<CartState> = (set) => ({
+export const cartStoreSlice: StateCreator<CartState> = (set, get) => ({
   items: [],
-  addItemToCart: (item) =>
+  addItemToCart: (item) => {
     set((state) => {
       const existingItem = state.items.find((i) => i.id === item.id);
       if (existingItem) {
@@ -42,7 +42,10 @@ export const cartStoreSlice: StateCreator<CartState> = (set) => ({
       } else {
         return { items: [...state.items, item] };
       }
-    }),
+    });
+
+    return get().items;
+  },
   removeItemFromCart: (id) =>
     set((state) => ({
       items: state.items.filter((item) => item.id !== id),

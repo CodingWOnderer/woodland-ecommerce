@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Sheet,
   SheetContent,
@@ -16,9 +16,6 @@ const TopSearchSheet = () => {
   const { searchSheet, toggleSearchSheet, searchProduct, setSearch } =
     useWoodlandStoreData();
 
-  useEffect(() => {
-    console.log(searchProduct);
-  }, [searchProduct]);
   return (
     <Sheet open={searchSheet} onOpenChange={(e) => toggleSearchSheet(e)}>
       <SheetContent

@@ -23,10 +23,15 @@ import { ScrollArea } from "../ui/scroll-area";
 import Image from "next/image";
 import useWoodlandStoreData from "@/lib/store/store";
 import Link from "next/link";
+import { useAuth } from "./AuthWrapper";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const CartSheet = () => {
-  const { storeSheet, toggleStore, items, removeItemFromCart } =
+  const { storeSheet, toggleStore, items, removeItemFromCart, authForm } =
     useWoodlandStoreData();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
   return (
     <Sheet open={storeSheet} onOpenChange={(e) => toggleStore(e)}>
       <SheetContent className="sm:min-w-[500px] min-w-[100vw]">
@@ -128,12 +133,16 @@ const CartSheet = () => {
                 </p>
               </div>
               <div className="mt-2">
-                <a
-                  href="#"
-                  className="flex items-center justify-center  border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary rounded-none"
+                <Button
+                  onClick={() =>
+                    isAuthenticated
+                      ? router.push("")
+                      : authForm.toggleAuthSheet(true)
+                  }
+                  className="flex w-full items-center justify-center  border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary rounded-none"
                 >
                   Checkout
-                </a>
+                </Button>
               </div>
               <div className="flex justify-center items-center">
                 {" "}

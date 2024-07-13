@@ -12,6 +12,7 @@ import { AuthProvider } from "@/components/common/AuthWrapper";
 import FilterSheet from "@/components/common/FilterSheet";
 import SizeSheet from "@/components/common/sizeSheet";
 import ManufacturingInfoSheet from "@/components/common/ManufacturingSheet";
+import CancelSheet from "@/components/common/cancelSheet";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
             <CartSheet />
             <FilterSheet />
             <SizeSheet />
+            <CancelSheet />
             <ManufacturingInfoSheet />
           </body>
         </AuthProvider>

@@ -19,8 +19,8 @@ const config = {
     },
     extend: {
       cursor: {
-        'zoom-out': 'url(/zoom-out.svg), auto',
-        'zoom-in': 'url(/zoom-in.svg), auto',
+        "zoom-out": "url(/zoom-out.svg), auto",
+        "zoom-in": "url(/zoom-in.svg), auto",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -78,7 +78,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 } satisfies Config;
 
 export default config;
