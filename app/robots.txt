@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /orders
+Disallow: /shipping
+Disallow: /success
+Disallow: /compliance/privacy
+Disallow: /compliance/terms
+Disallow: /compliance/refund
+Disallow: /payment

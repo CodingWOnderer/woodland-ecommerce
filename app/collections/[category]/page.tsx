@@ -11,13 +11,69 @@ import { useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import FilterHeader from "@/components/common/FilterHeader";
 import LoaderComponent from "@/components/common/Loader";
+import { Metadata } from "next";
 
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
-  { loading: () => <div className="h-full w-full"><Skeleton className="h-full w-full"/></div> }
+  {
+    loading: () => (
+      <div className="h-full w-full">
+        <Skeleton className="h-full w-full" />
+      </div>
+    ),
+  }
 );
 
-const CollectionCategoryPage = (category:{para:string}) => {
+interface PageProps {
+  params: {
+    category: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const getProduct = async (
+  slug: string,
+  gender: string | string[] | undefined,
+  brand: string | string[] | undefined
+) => {
+  const url = `https://capcons.com/go-products/category?category=${slug}&gender=${gender}&circle=woodland${
+    brand ? `&brand=${brand}` : ""
+  }`;
+
+  try {
+    const response = await fetch(url, {
+      cache: "no-cache",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch product data: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export async function generateMetadata({
+  params: { category },
+  searchParams: { gender, brand },
+}: PageProps): Promise<Metadata> {
+  const product = await getProduct(category, gender, brand);
+
+  return {
+    title: `Woodland ${product.data.title}`,
+    description: product.data.description,
+    openGraph: {
+      images: product.data.image,
+      title: product.data.title,
+      description: product.data.description,
+    },
+  };
+}
+
+const CollectionCategoryPage = (category: { para: string }) => {
   const search = useSearchParams();
   const searchParamsObject: Record<string, string> = {};
 
@@ -26,7 +82,6 @@ const CollectionCategoryPage = (category:{para:string}) => {
       searchParamsObject[key] = value;
     }
   });
-
 
   const renderCards = useCallback((data: InfiniteLoaderProps | undefined) => {
     if (data?.isLoading) return <div>Loading...</div>;
@@ -63,14 +118,17 @@ const CollectionCategoryPage = (category:{para:string}) => {
     );
   }, []);
 
- 
   return (
     <div className="max-w-screen-2xl min-h-screen pb-20 px-4 m-auto">
       <InfiniteLoadingWrapper
-        params={{ circle: "woodland", ...searchParamsObject,category:category.para }}
+        params={{
+          circle: "woodland",
+          ...searchParamsObject,
+          category: category.para,
+        }}
       >
-        <CategoryInfo  {...searchParamsObject } category={category.para}/>
-        <FilterHeader/>
+        <CategoryInfo {...searchParamsObject} category={category.para} />
+        <FilterHeader />
         <div className="w-full min-h-screen">
           <InfiniteLoaderContext.Consumer>
             {renderCards}
@@ -81,9 +139,13 @@ const CollectionCategoryPage = (category:{para:string}) => {
   );
 };
 
-const WrappedCollectionCategoryPage = ({params}:{params:{category:string}}) => (
-  <Suspense fallback={<LoaderComponent size="screen"/>}>
-    <CollectionCategoryPage para={params.category}/>
+const WrappedCollectionCategoryPage = ({
+  params,
+}: {
+  params: { category: string };
+}) => (
+  <Suspense fallback={<LoaderComponent size="screen" />}>
+    <CollectionCategoryPage para={params.category} />
   </Suspense>
 );
 

@@ -11,10 +11,24 @@ import {
 import { Input } from "../ui/input";
 import { IoMdClose } from "react-icons/io";
 import useWoodlandStoreData from "@/lib/store/store";
+import { useRouter } from "next/navigation";
 
 const TopSearchSheet = () => {
   const { searchSheet, toggleSearchSheet, searchProduct, setSearch } =
     useWoodlandStoreData();
+  const router = useRouter();
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (searchProduct.trim()) {
+        router.push(
+          `/collections?search=${encodeURIComponent(searchProduct.trim())}`
+        );
+        toggleSearchSheet(false);
+      }
+    }
+  };
 
   return (
     <Sheet open={searchSheet} onOpenChange={(e) => toggleSearchSheet(e)}>
@@ -28,6 +42,7 @@ const TopSearchSheet = () => {
               <Input
                 type={"search"}
                 value={searchProduct}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setSearch(e.target.value)}
                 className="bg-background flex-1"
                 placeholder="Search Products...."
