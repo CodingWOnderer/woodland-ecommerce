@@ -1,8 +1,10 @@
+"use client";
 import { SubOrder, UserOrder } from "@/hooks/orders/types";
 import React from "react";
 import { Button, buttonVariants } from "./ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import useWoodlandStoreData from "@/lib/store/store";
 
 type subOrder = Omit<SubOrder, "status">;
 
@@ -15,11 +17,27 @@ type OrderComponentData = subOrder & {
   orderDetailPage?: boolean;
 };
 const OrderComponent = (props: OrderComponentData) => {
+  const { setCancelSheet } = useWoodlandStoreData();
   return (
     <div className="w-full  max-w-7xl px-4  lg-6 mx-auto">
-      <div className="pt-6  max-lg:mx-auto lg:max-w-full">
-        <div className="flex flex-col  lg:flex-row lg:items-center justify-between lg:px-6 pb-3 sm:pb-6 border-b border-gray-200">
-          <div className="flex w-full flex-col lg:flex-row lg:items-center justify-between lg:justify-normal lg:space-x-8">
+      <div
+        className={cn(
+          "pt-6  max-lg:mx-auto lg:max-w-full",
+          props.orderDetailPage ? "pt-0" : ""
+        )}
+      >
+        <div
+          className={cn(
+            "flex flex-col  lg:flex-row lg:items-center justify-between lg:px-6 pb-3 sm:pb-6 border-b border-gray-200",
+            props.orderDetailPage ? "border-none" : ""
+          )}
+        >
+          <div
+            className={cn(
+              "flex w-full flex-col lg:flex-row lg:items-center justify-between lg:justify-normal lg:space-x-8",
+              props.orderDetailPage ? "hidden" : ""
+            )}
+          >
             <p className="font-semibold  text-base leading-7 text-black">
               Order Id:{" "}
               <span className="text-primary font-semibold">
@@ -28,7 +46,9 @@ const OrderComponent = (props: OrderComponentData) => {
             </p>
             <p className="font-medium hidden lg:block  whitespace-nowrap  px-3 rounded-full text-base ">
               Status :{" "}
-              <span className="text-gray-400 font-medium">{props.status}</span>
+              <span className="text-gray-400 font-medium">
+                {props.latestStatusMessage}
+              </span>
             </p>
             <p className="font-semibold  text-base leading-7 text-black mt-1">
               Order Placed :{" "}
@@ -84,7 +104,7 @@ const OrderComponent = (props: OrderComponentData) => {
                         price
                       </p>
                       <p className="lg:mt-4 font-medium text-sm leading-7 ">
-                        ₹ &nbsp;{props.price}
+                        ₹ &nbsp;{props.finalPrice}
                       </p>
                     </div>
                   </div>
@@ -94,10 +114,11 @@ const OrderComponent = (props: OrderComponentData) => {
                         Status
                       </p>
                       <p className="  text-sm leading-6 whitespace-nowrap py-0.5 px-3 rounded-full lg:mt-3 font-semibold">
-                        {props.status}
+                        {props.latestStatusMessage}
                       </p>
                     </div>
                   </div>
+
                   <div className="col-span-5 lg:col-span-2 flex items-center max-lg:mt-3">
                     <div className="flex gap-3 lg:block">
                       <p className="font-medium text-sm whitespace-nowrap leading-6 text-black">
@@ -113,6 +134,24 @@ const OrderComponent = (props: OrderComponentData) => {
             </div>
           </div>
         </div>
+        {props.latestStatusCode === "101" && (
+          <div className=" flex justify-between py-2">
+            <div></div>
+            <Button
+              variant={"ghost"}
+              onClick={() =>
+                setCancelSheet({
+                  subOrderId: props.subOrderId,
+                  orderId: props.orderId ?? "",
+                  drawer: true,
+                })
+              }
+              className="text-red-500 mr-4 rounded-none w-full lg:w-32 hover:text-red-500 hover:bg-red-50 font-bold bg-red-50"
+            >
+              Cancel
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

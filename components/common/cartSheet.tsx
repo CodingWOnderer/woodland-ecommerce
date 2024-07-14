@@ -134,11 +134,14 @@ const CartSheet = () => {
               </div>
               <div className="mt-2">
                 <Button
-                  onClick={() =>
-                    isAuthenticated
-                      ? router.push("/shipping")
-                      : authForm.toggleAuthSheet(true)
-                  }
+                  onClick={() => {
+                    if (isAuthenticated) {
+                      router.push("/shipping");
+                      toggleStore(false);
+                    } else {
+                      authForm.toggleAuthSheet(true);
+                    }
+                  }}
                   className="flex w-full items-center justify-center  border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary rounded-none"
                 >
                   Checkout

@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -37,6 +36,7 @@ interface AuthForm {
 function AuthForm({ mutate, isPending }: AuthForm) {
   const {
     authForm: { setUserPhone, setVerifyForm },
+    addUser,
   } = useWoodlandStoreData();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -50,16 +50,19 @@ function AuthForm({ mutate, isPending }: AuthForm) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => {
-          mutate({
-            circleName: "woodland",
-            credential: `+91${data.phoneNumber}`,
-          
-          },{
-            onSuccess:()=>{
-              setUserPhone(`+91${data.phoneNumber}`);
-              setVerifyForm(true);
-            }});
-         
+          mutate(
+            {
+              circleName: "woodland",
+              credential: `+91${data.phoneNumber}`,
+            },
+            {
+              onSuccess: () => {
+                setUserPhone(`+91${data.phoneNumber}`);
+                addUser(`+91${data.phoneNumber}`);
+                setVerifyForm(true);
+              },
+            }
+          );
         })}
         className="space-y-4 w-full"
       >

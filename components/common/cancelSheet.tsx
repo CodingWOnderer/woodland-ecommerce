@@ -35,11 +35,13 @@ const CancelSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-        <ScrollArea className={"h-[90vh]"}>
-          <CancellationForm
-            subOrderId={cancelSheet.subOrderId}
-            orderId={cancelSheet.orderId}
-          />
+        <ScrollArea className={"h-[80vh] "}>
+          <div className="min-h-full py-10 px-1">
+            <CancellationForm
+              subOrderId={cancelSheet.subOrderId}
+              orderId={cancelSheet.orderId}
+            />
+          </div>
         </ScrollArea>
       </SheetContent>
     </Sheet>

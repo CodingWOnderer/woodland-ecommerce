@@ -40,7 +40,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
     <AnimatePresence initial={false}>
       <ContentLayout>
         <AnimatePresence mode="wait">
-          <div className="mx-auto px-4 md:max-w-screen-2xl">
+          <div className="mx-auto py-4 px-4 md:max-w-screen-2xl">
             <motion.div
               key={id}
               initial={{ opacity: 0 }}

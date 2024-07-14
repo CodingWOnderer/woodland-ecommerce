@@ -3,137 +3,43 @@ import OrderComponent from "@/components/OrderComponent";
 import LoaderComponent from "@/components/common/Loader";
 import OrderQuery from "@/hooks/orders/queries";
 import Image from "next/image";
-import { SuccessOrder } from "@/hooks/orders/types";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
-const donationAmount = 30;
-const shippingCharge = 150;
-
-// const subTotal = cartItems.reduce((acc, item) => {
-//   if (typeof item.price === "number") {
-//     return acc + item.price * item.quantity;
-//   }
-//   return acc;
-// }, 0);
-
-// const totalAmount =
-//   subTotal +
-//   (includeDonation ? donationAmount : 0) -
-//   discountAmount +
-//   (subTotal < 1000 ? shippingCharge : 0);
-
-const data: ResponseModal<SuccessOrder> = {
-  status: "success",
-  code: 200,
-  message: "order retrieved successfully",
-  data: {
-    userId: "O5nxOjLKUTZ12kmO5f54tUdo8dF3",
-    email: "dkaljdl@gmail.com",
-    phone: "+918349880781",
-    razorpayOrderId: "",
-    razorpayPaymentId: "",
-    amount: 500,
-    finalAmount: 500,
-    address: {
-      firstName: "satyam",
-      lastName: "singh",
-      email: "dkaljdl@gmail.com",
-      address: "X-306,The hyde park,sector-78",
-      pincode: "201304",
-      city: "Noida",
-      state: "Uttar Pradesh",
-      landmark: "",
-      addressType: "home",
-    },
-    paymentType: "postpaid",
-    promo: "",
-    donationAmount: 0,
-    deliveryCharge: 150,
-    vgmAmount: 0,
-    orderId: "OR-3423943",
-    createdAt: "2024-07-12T09:35:28Z",
-    suborderAllocated: true,
-    circle: "woodland",
-    subOrders: [
-      {
-        subOrderId: "SO-3735900",
-        productId: "AGSO0324291A",
-        slug: "AGSO0324291A-RED_GREY",
-        variantId: "AGSO0324291A001",
-        discount: 0,
-        quantity: 1,
-        finalPrice: 350,
-        price: 350,
-        variantPrice: 0,
-        offerPrice: 350,
-        gst: 5,
-        status: [
-          {
-            status: "101",
-            time: "2024-07-12T09:35:28Z",
-            message: "Order Confirmed",
-          },
-          {
-            status: "109",
-            time: "2024-07-12T09:45:57Z",
-            message: "Cancelled by Customer",
-          },
-        ],
-        invoiceDate: "",
-        invoiceNumber: "",
-        store: "",
-        awbNumber: "",
-        refNumber: "",
-        deliveryPartner: "",
-        refund: null,
-        taxAmount: 0,
-        imageURL:
-          "https://assets.woodlandworldwide.app/compressed/images/AGSO0324291A/RED_GREY/AGSO0324291A_315_0.jpg",
-        name: "Red/Grey crew socks for men",
-        color: "RED/GREY",
-        size: "00",
-        categories: ["SOCKS", "ACCESSORIES", "SOCKS"],
-        gender: "MEN",
-      },
-    ],
-  },
-};
-
 export default function OrderId({ params }: { params: { id: string } }) {
-  // const { data, isLoading, isError } = OrderQuery.useSuccessOrderQuery(
-  //   "woodland",
-  //   params.id
-  // );
+  const { data, isLoading, isError } = OrderQuery.useSuccessOrderQuery(
+    "woodland",
+    params.id
+  );
 
-  // if (isLoading) {
-  //   return <LoaderComponent size="infiniteLoader" />;
-  // }
+  if (isLoading) {
+    return <LoaderComponent size="infiniteLoader" />;
+  }
 
-  // if (
-  //   isError ||
-  //   data?.code === 404 ||
-  //   data?.message === "No orders found" ||
-  //   data?.status === "error"
-  // ) {
-  //   return (
-  //     <div className="w-full h-[400px] flex flex-col justify-center items-center">
-  //       <Image src={"/Empty.svg"} height={200} width={200} alt="Woodland" />
+  if (
+    isError ||
+    data?.code === 404 ||
+    data?.message === "No orders found" ||
+    data?.status === "error"
+  ) {
+    return (
+      <div className="w-full h-[400px] flex flex-col justify-center items-center">
+        <Image src={"/Empty.svg"} height={200} width={200} alt="Woodland" />
 
-  //       <h2 className=" font-semibold text-gray-800/20">No Orders</h2>
-  //     </div>
-  //   );
-  // }
+        <h2 className=" font-semibold text-gray-800/20">No Orders</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
+        <h1 className="text-2xl pl-4 sm:pl-6 lg:pl-10 font-semibold tracking-tight text-gray-900">
           Order Details
         </h1>
 
-        <div className="mt-2 border-b border-gray-200 pb-5 text-sm sm:flex sm:justify-between">
+        <div className="mt-2 pl-4 sm:pl-6 border-b lg:pl-10 border-gray-200 pb-5 text-sm sm:flex sm:justify-between">
           <div className="flex flex-col">
             <ul>
               <li className="flex">
@@ -188,7 +94,9 @@ export default function OrderId({ params }: { params: { id: string } }) {
                   Billing address
                 </dt>
                 <dd className="mt-3 font-medium text-gray-800">
-                  <span className="block">{data?.data.address.address}</span>
+                  <p className="break-words py-1">
+                    {data?.data.address.address}
+                  </p>
                   <span className="block">
                     {data?.data.address.city}&nbsp;{data?.data.address.state}
                     &nbsp; India

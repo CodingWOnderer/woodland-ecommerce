@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "../ui/button";
 import { deleteCookieAsync } from "@/lib/cookies/cookies";
 import { useAuth } from "../common/AuthWrapper";
+import { toast } from "sonner";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -18,7 +19,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const {setIsAuthenticated} = useAuth()
+  const { setIsAuthenticated } = useAuth();
 
   return (
     <nav
@@ -50,6 +51,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
         onClick={() => {
           deleteCookieAsync("token");
           setIsAuthenticated(false);
+          toast.success("We will miss you");
           router.refresh();
         }}
         variant={"destructive"}

@@ -6,8 +6,8 @@ import axios from "axios";
 export const fetchOrdersData = async (
   circle: string,
   authToken: string
-): Promise<ResponseModal<UserOrder>> => {
-  const response = await axios.get<ResponseModal<UserOrder>>(
+): Promise<ResponseModal<UserOrder[]>> => {
+  const response = await axios.get<ResponseModal<UserOrder[]>>(
     `https://api-v1.capcons.com/go-orders/getOrdersByPhone?circle=${circle}`,
     {
       headers: {
@@ -20,7 +20,7 @@ export const fetchOrdersData = async (
 };
 
 const useOrderQuery = (circle: string) => {
-  return useQuery<ResponseModal<UserOrder>>({
+  return useQuery<ResponseModal<UserOrder[]>>({
     queryKey: ["ordersdata", circle],
     queryFn: async () =>
       fetchOrdersData(circle, (await getCookieAsync("token")) ?? ""),

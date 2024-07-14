@@ -3,7 +3,6 @@
 import LoaderComponent from "@/components/common/Loader";
 import OrderComponent from "@/components/OrderComponent";
 import orderQuery from "@/hooks/orders/queries";
-import orders from "@/lib/data.json";
 import Image from "next/image";
 
 function OrderPage() {
@@ -30,14 +29,14 @@ function OrderPage() {
 
   return (
     <div className="flex flex-col space-y-4 w-full">
-      {orders.data.map((item, index) => {
+      {data?.data.map((item, index) => {
         return (
           <OrderComponent
             key={index}
             {...item.subOrders[0]}
-            paymentType={item.paymentType}
             orderId={item.orderId}
             createdAt={item.createdAt}
+            paymentType={item.paymentType}
             orderDetailPage={false}
             status={
               item.subOrders[0].status[item.subOrders[0].status.length - 1]

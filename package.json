@@ -52,6 +52,7 @@
     "next": "14.2.4",
     "next-themes": "^0.3.0",
     "pnpm": "^9.4.0",
+    "razorpay": "^2.9.4",
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",

@@ -6,12 +6,13 @@ export function middleware(request: NextRequest) {
 
   if (
     (!token && pathname === "/orders") ||
-    (!token && pathname === "/profile")
+    (!token && pathname === "/profile") ||
+    (!token && pathname === "/shipping")
   ) {
     return Response.redirect(new URL("/", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/orders", "/profile"],
+  matcher: ["/orders", "/profile", "/shipping"],
 };

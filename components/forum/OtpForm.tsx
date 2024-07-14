@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -28,7 +29,6 @@ const formSchema = z.object({
   otp: z.string().length(6, {
     message: "OTP must be exactly 6 digits.",
   }),
-
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -62,13 +62,12 @@ export function VerifyOtpForm({
   const {
     authForm: { userPhone, setVerifyForm },
   } = useWoodlandStoreData();
-  const {setIsAuthenticated} = useAuth()
+  const { setIsAuthenticated } = useAuth();
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       otp: "",
-
     },
   });
 
@@ -94,7 +93,10 @@ export function VerifyOtpForm({
                   setVerifyForm(false);
                   toggleAuthSheet(false);
                   setIsAuthenticated(true);
-           
+                  toast.success("Welcome to Woodland");
+                },
+                onError: () => {
+                  toast.error("Something went wrong");
                 },
               }
             );
@@ -120,19 +122,18 @@ export function VerifyOtpForm({
                         className="h-12 bg-muted w-full"
                         index={1}
                       />
-                        <InputOTPSlot
+                      <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={2}
                       />
                     </InputOTPGroup>
                     <InputOTPSeparator />
                     <InputOTPGroup className="w-full">
-                    
                       <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={3}
                       />
-                        <InputOTPSlot
+                      <InputOTPSlot
                         className="h-12 bg-muted w-full"
                         index={4}
                       />
@@ -141,16 +142,13 @@ export function VerifyOtpForm({
                         index={5}
                       />
                     </InputOTPGroup>
-                  
-                    
-                   
                   </InputOTP>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        
+
           <Button
             className="rounded-none font-semibold w-full h-12"
             type="submit"

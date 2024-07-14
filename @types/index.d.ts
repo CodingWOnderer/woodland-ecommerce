@@ -15,3 +15,12 @@ type ResponseModal<T> = {
   message: string;
   data: T;
 };
+
+type TOrderDetails = {
+  amount: number;
+  razorpayOrderId: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+};

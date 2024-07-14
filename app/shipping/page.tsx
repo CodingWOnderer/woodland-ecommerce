@@ -7,7 +7,6 @@ import { RiLoader4Fill } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -27,11 +26,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { useApplyPromocode } from "@/hooks/checkout/mutation";
 import { useState } from "react";
 import usePincodeQuery from "@/hooks/pincode/queries";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { useCreateOrder } from "@/hooks/orders/mutation";
+import useRazorpayPayment from "@/hooks/payment/useRazorpayPayment";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -44,17 +46,26 @@ const formSchema = z.object({
   landmark: z.string().optional(),
   promocode: z.string().optional(),
   donation: z.boolean().optional(),
+  paymentType: z.enum(["Prepaid", "PostPaid"]).default("Prepaid").optional(),
 });
 
 function ShippingPage() {
-  const { items, removeItemFromCart } = useWoodlandStoreData();
+  const { items, removeItemFromCart, user } = useWoodlandStoreData();
   const {
     mutate: promoMutate,
     data: promoData,
     isPending,
     isError,
-    status: promostatus,
   } = useApplyPromocode();
+
+  const {
+    initiatePayment,
+    loading: PaymentLoading,
+    error: PaymentError,
+  } = useRazorpayPayment();
+
+  const { mutate: mutateCreateOrder, isPending: isCreatingOrder } =
+    useCreateOrder();
   const [applyPromo, setApplyPromo] = useState(false);
   const router = useRouter();
   const form = useForm({
@@ -105,7 +116,81 @@ function ShippingPage() {
     return subtotal + shipping + donation - discount;
   };
 
-  function onSubmit(data: z.infer<typeof formSchema>) {}
+  function onOnlinSubmit(fdata: z.infer<typeof formSchema>) {
+    mutateCreateOrder(
+      {
+        paymentType: "prepaid",
+        circle: "woodland",
+        subOrders: items.map((item) => ({
+          variantId: item.id,
+          quantity: item.quantity,
+        })),
+        address: {
+          email: fdata.email,
+          firstName: fdata.firstName,
+          lastName: fdata.lastName,
+          address: fdata.addressLine,
+          pincode: fdata.pincode,
+          city: fdata.city,
+          state: fdata.state,
+          addressType: "home",
+          landmark: fdata.landmark,
+        },
+        donation: fdata.donation ? 30 : 0,
+        promo: fdata.promocode,
+      },
+      {
+        onSuccess: async (data) => {
+          await initiatePayment({
+            amount: data.data.amount,
+            razorpayOrderId: data?.data?.razorpayOrderId ?? "",
+            name: `${fdata.firstName} ${fdata.lastName}`,
+            email: fdata.email,
+            phone: user ?? "",
+            address: fdata.addressLine,
+          });
+        },
+        onError: () => {
+          toast.error("Something went wrong");
+        },
+      }
+    );
+  }
+
+  function onCODSubmit(data: z.infer<typeof formSchema>) {
+    mutateCreateOrder(
+      {
+        paymentType: "postpaid",
+        circle: "woodland",
+        subOrders: items.map((item) => ({
+          variantId: item.id,
+          quantity: item.quantity,
+        })),
+        address: {
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          address: data.addressLine,
+          pincode: data.pincode,
+          city: data.city,
+          state: data.state,
+          addressType: "home",
+          landmark: data.landmark,
+        },
+        donation: data.donation ? 30 : 0,
+        promo: data.promocode,
+      },
+      {
+        onSuccess: (data) => {
+          router.push(`/success/${data.data.orderId}`);
+          toast.success("Order is Successfully confirmed");
+        },
+        onError: () => {
+          toast.error("Something went wrong");
+        },
+      }
+    );
+  }
 
   return (
     <ContentLayout>
@@ -115,7 +200,7 @@ function ShippingPage() {
           <span className=" text-sm mb">You are almost there!</span>
         </div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4   max-w-screen-xl mx-auto">
               <div className=" col-span-2 space-y-6">
                 <div className=" border-y pt-6">
@@ -489,12 +574,36 @@ function ShippingPage() {
                   />
                 </div>
                 <div className="mt-10 border-t flex flex-col space-y-2 border-gray-200 py-6 text-right">
-                  <Button className="rounded-none h-12" type="submit">
-                    ONLINE
+                  <Button
+                    onClick={form.handleSubmit(onOnlinSubmit)}
+                    className="rounded-none h-12"
+                    type="submit"
+                    disabled={isCreatingOrder}
+                  >
+                    {isCreatingOrder ? (
+                      <div className="flex items-center space-x-2 justify-center">
+                        <RiLoader4Fill className=" animate-spin" />
+                        <span>Creating Order</span>
+                      </div>
+                    ) : (
+                      "ONLINE"
+                    )}
                   </Button>
 
-                  <Button className="rounded-none h-12" type="submit">
-                    CASH ON DELIVERY
+                  <Button
+                    onClick={form.handleSubmit(onCODSubmit)}
+                    className="rounded-none h-12"
+                    type="submit"
+                    disabled={isCreatingOrder}
+                  >
+                    {isCreatingOrder ? (
+                      <div className="flex items-center space-x-2 justify-center">
+                        <RiLoader4Fill className=" animate-spin" />
+                        <span>Creating Order</span>
+                      </div>
+                    ) : (
+                      "CASH ON DELIVERY"
+                    )}
                   </Button>
                 </div>
               </div>

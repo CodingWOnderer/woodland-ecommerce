@@ -133,7 +133,7 @@ const CancelOrderPayloadSchema = z.object({
 });
 
 export const CancelformSchema = z.object({
-  reasonForCancellation: z.enum(
+  title: z.enum(
     [
       "Delay in delivery",
       "Found better discount",
@@ -146,7 +146,7 @@ export const CancelformSchema = z.object({
       required_error: "Please select a reason for cancellation.",
     }
   ),
-  problemDetails: z.string().min(10, {
+  reason: z.string().min(10, {
     message: "Please share more about the problem (at least 10 characters).",
   }),
   consent: z.boolean().refine((val) => val === true, {
@@ -173,3 +173,49 @@ export type CancelFormData = z.infer<typeof CancelformSchema>;
 export type UserOrder = z.infer<typeof OrderSchema>;
 export type SubOrder = z.infer<typeof SubOrderSchema>;
 export type SuccessOrder = z.infer<typeof DataSchema>;
+
+/** Order creation */
+
+const cartItemSchema = z.object({
+  variantId: z.string(),
+  quantity: z.number(),
+});
+
+const addressSchema = z.object({
+  email: z.string().email(),
+  firstName: z.string(),
+  lastName: z.string(),
+  address: z.string(),
+  pincode: z.string(),
+  city: z.string(),
+  state: z.string(),
+  landmark: z.string().optional(),
+  addressType: z.enum(["home", "office"]),
+});
+
+const orderSchema = z.object({
+  circle: z.string(),
+  subOrders: z.array(cartItemSchema),
+  address: addressSchema,
+  paymentType: z.string(),
+  donation: z.number(),
+  promo: z.string().optional(),
+});
+
+export type OrderType = z.infer<typeof orderSchema>;
+
+const dataSchema = z.object({
+  razorpayOrderId: z.string().optional(),
+  orderId: z.string(),
+  paymentType: z.enum(["postpaid", "prepaid"]),
+  amount: z.number(),
+});
+
+const responseSchema = z.object({
+  status: z.enum(["success", "failure"]),
+  code: z.number(),
+  data: dataSchema,
+  orderId: z.string(),
+});
+
+export type OrderResponse = z.infer<typeof responseSchema>;

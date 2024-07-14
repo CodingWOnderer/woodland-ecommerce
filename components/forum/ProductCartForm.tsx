@@ -31,6 +31,7 @@ import { FaHeart } from "react-icons/fa";
 import ToggleButton from "../common/ToggleButton";
 import { ParsedProductData } from "./types";
 import Link from "next/link";
+import { toast } from "sonner";
 import useWoodlandStoreData from "@/lib/store/store";
 import { IManufacturingInfo } from "@/lib/store/types";
 import { useGoToCartMutation } from "@/hooks/cart/mutation";
@@ -123,6 +124,9 @@ export function AppearanceForm({
             })
           );
           toggleStore(true);
+        },
+        onError: () => {
+          toast.error("Something went wrong");
         },
       }
     );
