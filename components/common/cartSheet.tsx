@@ -136,7 +136,7 @@ const CartSheet = () => {
                 <Button
                   onClick={() =>
                     isAuthenticated
-                      ? router.push("")
+                      ? router.push("/shipping")
                       : authForm.toggleAuthSheet(true)
                   }
                   className="flex w-full items-center justify-center  border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary rounded-none"

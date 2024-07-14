@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
+import { RiLoader4Fill } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,6 +26,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import { useApplyPromocode } from "@/hooks/checkout/mutation";
+import { useState } from "react";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -41,7 +44,14 @@ const formSchema = z.object({
 });
 
 function ShippingPage() {
-  const { items } = useWoodlandStoreData();
+  const { items, removeItemFromCart } = useWoodlandStoreData();
+  const {
+    mutate: promoMutate,
+    data: promoData,
+    isPending,
+  } = useApplyPromocode();
+  const [applyPromo, setApplyPromo] = useState(false);
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,16 +68,22 @@ function ShippingPage() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const subtotal = items.reduce(
+    (acc, item) => acc + (item.price ?? 0) * (item.quantity ?? 0),
+    0
+  );
+
+  const calculateTotal = () => {
+    const shipping = subtotal > 1000 ? 0 : 150;
+    const donation = form.getValues("donation") ? 30 : 0;
+    const discount =
+      applyPromo && promoData?.data?.totalDiscount
+        ? promoData.data.totalDiscount
+        : 0;
+    return subtotal + shipping + donation - discount;
+  };
+
+  function onSubmit(data: z.infer<typeof formSchema>) {}
 
   return (
     <ContentLayout>
@@ -293,7 +309,14 @@ function ShippingPage() {
                                 <div className="flex">
                                   <button
                                     type="button"
-                                    // onClick={() => removeItemFromCart(product.id)}
+                                    onClick={() => {
+                                      if (items.length > 1) {
+                                        removeItemFromCart(product.id);
+                                      } else {
+                                        removeItemFromCart(product.id);
+                                        router.back();
+                                      }
+                                    }}
                                     className="font-medium text-xs text-primary hover:text-primary/80"
                                   >
                                     Remove
@@ -318,22 +341,53 @@ function ShippingPage() {
                   </div>
                   <div className="flex justify-between">
                     <dt>Subtotal</dt>
-                    <dd className="text-gray-900">$72.00</dd>
+                    <dd className="text-gray-900">₹{subtotal}</dd>
                   </div>
 
                   <div className="flex justify-between">
                     <dt>Shipping</dt>
-                    <dd className="text-gray-900">$8.00</dd>
+                    <dd className="text-gray-900">
+                      {calculateTotal() > 1000 ? 0 : 150}
+                    </dd>
                   </div>
 
                   <div className="flex justify-between">
                     <dt>Donation</dt>
-                    <dd className="text-gray-900">$6.40</dd>
+                    <dd className="text-gray-900">
+                      {form.getValues("donation") ? 30 : 0}
+                    </dd>
                   </div>
+
+                  {applyPromo && promoData?.data?.totalDiscount ? (
+                    <div>
+                      <div className="flex justify-between">
+                        <dt>
+                          Promo Applied {promoData?.data?.promoCode}{" "}
+                          <Button
+                            className=""
+                            size={"sm"}
+                            variant={"ghost"}
+                            ml-1
+                            onClick={() => setApplyPromo(false)}
+                          >
+                            Remove
+                          </Button>
+                        </dt>
+                        <dd className="text-gray-900">
+                          - ₹ {promoData?.data?.totalDiscount}
+                        </dd>
+                      </div>
+                      <p className="text-primary text-xs mt-1">
+                        Promo code is only Applicable on Prepaid Order
+                      </p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
 
                   <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900">
                     <dt className="text-base">Total</dt>
-                    <dd className="text-base">$86.40</dd>
+                    <dd className="text-gray-900">₹{calculateTotal()}</dd>
                   </div>
                 </dl>
                 <div className="border-t mt-4 pt-2">
@@ -347,15 +401,41 @@ function ShippingPage() {
                           <div className="flex border focus-within:border-primary focus-within:ring-1 focus-within:ring-primary overflow-hidden">
                             <Input
                               placeholder="Enter Promocode"
+                              disabled={applyPromo}
                               className=" rounded-none h-10 placeholder:text-xs border-none outline-none bg-[#F0F0F0]"
                               {...field}
                             />
                             <Button
                               variant={"ghost"}
                               type="button"
+                              disabled={
+                                applyPromo ||
+                                !(form.getValues("promocode").length > 0)
+                              }
+                              onClick={() => {
+                                promoMutate(
+                                  {
+                                    circle: "woodland",
+                                    promo: form.getValues("promocode"),
+                                    subOrders: items.map((item) => ({
+                                      variantId: item.id,
+                                      quantity: item.quantity,
+                                    })),
+                                  },
+                                  {
+                                    onSuccess: () => {
+                                      setApplyPromo(true);
+                                    },
+                                  }
+                                );
+                              }}
                               className="rounded-none hover:text-primary text-primary font-bold h-10 bg-[#F0F0F0]"
                             >
-                              Apply
+                              {isPending ? (
+                                <RiLoader4Fill className=" animate-spin" />
+                              ) : (
+                                "Apply"
+                              )}
                             </Button>
                           </div>
                         </FormControl>
