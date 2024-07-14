@@ -31,6 +31,7 @@ import { useApplyPromocode } from "@/hooks/checkout/mutation";
 import { useState } from "react";
 import usePincodeQuery from "@/hooks/pincode/queries";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -51,9 +52,10 @@ function ShippingPage() {
     mutate: promoMutate,
     data: promoData,
     isPending,
+    isError,
+    status: promostatus,
   } = useApplyPromocode();
   const [applyPromo, setApplyPromo] = useState(false);
-  const [pincode, setPincode] = useState("");
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -71,7 +73,11 @@ function ShippingPage() {
     },
   });
 
-  const { refetch, error } = usePincodeQuery(
+  const {
+    refetch,
+    data: pincodeData,
+    isSuccess: isPincodeSuccess,
+  } = usePincodeQuery(
     form.getValues("pincode").length >= 6 ? form.getValues("pincode") : ""
   );
 
@@ -203,7 +209,19 @@ function ShippingPage() {
                                 />
                               </FormControl>
                               <FormMessage />
-                              {error && <div>{error.message}</div>}
+                              {pincodeData && isPincodeSuccess && (
+                                <div
+                                  className={cn(
+                                    pincodeData.code === 200
+                                      ? "text-xs font-medium text-green-700"
+                                      : "text-xs font-medium text-red-700"
+                                  )}
+                                >
+                                  {pincodeData.code === 200
+                                    ? "Pincode Available"
+                                    : "Pincode not found"}
+                                </div>
+                              )}
                             </FormItem>
                           )}
                         />
@@ -415,46 +433,55 @@ function ShippingPage() {
                       <FormItem>
                         <FormLabel>Got a promo code?</FormLabel>
                         <FormControl>
-                          <div className="flex border focus-within:border-primary focus-within:ring-1 focus-within:ring-primary overflow-hidden">
-                            <Input
-                              placeholder="Enter Promocode"
-                              disabled={applyPromo}
-                              className=" rounded-none h-10 placeholder:text-xs border-none outline-none bg-[#F0F0F0]"
-                              {...field}
-                            />
-                            <Button
-                              variant={"ghost"}
-                              type="button"
-                              disabled={
-                                applyPromo ||
-                                !(form.getValues("promocode").length > 0)
-                              }
-                              onClick={() => {
-                                promoMutate(
-                                  {
-                                    circle: "woodland",
-                                    promo: form.getValues("promocode"),
-                                    subOrders: items.map((item) => ({
-                                      variantId: item.id,
-                                      quantity: item.quantity,
-                                    })),
-                                  },
-                                  {
-                                    onSuccess: () => {
-                                      setApplyPromo(true);
+                          <>
+                            <div className="flex border focus-within:border-primary focus-within:ring-1 focus-within:ring-primary overflow-hidden">
+                              <Input
+                                placeholder="Enter Promocode"
+                                disabled={applyPromo}
+                                className=" rounded-none h-10 placeholder:text-xs border-none outline-none bg-[#F0F0F0]"
+                                {...field}
+                              />
+                              <Button
+                                variant={"ghost"}
+                                type="button"
+                                disabled={
+                                  applyPromo ||
+                                  !(form.getValues("promocode").length > 0)
+                                }
+                                onClick={() => {
+                                  promoMutate(
+                                    {
+                                      circle: "woodland",
+                                      promo: form.getValues("promocode"),
+                                      subOrders: items.map((item) => ({
+                                        variantId: item.id,
+                                        quantity: item.quantity,
+                                      })),
                                     },
-                                  }
-                                );
-                              }}
-                              className="rounded-none hover:text-primary text-primary font-bold h-10 bg-[#F0F0F0]"
-                            >
-                              {isPending ? (
-                                <RiLoader4Fill className=" animate-spin" />
-                              ) : (
-                                "Apply"
-                              )}
-                            </Button>
-                          </div>
+                                    {
+                                      onSuccess: () => {
+                                        setApplyPromo(true);
+                                      },
+                                    }
+                                  );
+                                }}
+                                className="rounded-none hover:text-primary text-primary font-bold h-10 bg-[#F0F0F0]"
+                              >
+                                {isPending ? (
+                                  <RiLoader4Fill className=" animate-spin" />
+                                ) : (
+                                  "Apply"
+                                )}
+                              </Button>
+                            </div>
+                            {isError && (
+                              <div
+                                className={"text-xs font-medium text-red-700"}
+                              >
+                                Promo code does not exist
+                              </div>
+                            )}
+                          </>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
