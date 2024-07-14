@@ -137,7 +137,7 @@ const RefundPolicy: FC = () => {
             </p>
             <h2 className={subMenu}>DELIVERY</h2>
             <p className="mb-4">
-              Woodland endeavours but does not guarantee to deliver the products
+              {` Woodland endeavours but does not guarantee to deliver the products
               to customers within 2-3 weeks from the day of close of sale,
               depending upon the shipping location. The factors include delay in
               delivery through the courier partner, transporters' strike etc.
@@ -145,7 +145,7 @@ const RefundPolicy: FC = () => {
               the Buyer arising from any delay in the delivery of the goods,
               however caused. If you fail to take delivery of the goods,
               Woodland may at its discretion charge you for the additional
-              shipping cost.
+              shipping cost.`}
             </p>
             <h2 className={subMenu}>IMPORTANT NOTE:</h2>
             <p className="mb-4">

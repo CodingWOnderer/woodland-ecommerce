@@ -29,6 +29,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useApplyPromocode } from "@/hooks/checkout/mutation";
 import { useState } from "react";
+import usePincodeQuery from "@/hooks/pincode/queries";
+import React from "react";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -51,6 +53,7 @@ function ShippingPage() {
     isPending,
   } = useApplyPromocode();
   const [applyPromo, setApplyPromo] = useState(false);
+  const [pincode, setPincode] = useState("");
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -68,10 +71,23 @@ function ShippingPage() {
     },
   });
 
+  const { refetch, error } = usePincodeQuery(
+    form.getValues("pincode").length >= 6 ? form.getValues("pincode") : ""
+  );
+
   const subtotal = items.reduce(
     (acc, item) => acc + (item.price ?? 0) * (item.quantity ?? 0),
     0
   );
+
+  React.useEffect(() => {
+    if (form.getValues("pincode").length >= 6) {
+      refetch().then((data) => {
+        form.setValue("city", data.data?.data?.city ?? "");
+        form.setValue("state", data.data?.data?.state ?? "");
+      });
+    }
+  }, [form.watch("pincode").length]);
 
   const calculateTotal = () => {
     const shipping = subtotal > 1000 ? 0 : 150;
@@ -187,6 +203,7 @@ function ShippingPage() {
                                 />
                               </FormControl>
                               <FormMessage />
+                              {error && <div>{error.message}</div>}
                             </FormItem>
                           )}
                         />
