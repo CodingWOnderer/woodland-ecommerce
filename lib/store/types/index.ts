@@ -84,6 +84,9 @@ export interface ZustandStoreProps {
   zoomDialouge: boolean;
   setZoomDialouge: (value: boolean) => void;
 
+  isNewUser: boolean;
+  setIsNewUser: (value: boolean) => void;
+
   cancelSheet: {
     subOrderId: string;
     orderId: string;

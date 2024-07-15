@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useAuth } from "./AuthWrapper";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const CartSheet = () => {
   const { storeSheet, toggleStore, items, removeItemFromCart, authForm } =
@@ -33,7 +34,36 @@ const CartSheet = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   return (
-    <Sheet open={storeSheet} onOpenChange={(e) => toggleStore(e)}>
+    <Sheet
+      open={storeSheet}
+      onOpenChange={(e) => {
+        toggleStore(e);
+        if (e === true) {
+          const cartProducts = items.map((item, index) => ({
+            item_id: item.id,
+            item_name: item.name,
+            item_price: item.price,
+            quantity: item.quantity,
+            item_variant: item.color,
+            position: index + 1,
+          }));
+
+          sendGTMEvent({
+            event: "view_cart",
+            ecommerce: {
+              currency: "INR",
+              value: items.reduce(
+                (accumulator, currentValue) =>
+                  accumulator +
+                  (currentValue?.price ?? 0) * (currentValue?.quantity ?? 0),
+                0
+              ),
+              items: cartProducts,
+            },
+          });
+        }
+      }}
+    >
       <SheetContent className="sm:min-w-[500px] min-w-[100vw]">
         <SheetHeader className="space-y-0 space-x-8 flex flex-row">
           <SheetClose>

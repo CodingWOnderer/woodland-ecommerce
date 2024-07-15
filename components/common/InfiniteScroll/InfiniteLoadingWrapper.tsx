@@ -1,9 +1,10 @@
 "use client";
 import { useProductCardCollection } from "@/hooks/collections/queries";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import InfiniteLoaderContext from "./InfiniteLoaderContext";
 import { QueryParams } from "@/hooks/collections/types";
 import useWoodlandStoreData from "@/lib/store/store";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 type Props = {
   params?: Partial<QueryParams>;

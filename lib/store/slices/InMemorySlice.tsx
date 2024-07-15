@@ -44,6 +44,9 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
   zoomDialouge: false,
   setZoomDialouge: (value: boolean) => set({ zoomDialouge: value }),
 
+  isNewUser: false,
+  setIsNewUser: (value: boolean) => set({ isNewUser: value }),
+
   cancelSheet: {
     subOrderId: "",
     orderId: "",

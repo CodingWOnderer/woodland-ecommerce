@@ -2,28 +2,30 @@ import React, { useState, useCallback } from "react";
 import {
   Carousel,
   CarouselMainContainer,
-  CarouselNext,
-  CarouselPrevious,
   SliderMainItem,
   CarouselThumbsContainer,
   SliderThumbItem,
 } from "@/components/extension/carousel";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
-
-const Image = dynamic(() => import("next/image"), { ssr: false });
+import { sendGTMEvent } from "@next/third-parties/google";
 
 interface CarouselProductCard {
   infiniteRef: ((node: HTMLDivElement) => void) | null;
   metadata: {
+    id: string;
+    category: string[];
+    brand: string;
+    gender: string;
+    variant: string;
     url: string;
     slug: string;
     title: string;
     discount: number;
-    bestseller: boolean;
     actualPrice: number;
     offerPrice: number;
+    bestseller: boolean;
   }[];
 }
 
@@ -43,8 +45,6 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
       className=" flex flex-col justify-center  aspect-[3/3] m-2"
     >
       <Carousel>
-        <CarouselNext className="top-1/3 -translate-y-1/3" />
-        <CarouselPrevious className="top-1/3 -translate-y-1/3" />
         <CarouselMainContainer
           onSlideChange={handleSlideChange}
           className="w-full"
@@ -52,6 +52,25 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
           {metadata.map((item) => (
             <SliderMainItem
               key={item.slug}
+              onClick={() =>
+                sendGTMEvent({
+                  event: "select_item",
+                  ecommerce: {
+                    items: [
+                      {
+                        item_id: item.id,
+                        item_name: item.title,
+                        price: item.offerPrice,
+                        item_brand: item.brand,
+                        item_category: item.brand,
+                        item_category2: item.category[2],
+                        item_category3: item.category[1],
+                        item_variant: item.variant,
+                      },
+                    ],
+                  },
+                })
+              }
               className="bg-[#F3F3F3] bases-[90%]"
             >
               <Link href={`/product-detail/${encodeURIComponent(item.slug)}`}>
@@ -76,9 +95,9 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
                 )}
 
                 {item.bestseller === true ? (
-                  <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0"><FaStar /> <span className=" ml-2">
-                  Bestseller
-                </span></div>
+                  <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0">
+                    <FaStar /> <span className=" ml-2">Bestseller</span>
+                  </div>
                 ) : (
                   ""
                 )}

@@ -24,6 +24,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 import { VerifyGuestLoginPayload } from "@/hooks/auth/mutation";
 import { useAuth } from "../common/AuthWrapper";
 import useWoodlandStoreData from "@/lib/store/store";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const formSchema = z.object({
   otp: z.string().length(6, {
@@ -61,6 +62,7 @@ export function VerifyOtpForm({
 }: OtpForm) {
   const {
     authForm: { userPhone, setVerifyForm },
+    isNewUser,
   } = useWoodlandStoreData();
   const { setIsAuthenticated } = useAuth();
 
@@ -94,6 +96,11 @@ export function VerifyOtpForm({
                   toggleAuthSheet(false);
                   setIsAuthenticated(true);
                   toast.success("Welcome to Woodland");
+                  sendGTMEvent({
+                    event: isNewUser ? "signup" : "login",
+                    phone_number: `${userPhone}`,
+                    status: "success",
+                  });
                 },
                 onError: () => {
                   toast.error("Something went wrong");

@@ -37,6 +37,7 @@ function AuthForm({ mutate, isPending }: AuthForm) {
   const {
     authForm: { setUserPhone, setVerifyForm },
     addUser,
+    setIsNewUser,
   } = useWoodlandStoreData();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -56,9 +57,10 @@ function AuthForm({ mutate, isPending }: AuthForm) {
               credential: `+91${data.phoneNumber}`,
             },
             {
-              onSuccess: () => {
+              onSuccess: (fdata) => {
                 setUserPhone(`+91${data.phoneNumber}`);
                 addUser(`+91${data.phoneNumber}`);
+                setIsNewUser(!!fdata.data.newRegistration);
                 setVerifyForm(true);
               },
             }

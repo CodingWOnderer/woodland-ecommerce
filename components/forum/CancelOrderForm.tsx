@@ -51,7 +51,7 @@ function CancellationForm(props: CancelFormProps) {
       {
         onSuccess: () => {
           setCancelSheet({ orderId: "", subOrderId: "", drawer: false });
-          toast.success("Welcome Again to Woodland");
+          toast.success("Order is Successfully Canceled");
           router.push("/");
         },
         onError: () => {

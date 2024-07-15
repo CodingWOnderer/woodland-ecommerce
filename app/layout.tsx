@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Raleway } from "next/font/google";
@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     google: "hWjQv90faf7DA297xn5fgiNEkJBjjwHikQJiy9_R-60",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,12 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <GoogleAnalytics gaId="G-XYZ" />
+      <GoogleTagManager gtmId="GTM-K57DM7D9" />
       <ReactQueryProvider>
         <AuthProvider>
           <body className={raleway.className}>
             {children}
-            <Toaster />
+            <Toaster richColors position={"top-right"} />
             <AuthSheet />
             <TopSearchSheet />
             <NavigationSheet />

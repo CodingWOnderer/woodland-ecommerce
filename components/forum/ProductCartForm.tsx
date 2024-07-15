@@ -35,6 +35,7 @@ import { toast } from "sonner";
 import useWoodlandStoreData from "@/lib/store/store";
 import { IManufacturingInfo } from "@/lib/store/types";
 import { useGoToCartMutation } from "@/hooks/cart/mutation";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const appearanceFormSchema = z.object({
   colors: z.string(),
@@ -89,16 +90,16 @@ export function AppearanceForm({
     },
   });
 
-  function onSubmit(data: AppearanceFormValues) {
+  function onSubmit(fdata: AppearanceFormValues) {
     const newItem = {
       id:
-        productData.data.sizes.find((item) => item.size === data.size)
+        productData.data.sizes.find((item) => item.size === fdata.size)
           ?.variantID ?? "",
       name: currentProduct?.title ?? "",
       price: currentProduct?.offerPrice,
-      quantity: Number(data.quantitiy) ?? 1,
-      size: data.size,
-      color: data.colors ?? "",
+      quantity: Number(fdata.quantitiy) ?? 1,
+      size: fdata.size,
+      color: fdata.colors ?? "",
       imageURL: currentProduct?.urls[0] ?? "",
     };
 
@@ -124,6 +125,35 @@ export function AppearanceForm({
             })
           );
           toggleStore(true);
+
+          sendGTMEvent({
+            event: "add_to_cart",
+            ecommerce: {
+              currency: "INR",
+              value: data.data,
+              items: [
+                {
+                  item_id: newItem.id,
+                  item_name: newItem.name || "",
+                  item_price: newItem.price,
+                  quantity: newItem.quantity,
+                  item_brand: productData.data.brand,
+                  item_category: productData.data?.gender || "",
+                  item_category2:
+                    productData.data?.category &&
+                    productData.data.category.length > 0
+                      ? productData.data.category[1]
+                      : "",
+                  item_category3:
+                    productData.data?.category &&
+                    productData.data.category.length > 0
+                      ? productData.data?.category[0]
+                      : "",
+                  item_variant: newItem.color,
+                },
+              ],
+            },
+          });
         },
         onError: () => {
           toast.error("Something went wrong");

@@ -34,6 +34,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { useCreateOrder } from "@/hooks/orders/mutation";
 import useRazorpayPayment from "@/hooks/payment/useRazorpayPayment";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -104,7 +105,7 @@ function ShippingPage() {
         form.setValue("state", data.data?.data?.state ?? "");
       });
     }
-  }, [form.watch("pincode").length]);
+  }, [form.watch("pincode").length, form, form.watch]);
 
   const calculateTotal = () => {
     const shipping = subtotal > 1000 ? 0 : 150;
@@ -149,6 +150,39 @@ function ShippingPage() {
             phone: user ?? "",
             address: fdata.addressLine,
           });
+          sendGTMEvent({
+            event: "add_payment_info",
+            ecommerce: {
+              currency: "INR",
+              payment_type: "prepaid",
+              items: items.map((product, idx) => ({
+                item_id: product.id,
+                item_name: product.name,
+                item_variant: product.color,
+                price: product.price,
+                quantity: product.quantity,
+                position: idx + 1,
+              })),
+              name: `${fdata.firstName} ${fdata.lastName}`,
+              pincode: fdata.pincode,
+              email: fdata.email,
+            },
+          });
+          sendGTMEvent({
+            event: "begin_checkout",
+            ecommerce: {
+              currency: "INR",
+              value: subtotal,
+              items: items.map((product, idx) => ({
+                item_id: product.id,
+                item_name: product.name,
+                item_variant: product.color,
+                price: product.price,
+                quantity: product.quantity,
+                position: idx + 1,
+              })),
+            },
+          });
         },
         onError: () => {
           toast.error("Something went wrong");
@@ -157,7 +191,7 @@ function ShippingPage() {
     );
   }
 
-  function onCODSubmit(data: z.infer<typeof formSchema>) {
+  function onCODSubmit(fdata: z.infer<typeof formSchema>) {
     mutateCreateOrder(
       {
         paymentType: "postpaid",
@@ -167,23 +201,56 @@ function ShippingPage() {
           quantity: item.quantity,
         })),
         address: {
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          address: data.addressLine,
-          pincode: data.pincode,
-          city: data.city,
-          state: data.state,
+          email: fdata.email,
+          firstName: fdata.firstName,
+          lastName: fdata.lastName,
+          address: fdata.addressLine,
+          pincode: fdata.pincode,
+          city: fdata.city,
+          state: fdata.state,
           addressType: "home",
-          landmark: data.landmark,
+          landmark: fdata.landmark,
         },
-        donation: data.donation ? 30 : 0,
-        promo: data.promocode,
+        donation: fdata.donation ? 30 : 0,
+        promo: fdata.promocode,
       },
       {
         onSuccess: (data) => {
           router.push(`/success/${data.data.orderId}`);
           toast.success("Order is Successfully confirmed");
+          sendGTMEvent({
+            event: "add_payment_info",
+            ecommerce: {
+              currency: "INR",
+              payment_type: "postpaid",
+              items: items.map((product, idx) => ({
+                item_id: product.id,
+                item_name: product.name,
+                item_variant: product.color,
+                price: product.price,
+                quantity: product.quantity,
+                position: idx + 1,
+              })),
+              name: `${fdata.firstName} ${fdata.lastName}`,
+              pincode: fdata.pincode,
+              email: fdata.email,
+            },
+          });
+          sendGTMEvent({
+            event: "begin_checkout",
+            ecommerce: {
+              currency: "INR",
+              value: subtotal,
+              items: items.map((product, idx) => ({
+                item_id: product.id,
+                item_name: product.name,
+                item_variant: product.color,
+                price: product.price,
+                quantity: product.quantity,
+                position: idx + 1,
+              })),
+            },
+          });
         },
         onError: () => {
           toast.error("Something went wrong");

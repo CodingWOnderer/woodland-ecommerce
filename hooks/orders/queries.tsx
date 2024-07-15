@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { SuccessOrder, UserOrder } from "./types";
 import { getCookieAsync } from "@/lib/cookies/cookies";
+import { sendGTMEvent } from "@next/third-parties/google";
 import axios from "axios";
 
 export const fetchOrdersData = async (
@@ -41,6 +42,31 @@ const fetchSuccessOrdersData = async (
       },
     }
   );
+
+  if (response.status === 200) {
+    sendGTMEvent({
+      event: "purchase",
+      ecommerce: {
+        currency: "INR",
+        payment_type: response.data.data.paymentType,
+        transaction_id: response.data.data.orderId,
+        value: response.data.data.finalAmount,
+        shipping: response.data.data.deliveryCharge,
+        items: response.data.data.subOrders.map((suborder, idx) => ({
+          item_id: suborder.variantId,
+          item_name: suborder.name,
+          item_variant: suborder.color,
+          item_category: suborder.gender,
+          item_category2: suborder?.categories?.[1] ?? "",
+          item_category3: suborder?.categories?.[0] ?? "",
+          price: suborder.price,
+          offerPrice: suborder.offerPrice,
+          quantity: suborder.quantity,
+          position: idx + 1,
+        })),
+      },
+    });
+  }
   return response.data;
 };
 

@@ -8,6 +8,7 @@ import TopSellerCarousel from "@/components/common/TopSellerCarousel";
 import useWoodlandStoreData from "@/lib/store/store";
 import { AnimatePresence, motion } from "framer-motion";
 import ZoomImages from "@/components/common/ZoomImages";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useProductQuery(id);
@@ -15,8 +16,41 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
 
   useEffect(
     () => setDivision(data?.data.category[1] as "FOOTWEAR" | "GARMENT"),
-    [data?.data.category[1]]
+    [data?.data.category, setDivision]
   );
+
+  const currentProduct = data?.data.productMeta.find(
+    (item) => item.slug === id
+  );
+
+  useEffect(() => {
+    if (currentProduct?.slug) {
+      sendGTMEvent({
+        event: "view_item",
+        ecommerce: {
+          items: [
+            {
+              item_id: currentProduct?.slug,
+              item_name: currentProduct?.title,
+              price: currentProduct?.offerPrice,
+              item_brand: data?.data.brand,
+              item_category: data?.data?.gender || "",
+              item_category2:
+                data?.data?.category && data?.data.category.length > 0
+                  ? data?.data.category[1]
+                  : "",
+              item_category3:
+                data?.data?.category && data?.data.category.length > 0
+                  ? data?.data?.category[0]
+                  : "",
+              item_variant: currentProduct.color,
+              quantity: 1,
+            },
+          ],
+        },
+      });
+    }
+  }, [currentProduct?.slug]);
 
   if (isLoading)
     return (
@@ -29,10 +63,6 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
         />
       </div>
     );
-
-  const currentProduct = data?.data.productMeta.find(
-    (item) => item.slug === id
-  );
 
   const handleImageClick = () => setZoomDialouge(window.innerWidth > 640);
 

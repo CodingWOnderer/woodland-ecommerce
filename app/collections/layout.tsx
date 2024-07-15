@@ -7,9 +7,11 @@ const CollectionLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return <FramerTransition>
-    <ContentLayout>{children}</ContentLayout>
-  </FramerTransition>;
+  return (
+    <FramerTransition>
+      <ContentLayout>{children}</ContentLayout>
+    </FramerTransition>
+  );
 };
 
 export default CollectionLayout;

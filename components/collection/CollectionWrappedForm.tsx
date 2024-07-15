@@ -5,11 +5,12 @@ import InfiniteLoaderContext, {
   InfiniteLoaderProps,
 } from "@/components/common/InfiniteScroll/InfiniteLoaderContext";
 import InfiniteLoadingWrapper from "@/components/common/InfiniteScroll/InfiniteLoadingWrapper";
-import React, { useCallback, memo, Suspense } from "react";
+import React, { useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import FilterHeader from "@/components/common/FilterHeader";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const CarouselOrientation = dynamic(
   () => import("@/components/collection/collectionCard"),
@@ -33,14 +34,59 @@ const CollectionCategoryPage = (category: { para: string }) => {
   });
 
   const renderCards = useCallback((data: InfiniteLoaderProps | undefined) => {
-    if (data?.isLoading) return <div>Loading...</div>;
-    if (data?.error) return <div>Error....</div>;
+    if (data?.isLoading)
+      return (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+            <div key={item} className="h-full w-full">
+              <Skeleton className="h-full w-full" />
+            </div>
+          ))}
+        </div>
+      );
+
+    if (data?.error) return <div>Something went wrong</div>;
 
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-        {data?.infiniteData?.pages.map((page, pageIndex) =>
-          page?.data?.map((pcards, pindex) => {
+        {data?.infiniteData?.pages.map((page, pageIndex) => {
+          sendGTMEvent({
+            event: "view_item_list",
+            ecommerce: {
+              items: page?.data?.map((product, idx) => {
+                return {
+                  item_id: product.productId || "",
+                  item_name:
+                    (product.productMeta[0] && product.productMeta[0].title) ||
+                    "",
+                  price:
+                    product.productMeta[0] && product.productMeta[0].offerPrice,
+                  item_brand: product.brand || "",
+                  item_category: product.gender || "",
+                  item_category2:
+                    product.category && product.category.length > 0
+                      ? product.category[1]
+                      : "",
+                  item_category3:
+                    product.category && product.category.length > 0
+                      ? product.category[0]
+                      : "",
+                  item_variant:
+                    (product.productMeta[0] && product.productMeta[0].color) ||
+                    "",
+                  position: idx + 1,
+                };
+              }),
+            },
+          });
+
+          return page?.data?.map((pcards, pindex) => {
             const metadata = pcards.productMeta.map((sitem) => ({
+              id: sitem.skuId,
+              category: pcards.category,
+              brand: pcards.brand,
+              gender: pcards.gender,
+              variant: sitem.color,
               url: sitem.SkuImages[0],
               slug: sitem.slug,
               title: sitem.title,
@@ -61,8 +107,8 @@ const CollectionCategoryPage = (category: { para: string }) => {
                 metadata={metadata}
               />
             );
-          })
-        )}
+          });
+        })}
       </div>
     );
   }, []);
