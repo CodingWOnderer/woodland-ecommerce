@@ -11,6 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FaRegHeart } from "react-icons/fa";
 import * as z from "zod";
@@ -79,6 +85,8 @@ export function AppearanceForm({
     (item) => item.slug === productid
   );
 
+  const isInCart = cartItems.find((item) => item.slug === productid);
+
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
@@ -132,6 +140,10 @@ export function AppearanceForm({
     });
 
   function onSubmit(fdata: AppearanceFormValues) {
+    if (isInCart) {
+      toast.info("Item is already in Cart");
+      return;
+    }
     const newItem = {
       id:
         productData.data.sizes.find((item) => item.size === fdata.size)
@@ -161,6 +173,7 @@ export function AppearanceForm({
               quantity: cart.selectedQty,
               name: cart.title,
               color: cart.color,
+              slug: cart.slug,
               size: cart.size,
               imageURL: cart.url,
             })
@@ -176,6 +189,21 @@ export function AppearanceForm({
     );
   }
 
+  const formatPrice = (price: number) => {
+    const priceStr = price.toString();
+    return (
+      <>
+        ₹ {priceStr[0]}
+        {priceStr.slice(1)}
+      </>
+    );
+  };
+
+  const offerPrice = currentProduct?.offerPrice ?? 0;
+  const price = currentProduct?.price ?? 0;
+  const discount = currentProduct?.discount ?? 0;
+  const isDiscounted = offerPrice > 0 && offerPrice !== price;
+
   const { refetch, data } = usePincodeQuery(pincode);
   return (
     <div className="w-full h-full">
@@ -184,37 +212,27 @@ export function AppearanceForm({
           {currentProduct?.title ?? ""}
         </h1>
 
-        <p className="text-2xl mt-8 flex text-gray-900 ">
+        <p className="text-2xl mt-8 flex text-gray-900">
           <span className={mulish.className}>
-            ₹{" "}
-            {currentProduct && currentProduct?.offerPrice > 0
-              ? currentProduct?.offerPrice.toString()[0]
-              : currentProduct?.price.toString()[0]}
-            {currentProduct && currentProduct?.offerPrice > 0
-              ? currentProduct?.offerPrice.toString().slice(1)
-              : currentProduct?.price.toString().slice(1)}
+            {isDiscounted ? formatPrice(offerPrice) : formatPrice(price)}
           </span>
           &nbsp;&nbsp;
-          <span
-            className={cn(" line-through text-neutral-500", mulish.className)}
-          >
-            MRP &nbsp;₹{" "}
-            {currentProduct &&
-              currentProduct?.offerPrice &&
-              currentProduct?.price.toString()[0]}
-            {currentProduct &&
-              currentProduct?.offerPrice &&
-              currentProduct?.price.toString().slice(1)}
-          </span>
-          &nbsp; &nbsp;
-          {currentProduct && currentProduct?.discount.toString().length > 0 && (
+          {isDiscounted && (
+            <span
+              className={cn("line-through text-neutral-500", mulish.className)}
+            >
+              MRP &nbsp;₹ {formatPrice(price)}
+            </span>
+          )}
+          &nbsp;&nbsp;
+          {discount > 0 && (
             <span
               className={cn(
                 "text-primary font-sans font-bold",
                 mulish.className
               )}
             >
-              {currentProduct.discount} % off
+              {discount} % off
             </span>
           )}
         </p>
@@ -398,12 +416,12 @@ export function AppearanceForm({
                           setQuantity(quantity - 1);
                         }}
                         disabled={
-                          (productData?.data?.sizes?.find(
+                          ((productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true
+                            : true) || !!isInCart
                         }
                         className="rounded-none h-full"
                       >
@@ -418,12 +436,12 @@ export function AppearanceForm({
                         }}
                         type="number"
                         disabled={
-                          (productData?.data?.sizes?.find(
+                          ((productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true
+                            : true) || !!isInCart
                         }
                         className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />
@@ -435,12 +453,12 @@ export function AppearanceForm({
                           setQuantity(quantity + 1);
                         }}
                         disabled={
-                          (productData?.data?.sizes?.find(
+                          ((productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true
+                            : true) || !!isInCart
                         }
                         className="rounded-none h-full"
                       >
@@ -451,23 +469,35 @@ export function AppearanceForm({
                 </FormItem>
               )}
             />
-            <Button
-              className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
-              type="submit"
-              disabled={
-                (productData?.data?.sizes?.find(
-                  (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
-                )?.size?.length ?? 0) > 0
-                  ? false
-                  : true
-              }
-            >
-              <IoCartOutline size={24} />
-              <span className="font-semibold text-lg">
-                {isPending ? "Adding To Cart...." : "Add To Cart"}
-              </span>
-            </Button>
-
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="lg:max-w-xl w-full">
+                  <Button
+                    className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
+                    type="submit"
+                    disabled={
+                      ((productData?.data?.sizes?.find(
+                        (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
+                      )?.size?.length ?? 0) > 0
+                        ? false
+                        : true) || !!isInCart
+                    }
+                  >
+                    <IoCartOutline size={24} />
+                    <span className="font-semibold text-lg">
+                      {isPending ? "Adding To Cart...." : "Add To Cart"}
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {isInCart ? (
+                    <p>Item is already in cart</p>
+                  ) : (
+                    <p>Add items to cart</p>
+                  )}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <FormField
               control={form.control}
               name="like"

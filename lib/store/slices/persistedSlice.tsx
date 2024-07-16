@@ -9,6 +9,7 @@ interface CartItem {
   size?: string;
   color?: string;
   imageURL?: string;
+  slug?: string;
 }
 
 export interface CartState {
