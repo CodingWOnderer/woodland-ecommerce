@@ -35,6 +35,10 @@ import { cn } from "@/lib/utils";
 import { useCreateOrder } from "@/hooks/orders/mutation";
 import useRazorpayPayment from "@/hooks/payment/useRazorpayPayment";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { Mulish } from "next/font/google";
+import DonationModal from "@/components/DonationModal";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 const formSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -51,7 +55,14 @@ const formSchema = z.object({
 });
 
 function ShippingPage() {
-  const { items, removeItemFromCart, user } = useWoodlandStoreData();
+  const {
+    items,
+    removeItemFromCart,
+    user,
+    setDonationModel,
+    donationModel,
+    clearCart,
+  } = useWoodlandStoreData();
   const {
     mutate: promoMutate,
     data: promoData,
@@ -150,6 +161,7 @@ function ShippingPage() {
             phone: user ?? "",
             address: fdata.addressLine,
           });
+          clearCart();
           sendGTMEvent({
             event: "add_payment_info",
             ecommerce: {
@@ -216,6 +228,7 @@ function ShippingPage() {
       },
       {
         onSuccess: (data) => {
+          clearCart();
           router.push(`/success/${data.data.orderId}`);
           toast.success("Order is Successfully confirmed");
           sendGTMEvent({
@@ -446,9 +459,38 @@ function ShippingPage() {
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <FormLabel className="text-sm space-y-0 font-normal">
+                      <FormLabel
+                        className={cn(
+                          "text-sm space-y-0 font-normal",
+                          mulish.className
+                        )}
+                      >
                         ₹ 30 will be added to your transaction as a Donation
                       </FormLabel>
+                      <div className="flex flex-col md:flex-row items-center mb-1 space-y-1 md:space-x-2">
+                        <div
+                          className="relative"
+                          style={{ aspectRatio: "122 / 31", width: "122px" }}
+                        >
+                          <img
+                            src="/donation.png"
+                            alt="image-product"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
+                        <p className="text-xs font-normal mx-1">
+                          {` Your support can help conserve and protect the snow
+                          leopard in the Himalaya's. Donate to the "High on
+                          Himalaya's" campaign by adding ₹ 30 (or more) to your
+                          bill.`}
+                          <span
+                            onClick={() => setDonationModel(!donationModel)}
+                            className="text-xs font-normal text-[#3B6F44] underline cursor-pointer"
+                          >
+                            Read more
+                          </span>
+                        </p>
+                      </div>
                     </FormItem>
                   )}
                 />
@@ -458,7 +500,10 @@ function ShippingPage() {
                       {items.map((product) => (
                         <li
                           key={product.id}
-                          className="flex py-6 flex-col md:flex-row  justify-center items-center"
+                          className={cn(
+                            "flex py-6 flex-col md:flex-row  justify-center items-center",
+                            mulish.className
+                          )}
                         >
                           <div className="md:h-28 md:w-28 p-2 bg-[#F0F0F0] mix-blend-multiply flex-shrink-0 overflow-hidden  border-gray-200">
                             <img
@@ -490,7 +535,7 @@ function ShippingPage() {
                             <CardFooter className="p-0 md:p-6 md:pt-0">
                               <div className="flex flex-1 items-end justify-between text-sm">
                                 <p className="text-gray-500 px-3.5 py-2 text-xs font-medium bg-[#F0F0F0]">
-                                  Qty {product.quantity}
+                                  Delivery: 3-7 Days
                                 </p>
 
                                 <div className="flex">
@@ -519,7 +564,7 @@ function ShippingPage() {
                 </div>
               </div>
               {/** Second part */}
-              <div>
+              <div className={mulish.className}>
                 <dl className="space-y-6 border-t border-gray-200 pt-6 text-sm font-medium text-gray-500">
                   <div className="border-b pb-1">
                     <h3 className=" font-semibold text-lg text-black">
@@ -645,7 +690,10 @@ function ShippingPage() {
                     onClick={form.handleSubmit(onOnlinSubmit)}
                     className="rounded-none h-12"
                     type="submit"
-                    disabled={isCreatingOrder}
+                    disabled={
+                      isCreatingOrder ||
+                      !pincodeData?.data?.isPrepaidServiceable
+                    }
                   >
                     {isCreatingOrder ? (
                       <div className="flex items-center space-x-2 justify-center">
@@ -661,7 +709,9 @@ function ShippingPage() {
                     onClick={form.handleSubmit(onCODSubmit)}
                     className="rounded-none h-12"
                     type="submit"
-                    disabled={isCreatingOrder}
+                    disabled={
+                      isCreatingOrder || !pincodeData?.data?.isCODServiceable
+                    }
                   >
                     {isCreatingOrder ? (
                       <div className="flex items-center space-x-2 justify-center">
@@ -678,6 +728,7 @@ function ShippingPage() {
           </form>
         </Form>
       </div>
+      <DonationModal />
     </ContentLayout>
   );
 }

@@ -20,7 +20,12 @@ function OrderPage() {
   ) {
     return (
       <div className="w-full h-[400px] flex flex-col justify-center items-center">
-        <Image src={"/Empty.svg"} height={200} width={200} alt="Woodland" />
+        <Image
+          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
+          src={"/Empty.svg"}
+          height={200}
+          width={200}
+        />
 
         <h2 className=" font-semibold text-gray-800/20">No Orders</h2>
       </div>

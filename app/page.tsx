@@ -68,7 +68,7 @@ export default function Home() {
             fill
             style={{ objectFit: "contain" }}
           />
-          <div className="absolute z-[2] top-1/3 md:top-1/2 bottom-1/2 right-3 md:right-20">
+          <div className="absolute z-[2] bottom-8 left-8 ">
             <Link href={"/collections/casuals_lace_up?gender=MEN"}>
               <Button className="rounded-none text-xs px-2 h-8 sm:text-base sm:h-12 sm:px-4">
                 Shop Now
@@ -139,7 +139,7 @@ export default function Home() {
             fill
             style={{ objectFit: "contain" }}
           />
-          <div className="absolute z-[2] top-1/3 md:top-1/2 bottom-1/2 right-3 md:right-20">
+          <div className="absolute z-[2] bottom-8 left-8 ">
             <Link href={"/collections?brand=woodsports"}>
               <Button className="rounded-none text-xs px-2 h-8 sm:text-base sm:h-12 sm:px-4">
                 Shop Now

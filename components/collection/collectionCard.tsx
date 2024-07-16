@@ -10,6 +10,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { cn } from "@/lib/utils";
+import { Mulish } from "next/font/google";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 interface CarouselProductCard {
   infiniteRef: ((node: HTMLDivElement) => void) | null;
@@ -77,7 +81,7 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
                 <div className="relative m-auto w-full aspect-[250/250] bg-[#F3F3F3]">
                   <Image
                     src={item.url}
-                    alt="image-product"
+                    alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                     priority
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -125,7 +129,7 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
             {metadata[activeIndex].title}
           </h5>
         </a>
-        <p className="space-x-1">
+        <p className={cn("space-x-1", mulish.className)}>
           {metadata[activeIndex].actualPrice && (
             <span className="sm:text-sm text-xs text-black line-through">
               ₹ {metadata[activeIndex].actualPrice}

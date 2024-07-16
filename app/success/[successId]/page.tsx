@@ -44,7 +44,7 @@ const SuccessPage = ({ params }: { params: { successId: string } }) => {
           <div className="flex flex-col py-10 items-center justify-center">
             <div className="relative w-30 h-32 w-32 aspect-square mb-4">
               <Image
-                alt="Successcart"
+                alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                 style={{ objectFit: "contain" }}
@@ -85,6 +85,11 @@ const SuccessPage = ({ params }: { params: { successId: string } }) => {
                     <dd className="font-medium text-gray-900">
                       {data?.data.email}
                     </dd>
+                  </li>
+                  <li className="flex mt-1">
+                    <p className="text-gray-500 px-3.5 py-2 text-xs font-medium bg-[#F0F0F0]">
+                      Delivery: 3-7 Days
+                    </p>
                   </li>
                 </ul>
               </div>

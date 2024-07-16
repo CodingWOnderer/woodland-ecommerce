@@ -15,13 +15,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
 });
 
 export function AlertForm() {
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,8 +32,19 @@ export function AlertForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    setLoading(true);
+    try {
+      await axios.post(
+        `https://asia-south2-woodland-397213.cloudfunctions.net/subscribe`,
+        { email: data.email }
+      );
+      toast.success("Thank you for subscribing");
+      setLoading(false);
+    } catch (error) {
+      toast.error("Failed to subscribe. Please try again.");
+      setLoading(false);
+    }
   }
 
   return (
@@ -61,6 +75,7 @@ export function AlertForm() {
                 <Button
                   type="submit"
                   variant={"ghost"}
+                  disabled={loading}
                   className="rounded-none text-xs shadow-none"
                 >
                   Submit

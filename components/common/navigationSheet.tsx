@@ -21,6 +21,13 @@ import { IoMdClose } from "react-icons/io";
 import { NavbarItems, WomenNavbarItems } from "@/lib/model/data";
 import Link from "next/link";
 import useWoodlandStoreData from "@/lib/store/store";
+import { cn } from "@/lib/utils";
+
+const brand = [
+  { img: "Woods", link: "/collections?brand=woods" },
+  { img: "Woodsport.", link: "/collections?brand=woodsports" },
+  { link: "/collections?brand=askatingmonk", img: "A Skating Monk" },
+];
 
 const renderAccordionItems = (
   items: CategoryProps[],
@@ -32,6 +39,7 @@ const renderAccordionItems = (
       <AccordionItem
         key={`${item.heading}-${index}`}
         value={`${item.heading}-${index}`}
+        className={items.length - 1 === index ? "border-none" : " "}
       >
         <AccordionTrigger className="hover:no-underline px-4">
           {item.heading}
@@ -43,7 +51,10 @@ const renderAccordionItems = (
                 <li
                   onClick={() => toggle(!sidebar)}
                   key={ind}
-                  className="px-2 py-4 border-b"
+                  className={cn(
+                    "px-2 py-4",
+                    ind === item.subHeadings.length - 1 ? "" : "border-b"
+                  )}
                 >
                   <Link href={subItem.href}>{subItem.name}</Link>
                 </li>
@@ -67,7 +78,7 @@ const NavigationSheet = () => {
               <Image
                 height={20}
                 width={80}
-                alt="woodland"
+                alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                 src="/headerlogo.png"
               />
             </a>
@@ -99,12 +110,39 @@ const NavigationSheet = () => {
                   )}
                 </AccordionContent>
               </AccordionItem>
+
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="hover:no-underline">
+                  Brand
+                </AccordionTrigger>
+                <AccordionContent>
+                  <Accordion
+                    type="single"
+                    className="flex flex-col"
+                    collapsible
+                  >
+                    {brand.map((item, index) => (
+                      <Link
+                        className={cn(
+                          "  py-4 px-2 font-medium",
+                          index == brand.length - 1 ? "" : "border-b"
+                        )}
+                        key={index}
+                        href={item.link}
+                      >
+                        {item.img}
+                      </Link>
+                    ))}
+                  </Accordion>
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
             <ul>
               {["About Us", "Labs", "Sale"].map((label, ind) => (
                 <li key={ind} className=" py-4 border-b">
                   <Link
                     onClick={() => toggleSidebar(!sidebar)}
+                    className="text-sm font-medium"
                     href={`/${label
                       .split(" ")[0]
                       .toLowerCase()

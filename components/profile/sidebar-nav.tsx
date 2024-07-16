@@ -55,7 +55,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           router.refresh();
         }}
         variant={"destructive"}
-        className=" lg:mt-20 "
+        className=" lg:mt-20 bg-red-50 text-red-600 hover:bg-red-100"
       >
         Logout
       </Button>

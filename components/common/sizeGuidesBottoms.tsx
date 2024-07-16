@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const gendertitle = "text-base font-semibold leading-6 text-primary font-semibold";
+const gendertitle =
+  "text-base font-semibold leading-6 text-primary font-semibold";
 
 function SizeGuidsBottoms() {
   const womenFootwear = [
@@ -67,7 +68,10 @@ function SizeGuidsBottoms() {
                         {val.head}
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}
@@ -97,7 +101,7 @@ function SizeGuidsBottoms() {
                       <th
                         key={idx}
                         scope="col"
-                        className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                        className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                       >
                         {size}
                       </th>
@@ -111,7 +115,10 @@ function SizeGuidsBottoms() {
                         {val.head}
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}

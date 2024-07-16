@@ -59,7 +59,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
           src={"/woodland-loader.gif"}
           height={400}
           width={400}
-          alt="Woodland"
+          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
         />
       </div>
     );
@@ -97,7 +97,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
                           src={item}
                           priority
                           onClick={handleImageClick}
-                          alt="skuImage"
+                          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                           className=" sm:cursor-zoom-in"
                           placeholder="empty"
                           style={{

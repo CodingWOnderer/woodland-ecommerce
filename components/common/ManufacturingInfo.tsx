@@ -1,7 +1,6 @@
 import { IManufacturingInfo } from "@/lib/store/types";
 import React from "react";
 
-
 const headerHeight = "100px";
 
 const ManufacturingIndo = ({
@@ -16,7 +15,7 @@ const ManufacturingIndo = ({
   PackagingQty,
   OriginCountry,
   MarketedBy,
-}:Partial<IManufacturingInfo>) => {
+}: Partial<IManufacturingInfo>) => {
   const ImportProduct = [
     {
       title: "Product Code",
@@ -65,10 +64,7 @@ const ManufacturingIndo = ({
   ];
 
   return (
-    <div
-      className="flex justify-between items-center"
-      style={{ height: headerHeight }}
-    >
+    <div className="flex justify-between items-center ">
       <div className="flex-1 overflow-y-auto">
         {ImportProduct.map((val, idx) => (
           <div

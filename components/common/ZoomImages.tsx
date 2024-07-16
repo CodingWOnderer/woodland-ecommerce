@@ -42,7 +42,7 @@ const ZoomImages = (props: Props) => {
                 >
                   <img
                     src={item}
-                    alt="loading..."
+                    alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                     className=" object-contain aspect-square h-[80%] w-[80%] "
                   />
                 </SliderThumbItem>
@@ -58,7 +58,7 @@ const ZoomImages = (props: Props) => {
                   >
                     <img
                       src={item}
-                      alt="loading..."
+                      alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                       className="h-full sm:cursor-zoom-out object-contain w-full"
                     />
                   </SliderMainItem>

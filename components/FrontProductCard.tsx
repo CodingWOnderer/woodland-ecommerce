@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "./ui/button";
 
 interface Product {
   img: string;
@@ -14,7 +16,7 @@ interface ProductCardProps {
 
 const FrontProductCard: React.FC<ProductCardProps> = ({ product }) => (
   <li key={product.img}>
-    <Link href="#" className="group block overflow-hidden">
+    <div className="group block overflow-hidden">
       <div
         style={{
           position: "relative",
@@ -32,15 +34,27 @@ const FrontProductCard: React.FC<ProductCardProps> = ({ product }) => (
       </div>
       <div className="relative bg-white pt-3">
         {product.title && (
-          <h3 className=" text-gray-700 group-hover:underline group-hover:underline-offset-4">
-            {product.title}
-          </h3>
+          <h3 className=" text-black font-semibold  ">{product.title}</h3>
         )}
       </div>
-    </Link>
+    </div>
     <p className="mt-2 flex justify-between">
-      {product.linkone && <Link href={product.linkone}>Shop Men</Link>}
-      {product.linktwo && <Link href={product.linktwo}>Shop Women</Link>}
+      {product.linkone && (
+        <Link
+          className={cn(buttonVariants({ variant: "ghost" }), " px-0")}
+          href={product.linkone}
+        >
+          Shop Men
+        </Link>
+      )}
+      {product.linktwo && (
+        <Link
+          className={cn(buttonVariants({ variant: "ghost" }), " px-0")}
+          href={product.linktwo}
+        >
+          Shop Women
+        </Link>
+      )}
     </p>
   </li>
 );

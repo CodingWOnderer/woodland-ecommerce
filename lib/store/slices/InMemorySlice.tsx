@@ -57,6 +57,9 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
     orderId: string;
     drawer: boolean;
   }) => set({ cancelSheet: value }),
+
+  donationModel: false,
+  setDonationModel: (value: boolean) => set({ donationModel: value }),
 });
 
 export default InMemoryStoreSlice;

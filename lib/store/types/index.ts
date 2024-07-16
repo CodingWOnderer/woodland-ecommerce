@@ -87,6 +87,9 @@ export interface ZustandStoreProps {
   isNewUser: boolean;
   setIsNewUser: (value: boolean) => void;
 
+  donationModel: boolean;
+  setDonationModel: (value: boolean) => void;
+
   cancelSheet: {
     subOrderId: string;
     orderId: string;

@@ -11,6 +11,11 @@ import { QueryParams } from "@/hooks/collections/types";
 import useBestsellerQuery from "@/hooks/bestseller/queries";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
+import { Mulish } from "next/font/google";
+import { IoIosArrowForward } from "react-icons/io";
+import { cn } from "@/lib/utils";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 function TopSellerCarousel(
   params: Partial<
@@ -78,15 +83,15 @@ function TopSellerCarousel(
                     />
                   </div>
                   {item.discount > 0 && (
-                     <span className="absolute top-0 left-0 m-2 bg-[#a31010] px-2 text-center text-xs font-medium text-white">
-                     {`${item.discount}%`}
-                   </span>
+                    <span className="absolute top-0 left-0 m-2 bg-[#a31010] px-2 text-center text-xs font-medium text-white">
+                      {`${item.discount}%`}
+                    </span>
                   )}
 
                   {item.bestSeller === true ? (
-                   <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0"><FaStar /> <span className=" ml-2">
-                    Bestseller
-                  </span></div>
+                    <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0">
+                      <FaStar /> <span className=" ml-2">Bestseller</span>
+                    </div>
                   ) : (
                     ""
                   )}
@@ -94,7 +99,7 @@ function TopSellerCarousel(
                 <h2 className="mb-2 text-lg truncate mt-2 font-medium dark:text-white text-gray-900">
                   {item.title}
                 </h2>
-                <div className="flex items-center">
+                <div className={cn("flex items-center", mulish.className)}>
                   <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">
                     ₹{item.offerPrice}
                   </p>

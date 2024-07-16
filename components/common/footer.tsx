@@ -13,23 +13,23 @@ import { FaYoutube } from "react-icons/fa";
 const shareArr = [
   {
     icon: FaInstagram,
-    link: "",
+    link: "https://www.instagram.com/woodlandexploremore/",
   },
   {
     icon: FaFacebook,
-    link: "",
+    link: "https://www.facebook.com/woodlandadventure",
   },
   {
     icon: FaXTwitter,
-    link: "",
+    link: "https://twitter.com/Woodland",
   },
   {
     icon: FaYoutube,
-    link: "",
+    link: "https://www.youtube.com/@woodland",
   },
   {
     icon: FaLinkedin,
-    link: "",
+    link: "https://www.linkedin.com/company/woodland/",
   },
 ];
 
@@ -42,7 +42,7 @@ const Footer = () => {
             <Image
               height={40}
               width={100}
-              alt="woodland"
+              alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
               src="/footerlogo.png"
             />
           </div>
@@ -144,22 +144,31 @@ const Footer = () => {
         {/**compliance links */}
         <div className="flex lg:flex-row flex-col justify-between pt-8">
           <div className="flex xl:space-x-12 space-y-2 xl:space-y-0 flex-col xl:flex-row text-[12px] tracking-wider font-semibold text-primary-foreground">
-            <Link href={""} className="hover:underline transition">
+            <Link href={"/about-us"} className="hover:underline transition">
               About Us
             </Link>
-            <Link href={""} className="hover:underline transition">
+            <Link
+              href={"/compliance/terms"}
+              className="hover:underline transition"
+            >
               Terms of Service
             </Link>
-            <Link href={""} className="hover:underline transition">
+            <Link
+              href={"/compliance/privacy"}
+              className="hover:underline transition"
+            >
               Privacy Policy
             </Link>
-            <Link href={""} className="hover:underline transition">
+            <Link href={"/blogs"} className="hover:underline transition">
               Blogs
             </Link>
-            <Link href={""} className="hover:underline transition">
+            <Link
+              href={"/compliance/refund"}
+              className="hover:underline transition"
+            >
               Refund policy
             </Link>
-            <Link href={""} className="hover:underline transition">
+            <Link href={"/store"} className="hover:underline transition">
               Store Locator
             </Link>
           </div>

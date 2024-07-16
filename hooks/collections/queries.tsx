@@ -55,7 +55,10 @@ export const useProductCardCollection = (
 
   Object.keys(validatedQueryParams).forEach(
     (key) =>
-    ((validatedQueryParams[key] === undefined &&validatedQueryParams[key]===""&&validatedQueryParams[key]===null))&& delete validatedQueryParams[key]
+      (validatedQueryParams[key] === undefined ||
+        validatedQueryParams[key] === "" ||
+        validatedQueryParams[key] === null) &&
+      delete validatedQueryParams[key]
   );
 
   return useInfiniteQuery<ApiResponse, Error>({
@@ -101,9 +104,9 @@ export const useCollectionPageImage = (
       });
 
       if (
-        validatedQueryParams.circle&&validatedQueryParams.gender &&
-       ( validatedQueryParams.category ||
-          validatedQueryParams.brand)
+        validatedQueryParams.circle &&
+        validatedQueryParams.gender &&
+        (validatedQueryParams.category || validatedQueryParams.brand)
       ) {
         return (
           await apiRequest.get<{
@@ -122,6 +125,6 @@ export const useCollectionPageImage = (
         };
       }
     },
-    refetchOnWindowFocus:false,
+    refetchOnWindowFocus: false,
   });
 };

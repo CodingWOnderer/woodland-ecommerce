@@ -17,12 +17,12 @@ const CategoryInfo = (
     return (
       <div>
         <div className="relative  aspect-[1685/399]">
-        <Skeleton className="h-full w-full" />
+          <Skeleton className="h-full w-full" />
         </div>
         <div className=" py-7 lg:py-6">
-        <Skeleton className="h-6 w-[250px]" />
-        <Skeleton className="h-6 mt-1" />
-      </div>
+          <Skeleton className="h-6 w-[250px]" />
+          <Skeleton className="h-6 mt-1" />
+        </div>
       </div>
     );
 

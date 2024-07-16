@@ -48,7 +48,7 @@
     "input-otp": "^1.2.4",
     "lenis": "^1.1.5",
     "lucide-react": "^0.399.0",
-    "next": "14.2.4",
+    "next": "14.2.5",
     "next-themes": "^0.3.0",
     "pnpm": "^9.4.0",
     "razorpay": "^2.9.4",

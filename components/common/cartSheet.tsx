@@ -27,6 +27,10 @@ import { useAuth } from "./AuthWrapper";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { Mulish } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 const CartSheet = () => {
   const { storeSheet, toggleStore, items, removeItemFromCart, authForm } =
@@ -77,7 +81,7 @@ const CartSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-        <ScrollArea className={items.length > 0 ? "h-[70vh]" : "h-[90vh]"}>
+        <ScrollArea className={items.length > 0 ? "h-[65vh]" : "h-[90vh]"}>
           {items.length > 0 ? (
             <ul role="list" className=" divide-y divide-gray-200">
               {items.map((product) => (
@@ -87,7 +91,7 @@ const CartSheet = () => {
                 >
                   <div className="h-28 w-28 p-2 bg-[#F0F0F0] mix-blend-multiply flex-shrink-0 overflow-hidden  border-gray-200">
                     <img
-                      alt={product.name}
+                      alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                       src={product.imageURL}
                       className="h-full mix-blend-multiply w-full object-cover object-center"
                     />
@@ -95,9 +99,11 @@ const CartSheet = () => {
                   <Card className="w-full rounded-none shadow-none border-none">
                     <CardHeader className=" py-0 pb-4">
                       <CardTitle>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
+                        <div className="flex justify-between text-sm font-medium text-gray-900">
                           <h3 className="font-bold">{product.name}</h3>
-                          <span className="ml-4">{`₹ ${product.price}`}</span>
+                          <span
+                            className={cn("ml-4", mulish.className)}
+                          >{`₹ ${product.price}`}</span>
                         </div>
                       </CardTitle>
                       <CardDescription>
@@ -136,7 +142,7 @@ const CartSheet = () => {
           ) : (
             <div className="flex justify-center items-center h-[90vh]">
               <Image
-                alt={"empty-cart"}
+                alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                 width={100}
                 height={100}
                 quality={100}
@@ -152,7 +158,7 @@ const CartSheet = () => {
                 <p>
                   Subtotal &nbsp;&nbsp;&nbsp;<span>{items.length} Item</span>
                 </p>
-                <p>
+                <p className={mulish.className}>
                   {`₹ ${items.reduce(
                     (accumulator, currentValue) =>
                       accumulator +

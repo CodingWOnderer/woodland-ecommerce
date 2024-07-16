@@ -7,8 +7,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 const HomeBanner: { img: string; link: string }[] = [
@@ -64,7 +62,7 @@ const HeroSection = () => {
                     height={500}
                     width={2050}
                     className="h-full aspect-auto"
-                    alt="loading..."
+                    alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                   />
                 </CardContent>
               </Card>
@@ -72,8 +70,6 @@ const HeroSection = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-4  h-6 w-6 md:h-8 md:w-8" />
-      <CarouselNext className="right-4  h-6 w-6 md:h-8 md:w-8" />
     </Carousel>
   );
 };

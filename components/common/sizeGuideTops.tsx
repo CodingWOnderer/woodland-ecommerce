@@ -92,7 +92,7 @@ function SizeGuidTop() {
                       <th
                         key={idx}
                         scope="col"
-                        className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                        className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                       >
                         {size}
                       </th>
@@ -105,10 +105,15 @@ function SizeGuidTop() {
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">{val?.measure}</span>
+                        <span className="text-gray-500 text-sm">
+                          {val?.measure}
+                        </span>
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}
@@ -138,7 +143,7 @@ function SizeGuidTop() {
                       <th
                         key={idx}
                         scope="col"
-                        className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                        className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                       >
                         {size}
                       </th>
@@ -151,10 +156,15 @@ function SizeGuidTop() {
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">{val?.measure}</span>
+                        <span className="text-gray-500 text-sm">
+                          {val?.measure}
+                        </span>
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}
@@ -184,7 +194,7 @@ function SizeGuidTop() {
                       <th
                         key={idx}
                         scope="col"
-                        className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                        className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                       >
                         {size}
                       </th>
@@ -197,10 +207,15 @@ function SizeGuidTop() {
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">{val?.measure}</span>
+                        <span className="text-gray-500 text-sm">
+                          {val?.measure}
+                        </span>
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}
@@ -230,7 +245,7 @@ function SizeGuidTop() {
                       <th
                         key={idx}
                         scope="col"
-                        className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                        className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                       >
                         {size}
                       </th>
@@ -243,10 +258,15 @@ function SizeGuidTop() {
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">{val?.measure}</span>
+                        <span className="text-gray-500 text-sm">
+                          {val?.measure}
+                        </span>
                       </td>
                       {val.size.map((v, i) => (
-                        <td key={i} className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center">
+                        <td
+                          key={i}
+                          className="whitespace-nowrap px-3 py-4 text-xs text-gray-500 text-center"
+                        >
                           {v}
                         </td>
                       ))}

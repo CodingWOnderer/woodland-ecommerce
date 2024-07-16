@@ -36,6 +36,9 @@ import useWoodlandStoreData from "@/lib/store/store";
 import { IManufacturingInfo } from "@/lib/store/types";
 import { useGoToCartMutation } from "@/hooks/cart/mutation";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { Mulish } from "next/font/google";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 const appearanceFormSchema = z.object({
   colors: z.string(),
@@ -90,6 +93,44 @@ export function AppearanceForm({
     },
   });
 
+  const addCartGtm = (newItem: {
+    id: string;
+    name: string;
+    price: number | undefined;
+    quantity: number;
+    size: string;
+    color: string;
+    imageURL: string;
+  }) =>
+    sendGTMEvent({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "INR",
+        value: newItem?.price,
+        items: [
+          {
+            item_id: newItem?.id,
+            item_name: newItem?.name || "",
+            item_price: newItem?.price,
+            quantity: newItem?.quantity,
+            item_brand: productData?.data?.brand,
+            item_category: productData?.data?.gender || "",
+            item_category2:
+              productData?.data?.category &&
+              productData?.data?.category.length > 0
+                ? productData?.data?.category[1]
+                : "",
+            item_category3:
+              productData?.data?.category &&
+              productData?.data?.category.length > 0
+                ? productData?.data?.category[0]
+                : "",
+            item_variant: newItem?.color,
+          },
+        ],
+      },
+    });
+
   function onSubmit(fdata: AppearanceFormValues) {
     const newItem = {
       id:
@@ -124,36 +165,9 @@ export function AppearanceForm({
               imageURL: cart.url,
             })
           );
-          toggleStore(true);
 
-          sendGTMEvent({
-            event: "add_to_cart",
-            ecommerce: {
-              currency: "INR",
-              value: data.data,
-              items: [
-                {
-                  item_id: newItem.id,
-                  item_name: newItem.name || "",
-                  item_price: newItem.price,
-                  quantity: newItem.quantity,
-                  item_brand: productData.data.brand,
-                  item_category: productData.data?.gender || "",
-                  item_category2:
-                    productData.data?.category &&
-                    productData.data.category.length > 0
-                      ? productData.data.category[1]
-                      : "",
-                  item_category3:
-                    productData.data?.category &&
-                    productData.data.category.length > 0
-                      ? productData.data?.category[0]
-                      : "",
-                  item_variant: newItem.color,
-                },
-              ],
-            },
-          });
+          addCartGtm(newItem);
+          toggleStore(true);
         },
         onError: () => {
           toast.error("Something went wrong");
@@ -170,9 +184,39 @@ export function AppearanceForm({
           {currentProduct?.title ?? ""}
         </h1>
 
-        <p className="text-2xl mt-8 text-gray-900 ">
-          ₹ {currentProduct?.price.toString()[0]}&nbsp;
-          {currentProduct?.price.toString().slice(1)}
+        <p className="text-2xl mt-8 flex text-gray-900 ">
+          <span className={mulish.className}>
+            ₹{" "}
+            {currentProduct && currentProduct?.offerPrice > 0
+              ? currentProduct?.offerPrice.toString()[0]
+              : currentProduct?.price.toString()[0]}
+            {currentProduct && currentProduct?.offerPrice > 0
+              ? currentProduct?.offerPrice.toString().slice(1)
+              : currentProduct?.price.toString().slice(1)}
+          </span>
+          &nbsp;&nbsp;
+          <span
+            className={cn(" line-through text-neutral-500", mulish.className)}
+          >
+            MRP &nbsp;₹{" "}
+            {currentProduct &&
+              currentProduct?.offerPrice &&
+              currentProduct?.price.toString()[0]}
+            {currentProduct &&
+              currentProduct?.offerPrice &&
+              currentProduct?.price.toString().slice(1)}
+          </span>
+          &nbsp; &nbsp;
+          {currentProduct && currentProduct?.discount.toString().length > 0 && (
+            <span
+              className={cn(
+                "text-primary font-sans font-bold",
+                mulish.className
+              )}
+            >
+              {currentProduct.discount} % off
+            </span>
+          )}
         </p>
         <span className="text-[13px] text-muted-foreground">
           Prices include taxes
@@ -493,7 +537,7 @@ export function AppearanceForm({
                       To return an item, the customer must write to us at
                       care@woodlandworldwide.com, a prompt response is assured
                       to such mails. For more details please read the{" "}
-                      <a href="/refund-policy">FAQ’s</a>
+                      <a href="/compliance/refund">FAQ’s</a>
                     </li>
                   </ul>
                 </div>

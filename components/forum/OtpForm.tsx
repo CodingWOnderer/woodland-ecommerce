@@ -102,8 +102,13 @@ export function VerifyOtpForm({
                     status: "success",
                   });
                 },
-                onError: () => {
-                  toast.error("Something went wrong");
+                onError: (error) => {
+                  //@ts-ignore
+                  if (error?.response?.status === 400) {
+                    toast.error("Otp is invalid");
+                  } else {
+                    toast.error("Something went wrong");
+                  }
                 },
               }
             );

@@ -11,7 +11,6 @@ import { IoMdClose } from "react-icons/io";
 import { Separator } from "@/components/ui/separator";
 import useWoodlandStoreData from "@/lib/store/store";
 import ManufacturingIndo from "./ManufacturingInfo";
-import { ScrollArea } from "../ui/scroll-area";
 
 const ManufacturingInfoSheet = () => {
   const { infoSheet, setInfoSheet, productManufacturingData } =
@@ -31,13 +30,12 @@ const ManufacturingInfoSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-       <ScrollArea className="h-[94vh] flex justify-center items-center">
-       <div className=" mt-10 h-full py-10 pt-[30%]">
-          {productManufacturingData!==undefined && (
+
+        <div className=" min-h-[80vh] flex justify-center ">
+          {productManufacturingData !== undefined && (
             <ManufacturingIndo {...productManufacturingData} />
           )}
         </div>
-       </ScrollArea>
       </SheetContent>
     </Sheet>
   );

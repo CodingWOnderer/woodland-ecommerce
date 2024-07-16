@@ -49,6 +49,7 @@ export default function RootLayout({
             <FilterSheet />
             <SizeSheet />
             <CancelSheet />
+
             <ManufacturingInfoSheet />
           </body>
         </AuthProvider>

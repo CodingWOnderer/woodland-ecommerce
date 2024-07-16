@@ -45,6 +45,7 @@ const CollectionCategoryPage = (category: { para: string }) => {
         </div>
       );
 
+    console.log(data);
     if (data?.error) return <div>Something went wrong</div>;
 
     return (
@@ -119,7 +120,7 @@ const CollectionCategoryPage = (category: { para: string }) => {
         params={{
           circle: "woodland",
           ...searchParamsObject,
-          category: category.para,
+          category: category.para.length > 0 ? category.para : undefined,
         }}
       >
         <CategoryInfo {...searchParamsObject} category={category.para} />

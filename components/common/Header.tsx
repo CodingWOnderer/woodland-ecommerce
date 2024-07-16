@@ -19,7 +19,7 @@ const NavigationMenuDemo = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}
-          transition={{delay:1 ,ease:"easeInOut"}}
+          transition={{ delay: 1, ease: "easeInOut" }}
           className="flex justify-between w-full max-w-screen-2xl lg:px-20 md:px-10 mx-auto"
         >
           <div className="items-center flex">
@@ -31,14 +31,14 @@ const NavigationMenuDemo = () => {
                 <Image
                   height={20}
                   width={80}
-                  alt="woodland"
+                  alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                   src="/headerlogo.png"
                 />
               </NavigationMenu.Link>
             </NavigationMenu.Item>
             <nav className=" mt-3.5 hidden lg:flex">
               <NavigationMenu.Item>
-                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                <NavigationMenu.Trigger className=" group relative after:content-[''] after:h-[1.5px] after:bg-primary after:bottom-0 after:left-0 after:absolute after:w-0 after:data-[state='open']:w-full after:data-[state='open']:transition-all after:transition-all flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
                   Men
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen">
@@ -46,7 +46,7 @@ const NavigationMenuDemo = () => {
                 </NavigationMenu.Content>
               </NavigationMenu.Item>
               <NavigationMenu.Item>
-                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                <NavigationMenu.Trigger className=" group relative after:content-[''] after:h-[1.5px] after:bg-primary after:bottom-0 after:left-0 after:absolute  after:w-0 after:data-[state='open']:w-full after:data-[state='open']:transition-all after:transition-all flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
                   Women
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft  data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-screen border-b bg-white">
@@ -54,11 +54,11 @@ const NavigationMenuDemo = () => {
                 </NavigationMenu.Content>
               </NavigationMenu.Item>
               <NavigationMenu.Item>
-                <NavigationMenu.Trigger className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
+                <NavigationMenu.Trigger className=" group flex relative after:content-[''] after:h-[1.5px] after:bg-primary after:bottom-0 after:left-0 after:absolute  after:w-0 after:data-[state='open']:w-full after:data-[state='open']:transition-all after:transition-all select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none ">
                   Brands
                 </NavigationMenu.Trigger>
                 <NavigationMenu.Content className="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute list-none top-0 left-0 w-screen border-b bg-white">
-                  <div className="max-w-screen-xl mx-auto grid grid-cols-3  ">
+                  <div className="max-w-screen-xl mx-auto  grid grid-cols-3  ">
                     {[
                       { img: "woods.png", link: "woods" },
                       { img: "woodsport.png", link: "woodsports" },
@@ -73,7 +73,7 @@ const NavigationMenuDemo = () => {
                           className="rounded"
                           height={450}
                           width={500}
-                          alt="loading.."
+                          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                         />
                       </ListItem>
                     ))}
@@ -84,7 +84,7 @@ const NavigationMenuDemo = () => {
               {["About Us", "Labs", "Sale"].map((label, index) => (
                 <NavigationMenu.Item key={index}>
                   <NavigationMenu.Link
-                    className=" group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none "
+                    className=" group relative after:content-[''] after:h-[1.5px] after:bg-primary after:bottom-0 after:left-0 after:absolute hover:after:w-full after:w-0 hover:after:transition-all transition-all flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[14px] font-bold text-primary leading-none outline-none "
                     href={`/${label
                       .split(" ")[0]
                       .toLowerCase()

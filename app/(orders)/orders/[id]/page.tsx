@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { Mulish } from "next/font/google";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 export default function OrderId({ params }: { params: { id: string } }) {
   const { data, isLoading, isError } = OrderQuery.useSuccessOrderQuery(
@@ -25,7 +28,12 @@ export default function OrderId({ params }: { params: { id: string } }) {
   ) {
     return (
       <div className="w-full h-[400px] flex flex-col justify-center items-center">
-        <Image src={"/Empty.svg"} height={200} width={200} alt="Woodland" />
+        <Image
+          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
+          src={"/Empty.svg"}
+          height={200}
+          width={200}
+        />
 
         <h2 className=" font-semibold text-gray-800/20">No Orders</h2>
       </div>
@@ -39,7 +47,12 @@ export default function OrderId({ params }: { params: { id: string } }) {
           Order Details
         </h1>
 
-        <div className="mt-2 pl-4 sm:pl-6 border-b lg:pl-10 border-gray-200 pb-5 text-sm sm:flex sm:justify-between">
+        <div
+          className={cn(
+            "mt-2 pl-4 sm:pl-6 border-b lg:pl-10 border-gray-200 pb-5 text-sm sm:flex sm:justify-between",
+            mulish.className
+          )}
+        >
           <div className="flex flex-col">
             <ul>
               <li className="flex">
@@ -108,7 +121,12 @@ export default function OrderId({ params }: { params: { id: string } }) {
               </div>
             </dl>
 
-            <dl className="mt-8 divide-y divide-gray-200 text-sm lg:col-span-7 lg:mt-0 lg:pr-8">
+            <dl
+              className={cn(
+                "mt-8 divide-y divide-gray-200 text-sm lg:col-span-7 lg:mt-0 lg:pr-8",
+                mulish.className
+              )}
+            >
               <div className="flex items-center justify-between pb-4">
                 <dt className=" font-bold">Shipping</dt>
                 <dd className="font-medium text-gray-900">

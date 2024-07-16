@@ -15,7 +15,7 @@ const LoaderComponent = (props: Props) => {
           src={"/woodland-loader.gif"}
           height={400}
           width={400}
-          alt="Woodland"
+          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
         />
       </div>
     );
@@ -28,7 +28,7 @@ const LoaderComponent = (props: Props) => {
           src={"/woodland-loader.gif"}
           height={400}
           width={400}
-          alt="Woodland"
+          alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
         />
       </div>
     );

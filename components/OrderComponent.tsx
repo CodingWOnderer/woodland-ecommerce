@@ -5,6 +5,9 @@ import { Button, buttonVariants } from "./ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import useWoodlandStoreData from "@/lib/store/store";
+import { Mulish } from "next/font/google";
+
+const mulish = Mulish({ subsets: ["latin"] });
 
 type subOrder = Omit<SubOrder, "status">;
 
@@ -72,7 +75,7 @@ const OrderComponent = (props: OrderComponentData) => {
             <div className="img-box max-lg:w-full">
               <img
                 src={props.url ? props.url : props.imageURL}
-                alt="Woodland"
+                alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                 className="aspect-square w-full lg:max-w-[140px]"
               />
             </div>
@@ -97,14 +100,20 @@ const OrderComponent = (props: OrderComponentData) => {
                     </div>
                   </div>
                 </div>
+
                 <div className="grid grid-cols-5">
                   <div className="col-span-5 lg:col-span-1 flex items-center max-lg:mt-3">
                     <div className="flex gap-3 lg:block">
                       <p className="font-medium text-base leading-7 text-black">
                         price
                       </p>
-                      <p className="lg:mt-4 font-medium text-sm leading-7 ">
-                        ₹ &nbsp;{props.finalPrice}
+                      <p
+                        className={cn(
+                          "lg:mt-4 font-medium text-sm leading-7 ",
+                          mulish.className
+                        )}
+                      >
+                        ₹ {props.finalPrice}
                       </p>
                     </div>
                   </div>
