@@ -397,6 +397,14 @@ export function AppearanceForm({
                           form.setValue("quantitiy", (quantity - 1).toString());
                           setQuantity(quantity - 1);
                         }}
+                        disabled={
+                          (productData?.data?.sizes?.find(
+                            (siz) =>
+                              siz?.quantity > 0 && siz?.size !== "No Size"
+                          )?.size?.length ?? 0) > 0
+                            ? false
+                            : true
+                        }
                         className="rounded-none h-full"
                       >
                         -
@@ -409,6 +417,14 @@ export function AppearanceForm({
                           form.setValue("quantitiy", e.target.value);
                         }}
                         type="number"
+                        disabled={
+                          (productData?.data?.sizes?.find(
+                            (siz) =>
+                              siz?.quantity > 0 && siz?.size !== "No Size"
+                          )?.size?.length ?? 0) > 0
+                            ? false
+                            : true
+                        }
                         className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />
                       <Button
@@ -418,6 +434,14 @@ export function AppearanceForm({
                           form.setValue("quantitiy", (quantity + 1).toString());
                           setQuantity(quantity + 1);
                         }}
+                        disabled={
+                          (productData?.data?.sizes?.find(
+                            (siz) =>
+                              siz?.quantity > 0 && siz?.size !== "No Size"
+                          )?.size?.length ?? 0) > 0
+                            ? false
+                            : true
+                        }
                         className="rounded-none h-full"
                       >
                         +
@@ -430,6 +454,13 @@ export function AppearanceForm({
             <Button
               className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
               type="submit"
+              disabled={
+                (productData?.data?.sizes?.find(
+                  (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
+                )?.size?.length ?? 0) > 0
+                  ? false
+                  : true
+              }
             >
               <IoCartOutline size={24} />
               <span className="font-semibold text-lg">

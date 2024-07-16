@@ -12,6 +12,7 @@ import { FaStar } from "react-icons/fa6";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { cn } from "@/lib/utils";
 import { Mulish } from "next/font/google";
+import { motion } from "framer-motion";
 
 const mulish = Mulish({ subsets: ["latin"] });
 
@@ -44,7 +45,10 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
   }, []);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, ease: "easeIn" }}
       ref={infiniteRef}
       className=" flex flex-col justify-center  aspect-[3/3] m-2"
     >
@@ -142,7 +146,7 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
           )}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
