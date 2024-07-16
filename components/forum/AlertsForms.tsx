@@ -36,7 +36,7 @@ export function AlertForm() {
     setLoading(true);
     try {
       await axios.post(
-        `https://asia-south2-woodland-397213.cloudfunctions.net/subscribe`,
+        `https://asia-south2-woodland-397213.cloudfunctions.net/subscribe?circle=woodland`,
         { email: data.email }
       );
       toast.success("Thank you for subscribing");
