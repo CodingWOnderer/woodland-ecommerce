@@ -26,7 +26,7 @@ import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import { IoCartOutline } from "react-icons/io5";
 import usePincodeQuery from "@/hooks/pincode/queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -98,9 +98,17 @@ export function AppearanceForm({
       pincode: "",
     },
   });
+  const [isInCart, setIsInCart] = useState<boolean>(false);
 
-  const isInCart = cartItems.find(
-    (item) => item.slug === productid && item.size === form.getValues("size")
+  useEffect(
+    () =>
+      setIsInCart(
+        !!cartItems.find(
+          (item) =>
+            item.slug === productid && item.size === form.getValues("size")
+        )
+      ),
+    [form.watch("size"), cartItems, form.getValues("size")]
   );
 
   const addCartGtm = (newItem: {
