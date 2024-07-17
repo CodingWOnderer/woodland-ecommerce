@@ -2,9 +2,12 @@ import { FC } from "react";
 import Link from "next/link";
 import { men } from "@/lib";
 
-const headingStyle = "font-bold text-base border-b border-gray-300 mt-2 cursor-pointer text-primary"
-const subDivisionStyle = "font-bold text-[13px] text-black hover:text-gray-800 cursor-pointer"
-const extraSubdivision = "ml-5 text-[13px] font-medium hover:text-gray-400 antialiased text-black cursor-pointer"
+const headingStyle =
+  "font-bold text-base border-b border-gray-300 mt-2 cursor-pointer text-primary";
+const subDivisionStyle =
+  "font-bold text-[13px] text-black hover:underline cursor-pointer";
+const extraSubdivision =
+  "ml-5 text-[13px] font-medium  hover:underline antialiased text-black cursor-pointer";
 
 const GenderMenCategory: FC = () => {
   return (
@@ -55,9 +58,9 @@ const GenderMenCategory: FC = () => {
           <div className="grid grid-cols-4 gap-4">
             {men.map((val, idx) => (
               <div key={idx}>
-                <h3  className={headingStyle}>{val.division}</h3>
+                <h3 className={headingStyle}>{val.division}</h3>
                 {val.category.map((category, idx) => (
-                  <div key={idx} >
+                  <div key={idx}>
                     <h4 className={subDivisionStyle}>
                       <Link href={category.target}>{category.name}</Link>
                     </h4>
@@ -73,7 +76,7 @@ const GenderMenCategory: FC = () => {
                   <div key={idx}>
                     <h3 className={headingStyle}>{val.division}</h3>
                     {val.category.map((category, idx) => (
-                      <div key={idx} >
+                      <div key={idx}>
                         <h4 className={subDivisionStyle}>
                           <Link href={category.target}>{category.name}</Link>
                         </h4>
@@ -85,7 +88,7 @@ const GenderMenCategory: FC = () => {
                   <div key={idx} className="mt-4">
                     <h3 className={headingStyle}>{val.division}</h3>
                     {val.category.map((category, idx) => (
-                      <div key={idx} >
+                      <div key={idx}>
                         <h4 className={subDivisionStyle}>
                           <Link href={category.target}>{category.name}</Link>
                         </h4>

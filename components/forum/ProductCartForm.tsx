@@ -221,7 +221,7 @@ export function AppearanceForm({
             <span
               className={cn("line-through text-neutral-500", mulish.className)}
             >
-              MRP &nbsp;₹ {formatPrice(price)}
+              MRP &nbsp; {formatPrice(price)}
             </span>
           )}
           &nbsp;&nbsp;

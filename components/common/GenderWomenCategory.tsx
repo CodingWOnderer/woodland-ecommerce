@@ -2,11 +2,12 @@ import { women } from "@/lib";
 import Link from "next/link";
 import React, { FC } from "react";
 
-const headingStyle = "font-bold text-base border-b border-gray-300  cursor-pointer text-primary"
-const subDivisionStyle = "font-bold text-[13px] text-black hover:text-gray-800 cursor-pointer"
-const extraSubdivision = "ml-5 text-[13px] font-medium hover:text-gray-400 antialiased text-black cursor-pointer"
-
-
+const headingStyle =
+  "font-bold text-base border-b border-gray-300  cursor-pointer text-primary";
+const subDivisionStyle =
+  "font-bold text-[13px] text-black hover:underline cursor-pointer";
+const extraSubdivision =
+  "ml-5 text-[13px] font-medium  hover:underline antialiased text-black cursor-pointer";
 
 const GenderWomenCategory: FC = () => {
   return (
@@ -14,26 +15,38 @@ const GenderWomenCategory: FC = () => {
       <div className="md:w-1/5 p-4 pt-1">
         <div className={headingStyle}>Woods</div>
         <div className="font-bold text-[13px] text-black cursor-pointer">
-          <Link href="/collections/Footwear?brand=woods&gender=WOMEN">Footwear</Link>
+          <Link href="/collections/Footwear?brand=woods&gender=WOMEN">
+            Footwear
+          </Link>
         </div>
         <div className={subDivisionStyle}>
-          <Link href="/collections/Garment?brand=woods&gender=WOMEN">Apparels</Link>
+          <Link href="/collections/Garment?brand=woods&gender=WOMEN">
+            Apparels
+          </Link>
         </div>
         <div className={subDivisionStyle}>
-          <Link href="/collections/Accessories?brand=woods&gender=WOMEN">Accessories</Link>
+          <Link href="/collections/Accessories?brand=woods&gender=WOMEN">
+            Accessories
+          </Link>
         </div>
         <div className={headingStyle}>
           <Link href={"/collections?brand=woodsports"}>Woodsports</Link>
         </div>
         <div className={headingStyle}>StreetWear</div>
         <div className={subDivisionStyle}>
-          <Link href="/collections/Footwear?brand=askatingmonk&gender=WOMEN">Footwear</Link>
+          <Link href="/collections/Footwear?brand=askatingmonk&gender=WOMEN">
+            Footwear
+          </Link>
         </div>
         <div className={subDivisionStyle}>
-          <Link href="/collections/GARMENT?brand=askatingmonk&gender=WOMEN">Apparels</Link>
+          <Link href="/collections/GARMENT?brand=askatingmonk&gender=WOMEN">
+            Apparels
+          </Link>
         </div>
         <div className={subDivisionStyle}>
-          <Link href="/collections/Accessories?brand=askatingmonk&gender=WOMEN">Accessories</Link>
+          <Link href="/collections/Accessories?brand=askatingmonk&gender=WOMEN">
+            Accessories
+          </Link>
         </div>
       </div>
       <div className="md:w-4/5 p-4 pt-1">
@@ -47,11 +60,12 @@ const GenderWomenCategory: FC = () => {
                     <div className={subDivisionStyle}>
                       <Link href={category.target}>{category.name}</Link>
                     </div>
-                    {category.haschild && category.subCategory.map((sub, subIdx) => (
-                      <div key={subIdx} className={extraSubdivision}>
-                        <Link href={sub.target}>{sub.name}</Link>
-                      </div>
-                    ))}
+                    {category.haschild &&
+                      category.subCategory.map((sub, subIdx) => (
+                        <div key={subIdx} className={extraSubdivision}>
+                          <Link href={sub.target}>{sub.name}</Link>
+                        </div>
+                      ))}
                   </div>
                 ))}
               </div>
