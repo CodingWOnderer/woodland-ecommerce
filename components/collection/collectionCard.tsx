@@ -5,6 +5,8 @@ import {
   SliderMainItem,
   CarouselThumbsContainer,
   SliderThumbItem,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/extension/carousel";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,6 +55,8 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
       className=" flex flex-col justify-center  aspect-[3/3] m-2"
     >
       <Carousel>
+        <CarouselPrevious className="-my-6" />
+        <CarouselNext className="-my-6" />
         <CarouselMainContainer
           onSlideChange={handleSlideChange}
           className="w-full"
