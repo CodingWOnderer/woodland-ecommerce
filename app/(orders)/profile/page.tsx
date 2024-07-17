@@ -12,12 +12,11 @@ import { Input } from "@/components/ui/input";
 import useUserAuthQuery from "@/hooks/auth/queries";
 
 function ProfilePage() {
-  const { data,isLoading } = useUserAuthQuery();
+  const { data, isPending } = useUserAuthQuery();
 
   const phone = data?.phone.match(/^(\+\d{2})?\s?(\d{10})$/);
 
-
-  if(isLoading) return <LoaderComponent size={"screen"}/>
+  if (isPending) return <LoaderComponent size={"screen"} />;
 
   return (
     <div className="grid gap-6">

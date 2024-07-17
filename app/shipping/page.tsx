@@ -37,6 +37,7 @@ import useRazorpayPayment from "@/hooks/payment/useRazorpayPayment";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Mulish } from "next/font/google";
 import DonationModal from "@/components/DonationModal";
+import LoaderComponent from "@/components/common/Loader";
 
 const mulish = Mulish({ subsets: ["latin"] });
 
@@ -63,6 +64,8 @@ function ShippingPage() {
     isPending,
     isError,
   } = useApplyPromocode();
+
+  if (isPending) return <LoaderComponent size={"infiniteLoader"} />;
 
   const {
     initiatePayment,

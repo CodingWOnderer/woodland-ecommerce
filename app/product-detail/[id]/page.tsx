@@ -11,7 +11,7 @@ import ZoomImages from "@/components/common/ZoomImages";
 import { sendGTMEvent } from "@next/third-parties/google";
 
 const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
-  const { data, isLoading } = useProductQuery(id);
+  const { data, isPending } = useProductQuery(id);
   const { setDivision, setZoomDialouge } = useWoodlandStoreData();
 
   useEffect(
@@ -52,7 +52,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
     }
   }, [currentProduct?.slug]);
 
-  if (isLoading)
+  if (isPending)
     return (
       <div className="border min-h-screen min-w-screen mix-blend-multiply flex justify-center items-center">
         <Image

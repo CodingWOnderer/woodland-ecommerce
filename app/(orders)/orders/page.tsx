@@ -6,9 +6,9 @@ import orderQuery from "@/hooks/orders/queries";
 import Image from "next/image";
 
 function OrderPage() {
-  const { data, isLoading, isError } = orderQuery.useOrderQuery("woodland");
+  const { data, isPending, isError } = orderQuery.useOrderQuery("woodland");
 
-  if (isLoading) {
+  if (isPending) {
     return <LoaderComponent size="infiniteLoader" />;
   }
 

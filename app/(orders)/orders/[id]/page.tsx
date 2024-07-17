@@ -11,12 +11,12 @@ import { Mulish } from "next/font/google";
 const mulish = Mulish({ subsets: ["latin"] });
 
 export default function OrderId({ params }: { params: { id: string } }) {
-  const { data, isLoading, isError } = OrderQuery.useSuccessOrderQuery(
+  const { data, isPending, isError } = OrderQuery.useSuccessOrderQuery(
     "woodland",
     params.id
   );
 
-  if (isLoading) {
+  if (isPending) {
     return <LoaderComponent size="infiniteLoader" />;
   }
 

@@ -8,12 +8,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 const CategoryInfo = (
   params: Partial<Pick<QueryParams, "category" | "gender" | "circle" | "brand">>
 ) => {
-  const { data, isLoading } = useCollectionPageImage({
+  const { data, isPending } = useCollectionPageImage({
     ...params,
     circle: "woodland",
   });
 
-  if (isLoading)
+  if (isPending)
     return (
       <div>
         <div className="relative  aspect-[1685/399]">
