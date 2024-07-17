@@ -45,7 +45,6 @@ const CollectionCategoryPage = (category: { para: string }) => {
         </div>
       );
 
-    console.log(data);
     if (data?.error) return <div>Something went wrong</div>;
 
     return (

@@ -96,19 +96,21 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
                     }}
                   />
                 </div>
-                {item.discount > 0 && (
-                  <span className="absolute top-0 left-0 m-2 bg-[#a31010] px-2 text-center text-xs font-medium text-white">
-                    {`${item.discount}%`}
-                  </span>
-                )}
+                <div className="flex space-x-2 absolute top-0 mt-2 left-0">
+                  {item.discount > 0 && (
+                    <span className=" bg-[#a31010] px-2 text-center text-xs font-medium text-white">
+                      {`${item.discount}%`}
+                    </span>
+                  )}
 
-                {item.bestseller === true ? (
-                  <div className="flex items-center  m-2 bg-primary px-2 text-center text-xs  font-medium text-white absolute z-10 bottom-0 left-0">
-                    <FaStar /> <span className=" ml-2">Bestseller</span>
-                  </div>
-                ) : (
-                  ""
-                )}
+                  {item.bestseller === true ? (
+                    <div className="flex items-center bg-primary px-2 text-center text-xs  font-medium text-white ">
+                      <FaStar /> <span className=" ml-2">Bestseller</span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </Link>
             </SliderMainItem>
           ))}

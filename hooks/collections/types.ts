@@ -47,7 +47,7 @@ export type ApiResponse = Omit<
 export const queryParamsSchema = z.object({
   category: z.string().optional(),
   page: z.number().optional(),
-  bestSeller: z.boolean().optional(),
+  bestseller: z.string().optional(),
   brand: z.string().optional(),
   gender: z.string().optional(),
   sort: z.string().optional(),

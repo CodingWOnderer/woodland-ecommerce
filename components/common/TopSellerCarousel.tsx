@@ -19,7 +19,7 @@ const mulish = Mulish({ subsets: ["latin"] });
 
 function TopSellerCarousel(
   params: Partial<
-    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestSeller">
+    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestseller">
   >
 ) {
   const { data, isLoading, isFetching } = useBestsellerQuery({
