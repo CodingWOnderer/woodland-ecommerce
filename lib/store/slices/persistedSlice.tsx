@@ -35,7 +35,7 @@ export const cartStoreSlice: StateCreator<CartState> = (set, get) => ({
       if (existingItem) {
         return {
           items: state.items.map((i) =>
-            i.id === item.id
+            i.id === item.id && i.size === item.size
               ? { ...i, quantity: item.quantity, size: item.size }
               : i
           ),

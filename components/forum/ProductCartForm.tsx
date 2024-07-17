@@ -85,8 +85,6 @@ export function AppearanceForm({
     (item) => item.slug === productid
   );
 
-  const isInCart = cartItems.find((item) => item.slug === productid);
-
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
@@ -100,6 +98,10 @@ export function AppearanceForm({
       pincode: "",
     },
   });
+
+  const isInCart = cartItems.find(
+    (item) => item.slug === productid && item.size === form.getValues("size")
+  );
 
   const addCartGtm = (newItem: {
     id: string;
@@ -416,12 +418,12 @@ export function AppearanceForm({
                           setQuantity(quantity - 1);
                         }}
                         disabled={
-                          ((productData?.data?.sizes?.find(
+                          (productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true) || !!isInCart
+                            : true
                         }
                         className="rounded-none h-full"
                       >
@@ -436,12 +438,12 @@ export function AppearanceForm({
                         }}
                         type="number"
                         disabled={
-                          ((productData?.data?.sizes?.find(
+                          (productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true) || !!isInCart
+                            : true
                         }
                         className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />
@@ -453,12 +455,12 @@ export function AppearanceForm({
                           setQuantity(quantity + 1);
                         }}
                         disabled={
-                          ((productData?.data?.sizes?.find(
+                          (productData?.data?.sizes?.find(
                             (siz) =>
                               siz?.quantity > 0 && siz?.size !== "No Size"
                           )?.size?.length ?? 0) > 0
                             ? false
-                            : true) || !!isInCart
+                            : true
                         }
                         className="rounded-none h-full"
                       >
@@ -476,11 +478,11 @@ export function AppearanceForm({
                     className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
                     type="submit"
                     disabled={
-                      ((productData?.data?.sizes?.find(
+                      (productData?.data?.sizes?.find(
                         (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
                       )?.size?.length ?? 0) > 0
                         ? false
-                        : true) || !!isInCart
+                        : true || isInCart
                     }
                   >
                     <IoCartOutline size={24} />
