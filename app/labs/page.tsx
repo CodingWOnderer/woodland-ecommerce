@@ -55,7 +55,7 @@ const LabsPage = () => {
                   want to be the best.
                 </motion.p>
               </motion.div>
-              <div className="relative  mt-4 lg:mt-0 grid grid-cols-3 gap-2 gap-x-1">
+              <div className="relative  mt-4 lg:mt-0 grid grid-cols-3 gap-2 gap-x-[2px]">
                 <div className="relative  border ">
                   <Image
                     src="/labs/lab-1.png"
@@ -87,7 +87,7 @@ const LabsPage = () => {
             </div>
             {/**section 2 */}
             <div className="grid lg:grid-cols-2">
-              <div className="relative order-2 mt-4 lg:mt-0 lg:order-1 grid grid-cols-3 gap-2 gap-x-1  ">
+              <div className="relative order-2 mt-4 lg:mt-0 lg:order-1 grid grid-cols-3 gap-2 gap-x-[2px]  ">
                 <div className="relative  border ">
                   <Image
                     src="/labs/lab-2.png"
@@ -140,7 +140,7 @@ const LabsPage = () => {
                   succeed here.
                 </p>
               </div>
-              <div className="relative  mt-4 lg:mt-0 grid grid-cols-3 gap-2 gap-x-1">
+              <div className="relative  mt-4 lg:mt-0 grid grid-cols-3 gap-2 gap-x-[2px]">
                 <div className="relative  border ">
                   <Image
                     src="/labs/lab-3.png"
