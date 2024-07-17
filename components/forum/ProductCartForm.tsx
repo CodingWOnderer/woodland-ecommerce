@@ -209,6 +209,41 @@ export function AppearanceForm({
   const isDiscounted = offerPrice > 0 && offerPrice !== price;
 
   const { refetch, data } = usePincodeQuery(pincode);
+
+  const isProductAvailable = () =>
+    productData?.data?.sizes?.some(
+      (siz) => siz.quantity > 0 && siz.size !== "No Size"
+    );
+
+  const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const newQuantity = Math.max(1, quantity - 1);
+    form.setValue("quantitiy", newQuantity.toString());
+    setQuantity(newQuantity);
+  };
+
+  const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const size = form.getValues("size");
+    const currentQuantity = productData?.data?.sizes?.find(
+      (siz) => siz.size === size
+    )?.quantity;
+    const newQuantity =
+      currentQuantity !== undefined
+        ? Math.min(quantity + 1, currentQuantity)
+        : quantity + 1;
+
+    form.setValue("quantitiy", newQuantity.toString());
+    setQuantity(newQuantity);
+  };
+
+  const isDecrementDisabled = !isProductAvailable || quantity <= 1;
+  const isIncrementDisabled =
+    !isProductAvailable ||
+    (productData?.data?.sizes?.find(
+      (siz) => siz.size === form.getValues("size")
+    )?.quantity || 0) <= quantity;
+
   return (
     <div className="w-full h-full">
       <Form {...form}>
@@ -413,19 +448,8 @@ export function AppearanceForm({
                     <div className="inline-flex w-full lg:w-auto h-12">
                       <Button
                         type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          form.setValue("quantitiy", (quantity - 1).toString());
-                          setQuantity(quantity - 1);
-                        }}
-                        disabled={
-                          (productData?.data?.sizes?.find(
-                            (siz) =>
-                              siz?.quantity > 0 && siz?.size !== "No Size"
-                          )?.size?.length ?? 0) > 0
-                            ? false
-                            : true
-                        }
+                        onClick={handleDecrement}
+                        disabled={isDecrementDisabled}
                         className="rounded-none h-full"
                       >
                         -
@@ -438,31 +462,13 @@ export function AppearanceForm({
                           form.setValue("quantitiy", e.target.value);
                         }}
                         type="number"
-                        disabled={
-                          (productData?.data?.sizes?.find(
-                            (siz) =>
-                              siz?.quantity > 0 && siz?.size !== "No Size"
-                          )?.size?.length ?? 0) > 0
-                            ? false
-                            : true
-                        }
+                        disabled={!isProductAvailable}
                         className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />
                       <Button
                         type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          form.setValue("quantitiy", (quantity + 1).toString());
-                          setQuantity(quantity + 1);
-                        }}
-                        disabled={
-                          (productData?.data?.sizes?.find(
-                            (siz) =>
-                              siz?.quantity > 0 && siz?.size !== "No Size"
-                          )?.size?.length ?? 0) > 0
-                            ? false
-                            : true
-                        }
+                        onClick={handleIncrement}
+                        disabled={isIncrementDisabled}
                         className="rounded-none h-full"
                       >
                         +
