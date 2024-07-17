@@ -130,22 +130,28 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
         </CarouselThumbsContainer>
       </Carousel>
       <div className=" px-3">
-        <a href={metadata[activeIndex].url}>
-          <h5 className="tracking-tight line-clamp-1 text-black text-sm md:text-lg sm:text-base font-semibold">
-            {metadata[activeIndex].title}
-          </h5>
-        </a>
+        <h5 className="tracking-tight line-clamp-1 text-black text-sm md:text-lg sm:text-base font-semibold">
+          {metadata[activeIndex].title}
+        </h5>
         <p className={cn("space-x-1", mulish.className)}>
-          {metadata[activeIndex].actualPrice && (
-            <span className="sm:text-sm text-xs text-black line-through">
-              ₹ {metadata[activeIndex].actualPrice}
-            </span>
-          )}
-          {metadata[activeIndex].offerPrice && (
-            <span className="sm:text-sm text-xs font-bold text-black">
-              ₹ {metadata[activeIndex].offerPrice}
-            </span>
-          )}
+          {metadata[activeIndex].actualPrice &&
+            (metadata[activeIndex].offerPrice !==
+            metadata[activeIndex].actualPrice ? (
+              <>
+                <span className="sm:text-sm text-xs text-black line-through">
+                  ₹ {metadata[activeIndex].actualPrice}
+                </span>
+                {metadata[activeIndex].offerPrice && (
+                  <span className="sm:text-sm text-xs font-bold text-black">
+                    ₹ {metadata[activeIndex].offerPrice}
+                  </span>
+                )}
+              </>
+            ) : (
+              <span className="sm:text-sm text-xs text-black">
+                ₹ {metadata[activeIndex].actualPrice}
+              </span>
+            ))}
         </p>
       </div>
     </motion.div>
