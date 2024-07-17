@@ -149,8 +149,9 @@ const FilterSheet: React.FC = () => {
                             : ""
                         )}
                       ></div>
-                      <span className="my-1 text-xs lowercase">
-                        {item.name}
+                      <span className="my-1 text-xs">
+                        {item.name[0]}
+                        {item.name.slice(1).toLowerCase()}
                       </span>
                     </div>
                   ))}
