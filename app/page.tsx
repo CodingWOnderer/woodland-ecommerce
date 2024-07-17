@@ -80,7 +80,7 @@ export default function Home() {
           <TopSellerCarousel bestseller={"true"} />
         </section>
 
-        <div className="grid md:grid-cols-2 gap-2">
+        <div className="grid md:grid-cols-2 gap-4">
           {genderCat.map((val, index) => {
             return (
               <div key={index} className="relative">
@@ -139,9 +139,9 @@ export default function Home() {
             fill
             style={{ objectFit: "contain" }}
           />
-          <div className="absolute z-[2] bottom-8 left-8 ">
+          <div className="absolute z-[2] bottom-[5%] sm:bottom-[7%] left-[7%] ">
             <Link href={"/collections?brand=woodsports"}>
-              <Button className="rounded-none text-xs px-2 h-8 sm:text-base sm:h-12 sm:px-4">
+              <Button className="rounded-none text-xs h-6 px-1 lg:h-8  lg:text-base sm:px-4">
                 Shop Now
               </Button>
             </Link>
