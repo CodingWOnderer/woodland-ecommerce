@@ -5,7 +5,7 @@ import { QueryParams, queryParamsSchema } from "../collections/types";
 
 export const fetchBestseller = async (
   bestseller: Partial<
-    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestSeller">
+    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestseller">
   >
 ): Promise<ProductSchema> => {
   const validatedQueryParams = queryParamsSchema.parse(bestseller) as Record<
@@ -35,7 +35,7 @@ export const fetchBestseller = async (
 
 const useBestsellerQuery = (
   queryParams: Partial<
-    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestSeller">
+    Pick<QueryParams, "category" | "gender" | "circle" | "brand" | "bestseller">
   >
 ) => {
   return useQuery<ProductSchema>({
