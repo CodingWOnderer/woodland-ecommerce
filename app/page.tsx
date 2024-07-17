@@ -219,7 +219,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="grid mt-2 max-w-screen-2xl pb-4 mx-auto md:grid-cols-2 ">
+        <div className="grid mt-2 gap-x-2 max-w-screen-2xl pb-4 mx-auto md:grid-cols-2 ">
           {envCat.map((val, index) => {
             return (
               <div key={index} className="relative">
