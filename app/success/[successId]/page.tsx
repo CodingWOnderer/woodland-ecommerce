@@ -17,25 +17,25 @@ const SuccessPage = ({ params }: { params: { successId: string } }) => {
 
   if (isLoading) <LoaderComponent size={"screen"} />;
 
-  if (!data?.data) {
-    return (
-      <ContentLayout>
-        <div className=" mx-auto min-h-screen max-w-screen-xl">
-          <div className="flex flex-col items-center justify-center">
-            <p className="my-2 text-center text-lg text-gray-800">
-              No order found, please return to the Home page
-            </p>
-            <Link
-              href="/"
-              className="rounded-none border border-primary bg-primary text-white hover:bg-primary hover:border-primary hover:text-white"
-            >
-              Return to Home page
-            </Link>
-          </div>
-        </div>
-      </ContentLayout>
-    );
-  }
+  // if (!data?.data) {
+  //   return (
+  //     <ContentLayout>
+  //       <div className=" mx-auto min-h-screen max-w-screen-xl">
+  //         <div className="flex flex-col items-center justify-center">
+  //           <p className="my-2 text-center text-lg text-gray-800">
+  //             No order found, please return to the Home page
+  //           </p>
+  //           <Link
+  //             href="/"
+  //             className="rounded-none border border-primary bg-primary text-white hover:bg-primary hover:border-primary hover:text-white"
+  //           >
+  //             Return to Home page
+  //           </Link>
+  //         </div>
+  //       </div>
+  //     </ContentLayout>
+  //   );
+  // }
 
   return (
     <ContentLayout>
