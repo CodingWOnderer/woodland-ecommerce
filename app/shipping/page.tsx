@@ -283,7 +283,7 @@ function ShippingPage() {
           <form>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4   max-w-screen-xl mx-auto">
               <div className=" col-span-2 space-y-6">
-                <div className=" border-y pt-6">
+                <div className=" border-y pt-6 pb-1">
                   <h3 className=" font-semibold text-lg text-black">
                     New Shipping Address
                   </h3>
