@@ -8,14 +8,18 @@ import orderQuery from "@/hooks/orders/queries";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
+import useWoodlandStoreData from "@/lib/store/store";
 
 const SuccessPage = ({ params }: { params: { successId: string } }) => {
-  const { data, isLoading } = orderQuery.useSuccessOrderQuery(
+  const { clearCart } = useWoodlandStoreData();
+  const { data, isPending, isSuccess } = orderQuery.useSuccessOrderQuery(
     "woodland",
     params.successId
   );
 
-  if (isLoading) <LoaderComponent size={"screen"} />;
+  if (isPending) <LoaderComponent size={"screen"} />;
+
+  React.useEffect(() => clearCart(), [isSuccess]);
 
   // if (!data?.data) {
   //   return (

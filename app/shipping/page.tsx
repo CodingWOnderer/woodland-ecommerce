@@ -55,14 +55,8 @@ const formSchema = z.object({
 });
 
 function ShippingPage() {
-  const {
-    items,
-    removeItemFromCart,
-    user,
-    setDonationModel,
-    donationModel,
-    clearCart,
-  } = useWoodlandStoreData();
+  const { items, removeItemFromCart, user, setDonationModel, donationModel } =
+    useWoodlandStoreData();
   const {
     mutate: promoMutate,
     data: promoData,
@@ -161,7 +155,7 @@ function ShippingPage() {
             phone: user ?? "",
             address: fdata.addressLine,
           });
-          clearCart();
+
           sendGTMEvent({
             event: "add_payment_info",
             ecommerce: {
@@ -228,7 +222,6 @@ function ShippingPage() {
       },
       {
         onSuccess: (data) => {
-          clearCart();
           router.push(`/success/${data.data.orderId}`);
           toast.success("Order is Successfully confirmed");
           sendGTMEvent({

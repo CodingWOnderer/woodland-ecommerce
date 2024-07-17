@@ -83,7 +83,7 @@ function TopSellerCarousel(
                     />
                   </div>
 
-                  <div className="flex space-x-2 absolute top-0 mt-2 left-0">
+                  <div className="absolute top-0 left-0 mt-2 flex space-x-2 z-10">
                     {item.discount > 0 && (
                       <span className=" bg-[#a31010] px-2 text-center text-xs font-medium text-white">
                         {`${item.discount}%`}
@@ -99,17 +99,25 @@ function TopSellerCarousel(
                     )}
                   </div>
                 </Link>
-                <h2 className="mb-2 text-lg truncate mt-2 font-medium dark:text-white text-gray-900">
+                <h2 className="mb-2 text-lg truncate mt-2 font-medium  text-gray-900">
                   {item.title}
                 </h2>
-                <div className={cn("flex items-center", mulish.className)}>
-                  <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">
-                    ₹{item.offerPrice}
-                  </p>
-                  <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">
-                    ₹{item.price}
-                  </p>
-                </div>
+                {item.offerPrice === item.price ? (
+                  <div className={cn("flex items-center", mulish.className)}>
+                    <p className=" text-lg font-semibold text-gray-900 ">
+                      ₹{item.price}
+                    </p>
+                  </div>
+                ) : (
+                  <div className={cn("flex items-center", mulish.className)}>
+                    <p className="mr-2 text-lg font-semibold text-gray-900 ">
+                      ₹{item.offerPrice}
+                    </p>
+                    <p className="text-base  font-medium text-gray-500 line-through ">
+                      ₹{item.price}
+                    </p>
+                  </div>
+                )}
               </div>
             </CarouselItem>
           ))}

@@ -39,10 +39,7 @@ const SalePage = () => {
             <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               {salemale.map((maleItem, index) => (
                 <li key={index}>
-                  <Link
-                    href={maleItem.link}
-                    className="group block overflow-hidden"
-                  >
+                  <div className="group block overflow-hidden">
                     <Image
                       src={maleItem.img}
                       alt={maleItem.title}
@@ -52,20 +49,22 @@ const SalePage = () => {
                     />
 
                     <div className="relative flex flex-col bg-white pt-3">
-                      <h3 className="text-lg font-bold text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                      <h3 className="text-xl font-bold text-gray-700">
                         {maleItem.title}
                       </h3>
-
+                      <Link href={maleItem.link} className="font-semibold">
+                        Shop
+                      </Link>
                       <span
                         className={cn(
-                          "tracking-wider text-xs text-red-500 font-extrabold",
+                          "tracking-wider text-lg text-red-500 font-extrabold",
                           mulish.className
                         )}
                       >
                         {maleItem.offer}
                       </span>
                     </div>
-                  </Link>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -96,10 +95,7 @@ const SalePage = () => {
                   viewport={{ once: true }}
                   key={index}
                 >
-                  <Link
-                    href={femaleItem.link}
-                    className="group block overflow-hidden"
-                  >
+                  <div className="group block overflow-hidden">
                     <Image
                       src={femaleItem.img}
                       alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
@@ -109,20 +105,22 @@ const SalePage = () => {
                     />
 
                     <div className="relative flex flex-col bg-white pt-3">
-                      <h3 className="text-lg font-bold text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                      <h3 className="text-xl font-bold text-gray-700">
                         {femaleItem.title}
                       </h3>
-
+                      <Link href={femaleItem.link} className="font-semibold">
+                        Shop
+                      </Link>
                       <span
                         className={cn(
-                          "tracking-wider text-xs text-red-500 font-extrabold",
+                          "tracking-wider text-lg text-red-500 font-extrabold",
                           mulish.className
                         )}
                       >
                         {femaleItem.offer}
                       </span>
                     </div>
-                  </Link>
+                  </div>
                 </motion.li>
               ))}
             </ul>

@@ -34,11 +34,11 @@ const FrontProductCard: React.FC<ProductCardProps> = ({ product }) => (
       </div>
       <div className="relative bg-white pt-3">
         {product.title && (
-          <h3 className=" text-black font-semibold  ">{product.title}</h3>
+          <h3 className=" text-black font-bold text-lg  ">{product.title}</h3>
         )}
       </div>
     </div>
-    <p className="mt-2 flex justify-between">
+    <p className=" flex justify-between">
       {product.linkone && (
         <Link
           className={cn(buttonVariants({ variant: "ghost" }), " px-0")}

@@ -144,10 +144,6 @@ export function AppearanceForm({
     });
 
   function onSubmit(fdata: AppearanceFormValues) {
-    if (isInCart) {
-      toast.info("Item is already in Cart");
-      return;
-    }
     const newItem = {
       id:
         productData.data.sizes.find((item) => item.size === fdata.size)
@@ -487,7 +483,7 @@ export function AppearanceForm({
                   (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
                 )?.size?.length ?? 0) > 0
                   ? false
-                  : true || isInCart
+                  : true
               }
             >
               <IoCartOutline size={24} />

@@ -28,7 +28,7 @@ const Aboutus = [
 const AboutSection = () => {
   const plugin = React.useRef(
     Autoplay({
-      delay: 2000,
+      delay: 6000,
 
       stopOnInteraction: false,
       stopOnFocusIn: false,
