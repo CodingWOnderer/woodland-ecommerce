@@ -47,6 +47,9 @@ const FilterSheet: React.FC = () => {
     setPriceFilter,
     filterSheet,
     setFilterSheet,
+    clearColorFilter,
+    clearPriceFilter,
+    clearSizeFilter,
   } = useWoodlandStoreData();
 
   const toggleSelection =
@@ -72,7 +75,7 @@ const FilterSheet: React.FC = () => {
             <IoMdClose size={24} />
           </SheetClose>
         </SheetHeader>
-        <ScrollArea className="h-[80vh] my-5">
+        <ScrollArea className="h-[75vh] my-5">
           <Accordion type="multiple">
             <AccordionItem value="price">
               <AccordionTrigger className="hover:no-underline">
@@ -94,6 +97,14 @@ const FilterSheet: React.FC = () => {
                     </div>
                   ))}
                 </RadioGroup>
+                <div className=" flex justify-center items-center py-1">
+                  <span
+                    onClick={() => clearPriceFilter()}
+                    className=" px-3 py-1 cursor-pointer text-blue-600 border border-blue-600"
+                  >
+                    clear
+                  </span>
+                </div>
               </AccordionContent>
             </AccordionItem>
 
@@ -119,6 +130,14 @@ const FilterSheet: React.FC = () => {
                       {item.size}
                     </div>
                   ))}
+                </div>
+                <div className=" flex justify-center items-center py-1">
+                  <span
+                    onClick={() => clearSizeFilter()}
+                    className=" px-3 py-1 cursor-pointer text-blue-600 border border-blue-600"
+                  >
+                    clear
+                  </span>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -156,17 +175,39 @@ const FilterSheet: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                <div className=" flex justify-center items-center py-1">
+                  <span
+                    onClick={() => clearColorFilter()}
+                    className=" px-3 py-1 cursor-pointer text-blue-600 border border-blue-600"
+                  >
+                    clear
+                  </span>
+                </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </ScrollArea>
         <SheetFooter>
-          <Button
-            onClick={() => setFilterSheet(false)}
-            className="w-full rounded-none cursor-pointer"
-          >
-            SHOW PRODUCTS
-          </Button>
+          <div className="flex flex-col w-full">
+            <div className=" flex justify-center w-full items-center py-1">
+              <span
+                onClick={() => {
+                  clearColorFilter();
+                  clearSizeFilter();
+                  clearPriceFilter();
+                }}
+                className=" px-3 py-1 w-full text-center cursor-pointer text-blue-600 border border-blue-600"
+              >
+                clear
+              </span>
+            </div>
+            <Button
+              onClick={() => setFilterSheet(false)}
+              className="w-full rounded-none cursor-pointer"
+            >
+              SHOW PRODUCTS
+            </Button>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>

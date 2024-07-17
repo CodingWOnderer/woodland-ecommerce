@@ -1,6 +1,6 @@
 "use client";
 import { useProductCardCollection } from "@/hooks/collections/queries";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import InfiniteLoaderContext from "./InfiniteLoaderContext";
 import { QueryParams } from "@/hooks/collections/types";
 import useWoodlandStoreData from "@/lib/store/store";
@@ -21,8 +21,14 @@ type FilterQueryParams = {
 const InfiniteLoadingWrapper = ({ params, children }: Props) => {
   const infiniteLoadingObserver = useRef<IntersectionObserver>();
 
-  const { colorFilter, sizeFilter, priceFilter, sortFilter } =
-    useWoodlandStoreData();
+  const {
+    colorFilter,
+    sizeFilter,
+    priceFilter,
+    sortFilter,
+    setColorFilter,
+    setSizeFilter,
+  } = useWoodlandStoreData();
 
   const queryParams: FilterQueryParams = {};
 

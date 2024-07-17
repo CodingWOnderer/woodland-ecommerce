@@ -1,7 +1,7 @@
 import { type StateCreator } from "zustand";
 import { FilterStore, Color, Size } from "../types";
 
-const filterSlice: StateCreator<FilterStore> =   (set) => ({
+const filterSlice: StateCreator<FilterStore> = (set) => ({
   colorFilter: [
     { name: "WHITE", code: "#FFFFFF", selected: false },
     { name: "BLUE", code: "#0000FF", selected: false },
@@ -21,10 +21,33 @@ const filterSlice: StateCreator<FilterStore> =   (set) => ({
     { name: "RED", code: "#FF0000", selected: false },
   ],
   sizeFilter: [
-    "26", "28", "30", "32", "33", "34", "35", "36", "37", "38", "39",
-    "40", "41", "42", "43", "44", "45", "46", "47", "XS", "S", "M", 
-    "L", "XL", "XXL", "2X",
-  ].map(size => ({ size, selected: false })),
+    "26",
+    "28",
+    "30",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "2X",
+  ].map((size) => ({ size, selected: false })),
   priceFilter: "",
   setColorFilter: (newColorFilter: Color[]) =>
     set({ colorFilter: newColorFilter }),
@@ -32,9 +55,26 @@ const filterSlice: StateCreator<FilterStore> =   (set) => ({
   setPriceFilter: (newPriceFilter: string) =>
     set({ priceFilter: newPriceFilter }),
 
+  sortFilter: "",
+  setSortFilter: (value: string) => set({ sortFilter: value }),
 
-  sortFilter:"",
-  setSortFilter:(value:string)=>set({sortFilter:value})
+  clearColorFilter: () =>
+    set((state) => ({
+      colorFilter: state.colorFilter.map((item) => ({
+        ...item,
+        selected: false,
+      })),
+    })),
+
+  clearSizeFilter: () =>
+    set((state) => ({
+      sizeFilter: state.sizeFilter.map((item) => ({
+        ...item,
+        selected: false,
+      })),
+    })),
+
+  clearPriceFilter: () => set({ priceFilter: "" }),
 });
 
 export default filterSlice;

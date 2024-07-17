@@ -27,6 +27,10 @@ export interface FilterStore {
 
   sortFilter: string;
   setSortFilter: (value: string) => void;
+
+  clearColorFilter: () => void;
+  clearSizeFilter: () => void;
+  clearPriceFilter: () => void;
 }
 
 // In Memory Data Store

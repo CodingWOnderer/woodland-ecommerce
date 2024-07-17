@@ -462,6 +462,7 @@ export function AppearanceForm({
                           form.setValue("quantitiy", e.target.value);
                         }}
                         type="number"
+                        min={1}
                         disabled={!isProductAvailable}
                         className="rounded-none w-full text-center lg:w-14 h-full focus-visible:ring-0"
                       />

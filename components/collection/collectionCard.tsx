@@ -55,8 +55,8 @@ const CarouselOrientation: React.FC<CarouselProductCard> = ({
       className=" flex flex-col justify-center  aspect-[3/3] m-2"
     >
       <Carousel>
-        <CarouselPrevious className="-my-6 hidden sm:block" />
-        <CarouselNext className="-my-6 hidden sm:block" />
+        <CarouselPrevious className="-my-6 hidden sm:flex sm:justify-center sm:items-center" />
+        <CarouselNext className="-my-6 hidden sm:flex sm:justify-center sm:items-center" />
         <CarouselMainContainer
           onSlideChange={handleSlideChange}
           className="w-full"
