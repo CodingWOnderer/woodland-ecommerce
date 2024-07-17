@@ -1,6 +1,6 @@
 "use client";
 import { useProductCardCollection } from "@/hooks/collections/queries";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import InfiniteLoaderContext from "./InfiniteLoaderContext";
 import { QueryParams } from "@/hooks/collections/types";
 import useWoodlandStoreData from "@/lib/store/store";

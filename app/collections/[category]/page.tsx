@@ -25,7 +25,7 @@ const getProduct = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch product data: ${response.statusText}`);
+      return "no data";
     }
 
     return await response.json();
@@ -40,6 +40,18 @@ export async function generateMetadata({
   searchParams: { gender, brand },
 }: PageProps): Promise<Metadata> {
   const product = await getProduct(category, gender, brand);
+
+  if (product === "no data") {
+    return {
+      title: `Woodland ${category}`,
+      description: `Woodland ${category} for ${gender}`,
+      openGraph: {
+        images: "/default-cat-banner.png",
+        title: `${category}`,
+        description: `Woodland ${category} for ${gender}`,
+      },
+    };
+  }
 
   return {
     title: `Woodland ${product.data.title}`,

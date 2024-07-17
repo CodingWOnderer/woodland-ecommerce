@@ -11,12 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FaRegHeart } from "react-icons/fa";
 import * as z from "zod";
@@ -478,35 +472,22 @@ export function AppearanceForm({
                 </FormItem>
               )}
             />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="lg:max-w-xl w-full">
-                  <Button
-                    className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
-                    type="submit"
-                    disabled={
-                      (productData?.data?.sizes?.find(
-                        (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
-                      )?.size?.length ?? 0) > 0
-                        ? false
-                        : true || isInCart
-                    }
-                  >
-                    <IoCartOutline size={24} />
-                    <span className="font-semibold text-lg">
-                      {isPending ? "Adding To Cart...." : "Add To Cart"}
-                    </span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {isInCart ? (
-                    <p>Item is already in cart</p>
-                  ) : (
-                    <p>Add items to cart</p>
-                  )}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Button
+              className="flex col-span-3 space-x-2 rounded-none w-full h-12 lg:max-w-xl"
+              type="submit"
+              disabled={
+                (productData?.data?.sizes?.find(
+                  (siz) => siz?.quantity > 0 && siz?.size !== "No Size"
+                )?.size?.length ?? 0) > 0
+                  ? false
+                  : true || isInCart
+              }
+            >
+              <IoCartOutline size={24} />
+              <span className="font-semibold text-lg">
+                {isPending ? "Adding To Cart...." : "Add To Cart"}
+              </span>
+            </Button>
             <FormField
               control={form.control}
               name="like"
