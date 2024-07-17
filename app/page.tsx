@@ -77,7 +77,7 @@ export default function Home() {
           </div>
         </div>
         <section className=" md:container flex flex-col justify-center items-center space-y-8 py-8 md:py-20">
-          <TopSellerCarousel bestSeller={true} />
+          <TopSellerCarousel bestseller={"true"} />
         </section>
 
         <div className="grid md:grid-cols-2 gap-2">
