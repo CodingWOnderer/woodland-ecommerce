@@ -386,8 +386,7 @@ export function AppearanceForm({
                       <Badge
                         onClick={() => (pincode.length > 0 ? refetch() : "")}
                         className={cn(
-                          "text-xs m-1 shadow-none rounded-none  hover:shadow-none",
-                          getBadgeDetails(data).classes
+                          "text-xs m-1 bg-[#F0F0F0] text-primary shadow-none rounded-none hover:bg-primary hover:text-white transition-all duration-700  hover:shadow-none cursor-pointer"
                         )}
                       >
                         Check

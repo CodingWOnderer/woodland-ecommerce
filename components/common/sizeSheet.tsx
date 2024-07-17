@@ -17,36 +17,36 @@ import SizeGuidsBottoms from "./sizeGuidesBottoms";
 import SizeGuidTop from "./sizeGuideTops";
 
 const womenFootwear = [
-    {
-      head: "UK SIZE",
-      size: ["S", "M", "L", "XL", "XXL"],
-    },
-    {
-      head: "EURO SIZE",
-      size: ["34-35", "36-37", "38-39", "40-41", "42-44"],
-    },
-    {
-      head: "SIZE IN CM",
-      size: ["86-89", "91-94", "96-99", "101-104", "106-111"],
-    },
-  ];
-  const menbottom = [
-    {
-      head: "UK SIZE",
-      size: [5, 6, 7, 8, 9, 10, 11, 12],
-    },
-    {
-      head: "EURO SIZE",
-      size: [39, 40, 41, 42, 43, 44, 45, 46],
-    },
-    {
-      head: "SIZE IN CM",
-      size: [24, 25, 26, 27, 28, 29, 30, 31],
-    },
-  ];
+  {
+    head: "UK SIZE",
+    size: ["S", "M", "L", "XL", "XXL"],
+  },
+  {
+    head: "EURO SIZE",
+    size: ["34-35", "36-37", "38-39", "40-41", "42-44"],
+  },
+  {
+    head: "SIZE IN CM",
+    size: ["86-89", "91-94", "96-99", "101-104", "106-111"],
+  },
+];
+const menbottom = [
+  {
+    head: "UK SIZE",
+    size: [5, 6, 7, 8, 9, 10, 11, 12],
+  },
+  {
+    head: "EURO SIZE",
+    size: [39, 40, 41, 42, 43, 44, 45, 46],
+  },
+  {
+    head: "SIZE IN CM",
+    size: [24, 25, 26, 27, 28, 29, 30, 31],
+  },
+];
 
 const SizeSheet = () => {
-  const { sizeSheet, setSizeSheet ,division} = useWoodlandStoreData();
+  const { sizeSheet, setSizeSheet, division } = useWoodlandStoreData();
   return (
     <Sheet open={sizeSheet} onOpenChange={(e) => setSizeSheet(e)}>
       <SheetContent className="sm:min-w-[500px] min-w-[100vw]">
@@ -62,10 +62,9 @@ const SizeSheet = () => {
           </div>
         </SheetHeader>
         <Separator className="mt-6" />
-        <ScrollArea className="h-[90vh]">
-        {division === "FOOTWEAR" && <SizeGuidsBottoms/>}
-        {division === "GARMENT" && <SizeGuidTop />}
-
+        <ScrollArea className="h-[90vh] p-4">
+          {division === "FOOTWEAR" && <SizeGuidsBottoms />}
+          {division === "GARMENT" && <SizeGuidTop />}
         </ScrollArea>
       </SheetContent>
     </Sheet>

@@ -84,7 +84,7 @@ function SizeGuidTop() {
                   <tr className="bg-[#ededed]">
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {mentop[0].head}
                     </th>
@@ -102,10 +102,10 @@ function SizeGuidTop() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {mentop.map((val, idx) => (
                     <tr key={idx} className={"even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-500 text-xs">
                           {val?.measure}
                         </span>
                       </td>
@@ -135,7 +135,7 @@ function SizeGuidTop() {
                   <tr className="bg-[#ededed]">
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {menbottom[0].head}
                     </th>
@@ -153,10 +153,10 @@ function SizeGuidTop() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {menbottom.map((val, idx) => (
                     <tr key={idx} className={"even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-500 text-xs">
                           {val?.measure}
                         </span>
                       </td>
@@ -186,7 +186,7 @@ function SizeGuidTop() {
                   <tr className="bg-[#ededed]">
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {womentop[0].head}
                     </th>
@@ -204,10 +204,10 @@ function SizeGuidTop() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {womentop.map((val, idx) => (
                     <tr key={idx} className={"even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-500 text-xs">
                           {val?.measure}
                         </span>
                       </td>
@@ -237,7 +237,7 @@ function SizeGuidTop() {
                   <tr className="bg-[#ededed]">
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {womenbottom[0].head}
                     </th>
@@ -255,10 +255,10 @@ function SizeGuidTop() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {womenbottom.map((val, idx) => (
                     <tr key={idx} className={"even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                         <br />
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-500 text-xs">
                           {val?.measure}
                         </span>
                       </td>

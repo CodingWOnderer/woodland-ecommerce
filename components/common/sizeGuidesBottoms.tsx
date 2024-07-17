@@ -46,7 +46,7 @@ function SizeGuidsBottoms() {
                   <tr className="bg-[#ededed]">
                     <th
                       scope="col"
-                      className="py-3 pl-4  pr-3 text-left text-xs fontbold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {menbottom[0].head}
                     </th>
@@ -64,7 +64,7 @@ function SizeGuidsBottoms() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {menbottom.map((val, idx) => (
                     <tr key={idx} className={" even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                       </td>
                       {val.size.map((v, i) => (
@@ -93,7 +93,7 @@ function SizeGuidsBottoms() {
                   <tr className={" bg-[#ededed]"}>
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950 sm:pl-0"
+                      className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950"
                     >
                       {womenFootwear[0].head}
                     </th>
@@ -111,7 +111,7 @@ function SizeGuidsBottoms() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {womenFootwear.map((val, idx) => (
                     <tr key={idx} className={" even:bg-[#ededed]"}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-bold text-gray-900 sm:pl-0">
+                      <td className="py-3 px-2  pr-3 text-left text-xs font-bold uppercase tracking-wide text-gray-950">
                         {val.head}
                       </td>
                       {val.size.map((v, i) => (
