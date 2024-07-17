@@ -203,7 +203,7 @@ export function AppearanceForm({
     const priceStr = price.toString();
     return (
       <>
-        ₹ {priceStr[0]}
+        ₹{priceStr[0]}
         {priceStr.slice(1)}
       </>
     );
@@ -231,7 +231,7 @@ export function AppearanceForm({
             <span
               className={cn("line-through text-neutral-500", mulish.className)}
             >
-              MRP &nbsp; {formatPrice(price)}
+              MRP&nbsp;{formatPrice(price)}
             </span>
           )}
           &nbsp;&nbsp;
