@@ -41,8 +41,12 @@ const InMemoryStoreSlice: StateCreator<ZustandStoreProps> = (set) => ({
   setManufacturingInfo: (value: Partial<IManufacturingInfo>) =>
     set({ productManufacturingData: value }),
 
-  zoomDialouge: false,
-  setZoomDialouge: (value: boolean) => set({ zoomDialouge: value }),
+  zoomDialouge: {
+    index: 0,
+    open: false,
+  },
+  setZoomDialouge: (value: { index: number; open: boolean }) =>
+    set({ zoomDialouge: { index: value.index, open: value.open } }),
 
   isNewUser: false,
   setIsNewUser: (value: boolean) => set({ isNewUser: value }),

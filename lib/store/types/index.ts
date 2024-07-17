@@ -81,8 +81,11 @@ export interface ZustandStoreProps {
   productManufacturingData: Partial<IManufacturingInfo> | undefined;
   setManufacturingInfo: (value: Partial<IManufacturingInfo>) => void;
 
-  zoomDialouge: boolean;
-  setZoomDialouge: (value: boolean) => void;
+  zoomDialouge: {
+    open: boolean;
+    index: number;
+  };
+  setZoomDialouge: (value: { open: boolean; index: number }) => void;
 
   isNewUser: boolean;
   setIsNewUser: (value: boolean) => void;

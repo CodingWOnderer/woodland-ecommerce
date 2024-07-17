@@ -64,7 +64,8 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
       </div>
     );
 
-  const handleImageClick = () => setZoomDialouge(window.innerWidth > 640);
+  const handleImageClick = (index: number) =>
+    setZoomDialouge({ open: window.innerWidth > 640, index: index });
 
   return (
     <AnimatePresence initial={false}>
@@ -96,7 +97,7 @@ const ProductDetail = ({ params: { id } }: { params: { id: string } }) => {
                           fill
                           src={item}
                           priority
-                          onClick={handleImageClick}
+                          onClick={() => handleImageClick(index)}
                           alt="Woodland Shoes for Men, Woodland shoes for women, Woodland apparel"
                           className=" sm:cursor-zoom-in"
                           placeholder="empty"
