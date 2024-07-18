@@ -106,6 +106,12 @@ function ShippingPage() {
     }
   }, [form.watch("pincode").length, form, form.watch]);
 
+  React.useEffect(() => {
+    if (Array.isArray(items) && items.length === 0) {
+      router.back();
+    }
+  }, [items.length]);
+
   if (isPending) return <LoaderComponent size={"infiniteLoader"} />;
 
   const subtotal = items.reduce(
@@ -523,6 +529,11 @@ function ShippingPage() {
                                 Size:{" "}
                                 <span className="font-semibold text-black">
                                   {product.size}
+                                </span>
+                                <br />
+                                Qty:{" "}
+                                <span className="font-semibold text-black">
+                                  {product.quantity}
                                 </span>
                               </CardDescription>
                             </CardHeader>

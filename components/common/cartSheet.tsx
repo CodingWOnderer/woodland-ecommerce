@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Mulish } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { QuantityForm } from "../forum/QuantityForm";
 
 const mulish = Mulish({ subsets: ["latin"] });
 
@@ -120,10 +121,10 @@ const CartSheet = () => {
                     </CardHeader>
                     <CardFooter className="pb-0 ">
                       <div className="flex flex-1 items-end justify-between text-sm">
-                        <p className="text-gray-500 px-3.5 py-2 text-xs font-medium bg-[#F0F0F0]">
+                        {/* <p className="text-gray-500 px-3.5 py-2 text-xs font-medium bg-[#F0F0F0]">
                           Qty {product.quantity}
-                        </p>
-
+                        </p> */}
+                        <QuantityForm item={product} />
                         <div className="flex">
                           <button
                             type="button"

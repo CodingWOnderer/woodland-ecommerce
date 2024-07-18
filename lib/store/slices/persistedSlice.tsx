@@ -1,7 +1,7 @@
 import { StateCreator, StoreMutatorIdentifier, create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
-interface CartItem {
+export interface CartItem {
   id: string;
   name?: string;
   price?: number | null;
