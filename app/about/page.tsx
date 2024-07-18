@@ -17,7 +17,7 @@ const AboutUsPAge = () => {
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 Technology & Innovation
               </h2>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-primary-foreground">
+              <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-primary-foreground">
                 {` The increasing diversity of outdoor activity requires creative
               solutions that meet the quest for adventure. That's where
               Woodland's expertise comes into picture. It combines activity

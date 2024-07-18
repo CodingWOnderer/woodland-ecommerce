@@ -41,7 +41,12 @@ export default function RootLayout({
         <AuthProvider>
           <body className={raleway.className}>
             {children}
-            <Toaster duration={1500} richColors position={"top-right"} />
+            <Toaster
+              duration={1500}
+              richColors
+              closeButton
+              position={"top-right"}
+            />
             <AuthSheet />
             <TopSearchSheet />
             <NavigationSheet />

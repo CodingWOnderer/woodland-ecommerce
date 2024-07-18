@@ -54,8 +54,8 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           toast.success("We will miss you");
           router.refresh();
         }}
-        variant={"destructive"}
-        className=" lg:mt-20 bg-red-50 text-red-600 hover:bg-red-100"
+        variant={"ghost"}
+        className=" justify-start mt-20"
       >
         Logout
       </Button>
