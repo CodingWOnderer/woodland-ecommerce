@@ -130,6 +130,20 @@ function ShippingPage() {
   };
 
   function onOnlinSubmit(fdata: z.infer<typeof formSchema>) {
+    if (
+      items.some((item) =>
+        Object.values(item).some(
+          (value) =>
+            value === null ||
+            value === undefined ||
+            value === " " ||
+            value === ""
+        )
+      )
+    ) {
+      toast.error("can't place this order");
+      return;
+    }
     mutateCreateOrder(
       {
         paymentType: "prepaid",
@@ -205,6 +219,20 @@ function ShippingPage() {
   }
 
   function onCODSubmit(fdata: z.infer<typeof formSchema>) {
+    if (
+      items.some((item) =>
+        Object.values(item).some(
+          (value) =>
+            value === null ||
+            value === undefined ||
+            value === " " ||
+            value === ""
+        )
+      )
+    ) {
+      toast.error("can't place this order");
+      return;
+    }
     mutateCreateOrder(
       {
         paymentType: "postpaid",
