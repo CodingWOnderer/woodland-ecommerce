@@ -56,27 +56,6 @@ const formSchema = z.object({
 });
 
 function ShippingPage() {
-  const { items, removeItemFromCart, user, setDonationModel, donationModel } =
-    useWoodlandStoreData();
-  const {
-    mutate: promoMutate,
-    data: promoData,
-    isPending,
-    isError,
-  } = useApplyPromocode();
-
-  if (isPending) return <LoaderComponent size={"infiniteLoader"} />;
-
-  const {
-    initiatePayment,
-    loading: PaymentLoading,
-    error: PaymentError,
-  } = useRazorpayPayment();
-
-  const { mutate: mutateCreateOrder, isPending: isCreatingOrder } =
-    useCreateOrder();
-  const [applyPromo, setApplyPromo] = useState(false);
-  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,6 +71,23 @@ function ShippingPage() {
       donation: false,
     },
   });
+  const {
+    initiatePayment,
+    loading: PaymentLoading,
+    error: PaymentError,
+  } = useRazorpayPayment();
+  const [applyPromo, setApplyPromo] = useState(false);
+  const router = useRouter();
+  const { items, removeItemFromCart, user, setDonationModel, donationModel } =
+    useWoodlandStoreData();
+  const {
+    mutate: promoMutate,
+    data: promoData,
+    isPending,
+    isError,
+  } = useApplyPromocode();
+  const { mutate: mutateCreateOrder, isPending: isCreatingOrder } =
+    useCreateOrder();
 
   const {
     refetch,
@@ -99,11 +95,6 @@ function ShippingPage() {
     isSuccess: isPincodeSuccess,
   } = usePincodeQuery(
     form.getValues("pincode").length >= 6 ? form.getValues("pincode") : ""
-  );
-
-  const subtotal = items.reduce(
-    (acc, item) => acc + (item.price ?? 0) * (item.quantity ?? 0),
-    0
   );
 
   React.useEffect(() => {
@@ -114,6 +105,13 @@ function ShippingPage() {
       });
     }
   }, [form.watch("pincode").length, form, form.watch]);
+
+  if (isPending) return <LoaderComponent size={"infiniteLoader"} />;
+
+  const subtotal = items.reduce(
+    (acc, item) => acc + (item.price ?? 0) * (item.quantity ?? 0),
+    0
+  );
 
   const calculateTotal = () => {
     const shipping = subtotal > 1000 ? 0 : 150;
