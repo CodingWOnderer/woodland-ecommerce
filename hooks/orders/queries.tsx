@@ -26,6 +26,7 @@ const useOrderQuery = (circle: string) => {
     queryKey: ["ordersdata", circle],
     queryFn: async () =>
       fetchOrdersData(circle, (await getCookieAsync("token")) ?? ""),
+    refetchOnWindowFocus: false,
   });
 };
 
@@ -80,6 +81,7 @@ const useSuccessOrderQuery = (circle: string, orderId: string) => {
         (await getCookieAsync("token")) ?? "",
         orderId
       ),
+    refetchOnWindowFocus: false,
   });
 };
 
