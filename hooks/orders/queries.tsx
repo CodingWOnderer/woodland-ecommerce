@@ -3,6 +3,7 @@ import { SuccessOrder, UserOrder } from "./types";
 import { getCookieAsync } from "@/lib/cookies/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
 import axios from "axios";
+import { apiRequest } from "@/config/request";
 
 export const fetchOrdersData = async (
   circle: string,
@@ -33,8 +34,8 @@ const fetchSuccessOrdersData = async (
   authToken: string,
   orderId: string
 ): Promise<ResponseModal<SuccessOrder>> => {
-  const response = await axios.get<ResponseModal<SuccessOrder>>(
-    `https://api-v1.capcons.com/go-orders/getSuccessOrder/${orderId}?circle=${circle}`,
+  const response = await apiRequest.get<ResponseModal<SuccessOrder>>(
+    `/go-orders/getSuccessOrder/${orderId}?circle=${circle}`,
     {
       headers: {
         Authorization: `Bearer ${authToken}`,
